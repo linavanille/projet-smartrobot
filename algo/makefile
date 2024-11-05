@@ -29,14 +29,14 @@ gendoc:
 	cd $(ROOTDIR)
 	doxygen $(GENDOCFILE)
 
-$(TARGET): $(OBJ) #| $(BINDIR)
+$(TARGET): $(OBJ) | $(BINDIR)
 	cd $(ROOTDIR)
 	$(CC) $(CFLAGS) $(LIBFLAGS) -o $@ $^
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c #| $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	cd $(ROOTDIR)
 	$(CC) $(CFLAGS) $(IFLAGS) -o $@ -c $<
 
-# $(BINDIR) $(OBJDIR):
-# 	cd $(ROOTDIR)
-# 	mkdir -p $@
+$(BINDIR) $(OBJDIR):
+	cd $(ROOTDIR)
+	mkdir -p $@
