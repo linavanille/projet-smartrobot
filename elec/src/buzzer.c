@@ -1,5 +1,5 @@
 #include "buzzer.h"
-#include "pinref.h"
+#include "pinsRef.h"
 
 void BUZZ_setup()
 {
