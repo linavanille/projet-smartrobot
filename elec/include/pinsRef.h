@@ -6,7 +6,7 @@
  */
 
 
-ifndef _PINS_
+#ifndef _PINS_
 #define _PINS_
 
 #define BUZZ_PIN              16
