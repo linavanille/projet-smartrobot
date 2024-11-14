@@ -1,0 +1,59 @@
+\documentclass[letterpaper,12pt]{report}
+\usepackage[utf8]{inputenc} % encodage du fichier
+\usepackage[french]{babel} % document en francais
+\usepackage[T1]{fontenc} % pour les caracteres accentues
+\usepackage{algpseudocode}
+
+      
+
+\setlength{\oddsidemargin}{-5pt} % Marge gauche sur pages impaires
+\setlength{\textwidth}{481pt} % Largeur de la zone de texte (17cm)
+\setlength{\headheight}{13pt} % Haut de page
+\setlength{\headsep}{20pt} % Entre le haut de page et le texte
+
+
+
+\begin{document}
+\fontfamily{lmr}%
+\fontseries{m}%
+\fontsize{14pt}{18pt}
+\selectfont
+
+\section*{Structures de Données}
+\noindent\textbf{Type} Case = \textbf{Structure}
+
+Haut: \textbf{Naturel}
+
+Gauche: \textbf{Naturel}
+
+Bas: \textbf{Naturel}
+
+Droite: \textbf{Naturel}\\
+\textbf{fin Structure}\\
+
+\noindent\textbf{Type} Labyrinthe = \textbf{Structure}
+
+lesConnections: \textbf{Liste}<\textbf{Case}>
+
+entrée: \textbf{Naturel}
+
+sortie: \textbf{Naturel}\\
+\textbf{fin Structure}
+
+\section*{Opérations du TAD Labyrinthe}
+
+
+\textbf{fonction} labrinthe (): \textbf{Labyrinthe}
+
+\textbf{fonction} obtenirCasesAccessibles (lab: \textbf{Labyrinthe}): \textbf{Tableau[1..4] de Naturel}
+
+\textbf{fonction} obtenirEntrée (lab: \textbf{Labyrinthe}): \textbf{Naturel}
+
+\textbf{fonction} obtenirSortie (lab: \textbf{Labyrinthe}): \textbf{Naturel}
+
+\textbf{fonction} chemin (lab: \textbf{Labyrinthe}): \textbf{Liste}<\textbf{Naturel}>
+
+
+
+
+\end{document}
