@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc} % encodage du fichier
+\usepackage[french]{babel} % document en francais
+\usepackage[T1]{fontenc} % pour les caracteres accentues
+\usepackage[french]{algorithm2e}
+
+
+
+\setlength{\hoffset}{-18pt}        
+\setlength{\oddsidemargin}{-10pt} % Marge gauche sur pages impaires
+\setlength{\evensidemargin}{9pt} % Marge gauche sur pages paires
+\setlength{\marginparwidth}{54pt} % Largeur de note dans la marge
+\setlength{\textwidth}{520pt} % Largeur de la zone de texte (17cm)
+\setlength{\voffset}{-18pt} % Bon pour DOS
+\setlength{\topmargin}{-10pt} % Pas de marge en haut
+\setlength{\headheight}{-20pt} % Haut de page
+\setlength{\headsep}{10pt} % Entre le haut de page et le texte
+\setlength{\footskip}{27pt} % Bas de page + séparation
+\setlength{\textheight}{750pt} % Hauteur de la zone de texte (25cm)
+
+\title{Conception Détaillée de la bibliothèque EvolutionRobot}
+\author{}
+\date{}
+
+\begin{document}
+
+\fontfamily{lmr}% Choix de la police
+\fontseries{m}%
+\fontsize{12pt}{16ptpt}% {Taille des lettres}{Taille de l'interligne}
+\selectfont
+\begin{center}
+    \Huge{Conception Détaillée EvolutionRobot}
+\end{center}
+
+\section*{Défintions des types et constantes}
+
+\textbf{Booléen} redresserADroite $\leftarrow$  (\textbf{digitalRead} ($LINE\_SENSOR\_RIGH$) = 1) \textbf{and} 
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 0)
+
+\textbf{Booléen} redresserAGauche $\leftarrow$  (\textbf{digitalRead} ($LINE\_SENSOR\_LEFT$) = 1) \textbf{and} 
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 0)
+
+\textbf{Booléen} intersection $\leftarrow$  [(\textbf{digitalRead} ($LINE\_SENSOR\_LEFT$) = 1) \textbf{and} 
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 1)] \textbf{ou}
+
+\indent\indent[(\textbf{digitalRead} ($LINE\_SENSOR\_RIGHT$) = 1) \textbf{and}
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 1)]
+
+\indent\textbf{Enumération} Ordre = \{AV, TD, TG, .\}
+
+\indent\textbf{Enumération} EtatDAvancement = \{EAvancer, EIntersection, EUrgence, ESorti\}
+
+\section*{Procédures}
+
+\noindent\textbf{procedure} avancer (\textbf{E/S:} etat: EtatDAvancement)\\
+\textbf{début}
+    \begin{algorithm}
+        \Tq{(\textbf{non} $instersection$) \textbf{et} (etat $\neq$ EUrgence)}{
+            \eSi{ROBOT\_arretDUrgence ()}{etat $\leftarrow$ EUrgence}{
+                ROBOT\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)\\
+                \uSi{$redrresserADroite$}{
+                    ROBOT\_redresser (PWM\_EN2, PWM\_EN1)\\
+                    \Repeter{digitalRead (LINE\_SENSOR\_FRONT) = 1}{}
+                    ROBOT\_redresser (PWM\_EN1, PWM\_EN2)\\
+                    attendre ()\\
+                    ROBOT\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)
+                }
+                \SinonSi{$redrresserAGauche$}{
+                    ROBOT\_redresser (PWM\_EN1, PWM\_EN2)\\
+                    \Repeter{digitalRead (LINE\_SENSOR\_FRONT) = 1}{}
+                    ROBOT\_redresser (PWM\_EN2, PWM\_EN1)\\
+                    attendre ()\\
+                    ROBOT\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)
+                }
+            etat $\leftarrow$ EIntersection
+            }
+        }
+    \end{algorithm}
+
+\noindent\textbf{fin}
+
+\newpage\noindent\textbf{procedure} tourner (\textbf{E/S:} etat: \textbf{EtatDAvancement}, \textbf{E:} prochaineAction: \textbf{Ordre})\\
+\textbf{début}
+
+    \begin{algorithm}[H]
+        \Suivant{prochainVirage}{
+            \uCas{TD}{ROBOT\_tournerDroite (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\attendre()\\ etat $\leftarrow$ EAvancer}
+            \uCas{TG}{ROBOT\_tournerGauche (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\attendre()\\ etat $\leftarrow$ EAvancer}
+            \uCas{AV}{etat $\leftarrow$ EAvancer}
+            \Autre{etat = ESorti}
+            }
+        
+    \end{algorithm}
+
+\noindent\textbf{fin}\\
+
+\noindent\textbf{procedure} evolutionRobot (\textbf{E/S:} etat: \textbf{EtatDAvancement}, \textbf{E:} listeDOrdres: \textbf{Liste} <\textbf{Ordre}>)
+
+\begin{tabular}{ll}
+    \textbf{Déclaration:} & prochaineAction: \textbf{Ordre}\\
+     & etat: \textbf{EtatDAvancement}\\
+     & estSorti: \textbf{Booléen}\\
+     & numOrdre: \textbf{Naturel Non Nul}
+\end{tabular}
+
+\noindent\textbf{début}
+
+    \begin{algorithm}[H]
+        numOrdre $\leftarrow$ 1\\
+        etat $\leftarrow$ avancer\\
+        prochaineAction $\leftarrow$ listeOrdre[numOrdre]\\
+        \Tq{etat $\neq$ ESorti \textbf{et} prochaineAction $\neq$ .}{
+            \Suivant{etat}{
+                \Cas{EAvancer}{avancer (etat)}
+                \Cas{EIntersection}{tourner (etat)}
+                \Cas{EUrgence}{ROBOT\_arreter (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)}
+                }
+            numOrdre $\leftarrow$ numOrdre + 1\\
+            prochaineAction $\leftarrow$ listeOrdre[numOrdre]\\
+        }
+    \end{algorithm}
+
+    \noindent\textbf{fin}
+
+\end{document}
