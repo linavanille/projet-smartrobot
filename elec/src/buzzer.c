@@ -3,12 +3,12 @@
 
 void BUZZ_setup()
 {
-  pinMode(BUZZ_Pin, OUTPUT);
+  pinMode(BUZZ, OUTPUT);
 }
 
 void BUZZ_loop()
 {
-  digitalWrite(BUZZ_Pin, HIGH);
+  digitalWrite(BUZZ, HIGH);
   delay(3000);
-  digitalWrite(BUZZ_Pin, LOW);
+  digitalWrite(BUZZ, LOW);
 }
