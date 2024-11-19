@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc} % encodage du fichier
 \usepackage[french]{babel} % document en francais
 \usepackage[T1]{fontenc} % pour les caracteres accentues
-\usepackage{algpseudocode}
+
 
       
 
@@ -14,26 +14,17 @@
 
 
 \begin{document}
-\fontfamily{lmr}%
-\fontseries{m}%
-\fontsize{14pt}{18pt}
-\selectfont
+%\fontfamily{lmr}%
+%\fontseries{m}%
+%\fontsize{14pt}{18pt}
+%\selectfont%
 
 \section*{Structures de Données}
-\noindent\textbf{Type} Case = \textbf{Structure}
-
-Haut: \textbf{Naturel}
-
-Gauche: \textbf{Naturel}
-
-Bas: \textbf{Naturel}
-
-Droite: \textbf{Naturel}\\
-\textbf{fin Structure}\\
+\noindent\textbf{Type} Case = \textbf{Tableau[1..4] de Naturel}
 
 \noindent\textbf{Type} Labyrinthe = \textbf{Structure}
 
-lesConnections: \textbf{Liste}<\textbf{Case}>
+lesConnections: \textbf{Tableau[1..MAX] de Case}
 
 entrée: \textbf{Naturel}
 
@@ -51,7 +42,6 @@ sortie: \textbf{Naturel}\\
 
 \textbf{fonction} obtenirSortie (lab: \textbf{Labyrinthe}): \textbf{Naturel}
 
-\textbf{fonction} chemin (lab: \textbf{Labyrinthe}): \textbf{Liste}<\textbf{Naturel}>
 
 
 
