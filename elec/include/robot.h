@@ -3,7 +3,7 @@
  * @author Tom G.
  * @brief Module des mouvements du ROBOT
  *
- * @details Procédure permettant au robot d'évoluer au sein du labyrinthe
+ * @details Procédures permettant au robot d'évoluer au sein du labyrinthe
  */
 
 
