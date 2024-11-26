@@ -3,6 +3,7 @@
 \usepackage[french]{babel} % document en francais
 \usepackage[T1]{fontenc} % pour les caracteres accentues
 \usepackage{algpseudocode}
+\usepackage{amsfonts}
 
 
 \setlength{\oddsidemargin}{-5pt} % Marge gauche sur pages impaires
@@ -10,11 +11,14 @@
 \setlength{\headheight}{0pt} % Haut de page
 \setlength{\headsep}{20pt} % Entre le haut de page et le texte
 
+
 \begin{document}
 \fontfamily{lmr}%
 \fontseries{m}%
 \fontsize{14pt}{18pt}
 \selectfont
+
+
 
 \section*{TAD Labyrinthe}
 
@@ -22,7 +26,7 @@
     \textbf{Nom:} & \textbf{Labyrinthe} & \\
     \textbf{Utilise:} & \textbf{Case, Liste} & \\
     \textbf{Opérations:} & labyrinthe: & $\to$ \textbf{Labyrinthe}\\
-     & obtenirCasesAccessibles: & \textbf{Case} $\to$ \textbf{Liste}<\textbf{Naturel}>\\
+     & obtenirCasesAccessibles: & \textbf{Case} $\to$ \textbf{Liste}<\textbf{Case}>\\
      & obtenirEntrée: & \textbf{Labyrinthe} $\to$ \textbf{Case}\\
      & obtenirSortie: & \textbf{Labyrinthe} $\to$ \textbf{Case}\\
      & & \\
@@ -31,4 +35,25 @@
     \textbf{Axiomes:} & obtenirEntrée (labyrinthe) $\neq$ obtenirSortie (labyrinthe)
 \end{tabular}
 
-\end{document}
+\section*{TAD Case}
+
+\noindent\begin{tabular}{lll}
+    \textbf{Nom:} & \textbf{Case} & \\
+    \textbf{Utilise:} & \textbf{Booléen} & \\
+    \textbf{Opérations:} & estAccessible: & \textbf{Case} $\times$ \textbf{Case} $\to$ \textbf{Booléen}\\
+     & obtenirCaseHaut: & \textbf{Case} $\to$ \textbf{Case}\\
+     & obtenirCaseGauche: & \textbf{Case} $\to$ \textbf{Case}\\
+     & obtenirCaseBas: & \textbf{Case} $\to$ \textbf{Case}\\
+     & obtenirCaseDroite: & \textbf{Case} $\to$ \textbf{Case}\\
+     & & \\
+
+    \textbf{Axiomes:} & obtenirCaseHaut (c) $\neq$ obtenirCaseGauche (c) $\neq$ obtenirCaseBas (c) $\neq$ obtenirCaseDroite (c) & \\
+    \textbf{Préconditions:} & obtenirCaseHaut (position) & estAccessible(position, obtenirCaseHaut(position))\\
+     & obtenirCaseGauche (position) & estAccessible(position, obtenirCaseGauche(position))\\
+     & obtenirCaseBas (position) & estAccessible(position, obtenirCaseBas(position))\\
+     & obtenirCaseDroite (position) & estAccessible(position, obtenirCaseDroite(position))\\
+
+\end{tabular}
+
+
+\end{document}  
