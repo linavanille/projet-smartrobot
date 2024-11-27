@@ -1,0 +1,106 @@
+digraph TopDownAnalysis {
+    rankdir=LR; // Orientation top-down
+    //splines=false; // Force straight arrows
+    node [shape=box, style=filled, color=lightblue]; // Style des noeuds
+
+    // Tâche principale
+    "Main" -> {"LAB_labyrinthe" "CHM_chemin" "ORD_obtenirOrdres" "ROBOT_evolutionRobot" };
+
+        //LAB_labyrinthe
+        "LAB_labyrinthe";
+        sortie_lab [label="Labyrinthe"]
+        "LAB_labyrinthe":e -> sortie_lab:w; // Sortie
+
+        //CHM_chemin 
+        "CHM_chemin" -> { "LAB_casesAccessibles" "LAB_obtenirEntree" "LAB_obtenirSortie"};
+        entree_chm [label= "Labyrinthe"]
+        entree_chm:e -> "CHM_chemin":w; // Entree
+        sortie_chm [label="Liste<Case>"]
+        "CHM_chemin":e -> sortie_chm:w; // Sortie
+
+            //casesAccessibles 
+            "LAB_casesAccessibles";
+            entree_CA [label= "Case"]
+            entree_CA:e -> "LAB_casesAccessibles":w; // Entree
+            sortie_CA [label="Liste<Case>"]
+            "LAB_casesAccessibles":e -> sortie_CA:w; // Sortie
+
+            //obtenirEntree 
+            "LAB_obtenirEntree";
+            entree_oE [label= "Labyrinthe"]
+            entree_oE:e -> "LAB_obtenirEntree":w; // Entree
+            sortie_oE [label="Case"]
+            "LAB_obtenirEntree":e -> sortie_oE:w; // Sortie
+
+            //obtenirSortie 
+            "LAB_obtenirSortie";
+            entree_oS [label= "Labyrinthe"]
+            entree_oS:e -> "LAB_obtenirSortie":w; // Entree
+            sortie_oS [label="Case"]
+            "LAB_obtenirSortie":e -> sortie_oS:w; // Sortie
+        
+        //ORD_obtenirOrdres
+        "ORD_obtenirOrdres" -> { "LAB_casesAccessibles"};
+        entree_oOrd [label= "Liste<Case>"]
+        entree_oOrd:e -> "ORD_obtenirOrdres":w; // Entree
+        sortie_oOrd [label="Liste<ORD_Orde>"]
+        "ORD_obtenirOrdres":e -> sortie_oOrd:w; // Sortie
+
+        //ROBOT_evolutionRobot
+        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence"};
+        entree_eR [label= "Liste<ORD_Orde>"]
+        entree_eR:e -> "ROBOT_evolutionRobot":w; // Entree
+
+            //ROBOT_avancer
+            "ROBOT_avancer" -> {"MTR_avancer" "MTR_redresser"};
+            entree_Ra [label= "ROBOT_etatDAvancement"]
+            entree_Ra:e -> "ROBOT_avancer":w; // Entree
+            sortie_Ra [label="ROBOT_etatDAvancement"]
+            "ROBOT_avancer":e -> sortie_Ra:w; // Sortie
+
+                //MTR_avancer
+                "MTR_avancer";
+                entree_Mav [label= "6 * NNN"]
+                entree_Mav:e -> "MTR_avancer":w; // Entree
+
+                //MTR_redresser
+                "MTR_redresser";
+                entree_Mr [label= "2* NNN"]
+                entree_Mr:e -> "MTR_redresser":w; // Entree
+
+            //ROBOT_intersection
+            "ROBOT_intersection" -> {"MTR_tournerGauche" "MTR_tournerDroite"};
+            entree_Ri1 [label= "ROBOT_etatDAvancement"]
+            entree_Ri1:e -> "ROBOT_intersection":w; // Entree
+            entree_Ri2 [label= "ORD_Ordre"]
+            entree_Ri2:e -> "ROBOT_intersection":w; // Entree
+            sortie_Ri [label="ROBOT_etatDAvancement"]
+            "ROBOT_intersection":e -> sortie_Ri:w; // Sortie
+
+                //MTR_tournerGauche
+                "MTR_tournerGauche";
+                entree_MtG [label= "2 * NNN"]
+                entree_MtG:e -> "MTR_tournerGauche":w; // Entree
+
+                //MTR_tournerDroite
+                "MTR_tournerDroite";
+                entree_MtD [label= "2 * NNN"]
+                entree_MtD:e -> "MTR_tournerDroite":w; // Entree
+
+            //ROBOT_urgence
+            "ROBOT_urgence" -> {"MTR_arreter"};
+
+                //MTR_arreter
+                "MTR_arreter";
+                entree_Mar [label= "4 * NNN"]
+                entree_Mar:e -> "MTR_arreter":w; // Entree
+            
+
+                
+
+    // Styles spécifiques pour Entrées/Sorties
+    entree_chm, entree_CA, entree_oE, entree_oS, entree_oOrd, entree_eR, entree_Ra, entree_Mav, entree_Mr, entree_Ri1, entree_Ri2, entree_MtD, entree_MtG, entree_Mar [shape=none, color=none];
+    sortie_lab, sortie_chm, sortie_CA, sortie_oE, sortie_oS, sortie_oOrd, sortie_Ra, sortie_Ri [shape=none, color=none];
+    
+
+}
