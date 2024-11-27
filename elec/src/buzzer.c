@@ -1,5 +1,6 @@
 #include "buzzer.h"
 #include "pinsRef.h"
+#include "wiringPi.h"
 
 void BUZZ_setup()
 {
@@ -9,6 +10,6 @@ void BUZZ_setup()
 void BUZZ_loop()
 {
   digitalWrite(BUZZ, HIGH);
-  delay(3000);
+  delayMicroseconds(500);
   digitalWrite(BUZZ, LOW);
 }
