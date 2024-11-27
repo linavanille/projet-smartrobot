@@ -1,4 +1,4 @@
-#include <wiringPi.h>
+#include "wiringPi.h"
 #include <stdio.h>
 #include <sys/time.h>
 #include <time.h>
