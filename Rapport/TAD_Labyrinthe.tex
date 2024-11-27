@@ -1,9 +1,11 @@
-\documentclass[a4paper,11pt]{report}
+\documentclass[a4paper,11pt]{article}
 \usepackage[utf8]{inputenc} % encodage du fichier
 \usepackage[french]{babel} % document en francais
 \usepackage[T1]{fontenc} % pour les caracteres accentues
 \usepackage{algpseudocode}
-\usepackage{amsfonts}
+\usepackage{amssymb} % Pour le symbole \nrightarrow
+
+
 
 
 \setlength{\oddsidemargin}{-5pt} % Marge gauche sur pages impaires
@@ -37,23 +39,29 @@
 
 \section*{TAD Case}
 
-\noindent\begin{tabular}{lll}
+\noindent
+\begin{tabular}{lll}
     \textbf{Nom:} & \textbf{Case} & \\
     \textbf{Utilise:} & \textbf{Booléen} & \\
     \textbf{Opérations:} & estAccessible: & \textbf{Case} $\times$ \textbf{Case} $\to$ \textbf{Booléen}\\
-     & obtenirCaseHaut: & \textbf{Case} $\to$ \textbf{Case}\\
-     & obtenirCaseGauche: & \textbf{Case} $\to$ \textbf{Case}\\
-     & obtenirCaseBas: & \textbf{Case} $\to$ \textbf{Case}\\
-     & obtenirCaseDroite: & \textbf{Case} $\to$ \textbf{Case}\\
-     & & \\
-
-    \textbf{Axiomes:} & obtenirCaseHaut (c) $\neq$ obtenirCaseGauche (c) $\neq$ obtenirCaseBas (c) $\neq$ obtenirCaseDroite (c) & \\
-    \textbf{Préconditions:} & obtenirCaseHaut (position) & estAccessible(position, obtenirCaseHaut(position))\\
-     & obtenirCaseGauche (position) & estAccessible(position, obtenirCaseGauche(position))\\
-     & obtenirCaseBas (position) & estAccessible(position, obtenirCaseBas(position))\\
-     & obtenirCaseDroite (position) & estAccessible(position, obtenirCaseDroite(position))\\
-
+     & obtenirCaseHaut: & \textbf{Case} $\nrightarrow$ \textbf{Case}\\
+     & obtenirCaseGauche: & \textbf{Case} $\nrightarrow$ \textbf{Case}\\
+     & obtenirCaseBas: & \textbf{Case} $\nrightarrow$ \textbf{Case}\\
+     & obtenirCaseDroite: & \textbf{Case} $\nrightarrow$ \textbf{Case}\\
 \end{tabular}
 
+\noindent
+\begin{tabular}{lll}
+    \textbf{Axiomes:} & obtenirCaseHaut (c) $\neq$ obtenirCaseGauche (c)\\
+     & $\neq$ obtenirCaseBas (c) $\neq$ obtenirCaseDroite (c) & \\
+\end{tabular}
+
+\noindent
+\begin{tabular}{l p{4.5cm} p{6.5cm}}
+    \textbf{Préconditions:} & obtenirCaseHaut (position) & estAccessible (position, obtenirCaseHaut (position))\\
+     & obtenirCaseGauche (position) & estAccessible (position, obtenirCaseGauche (position))\\
+     & obtenirCaseBas (position) & estAccessible (position, obtenirCaseBas (position))\\
+     & obtenirCaseDroite (position) & estAccessible (position, obtenirCaseDroite (position))\\
+\end{tabular}
 
 \end{document}  
