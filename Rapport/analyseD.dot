@@ -47,7 +47,7 @@ digraph TopDownAnalysis {
         "ORD_obtenirOrdres":e -> sortie_oOrd:w; // Sortie
 
         //ROBOT_evolutionRobot
-        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence"};
+        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence" "USON_obtenirDistance" "CPTR"};
         entree_eR [label= "Liste<ORD_Orde>"]
         entree_eR:e -> "ROBOT_evolutionRobot":w; // Entree
 
