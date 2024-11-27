@@ -1,6 +1,5 @@
 /**
  * @file Example.h
- * @author Michel
  * @brief Un court exemple
  * @details Ceci est un court exemple de la documentation Doxygen.
  */
