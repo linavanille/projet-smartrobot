@@ -1,6 +1,5 @@
 /**
  * @file evolutionRobot.h
- * @author Tom G.
  * @brief Module des mouvements du ROBOT
  *
  * @details Procédures permettant au robot d'évoluer au sein du labyrinthe
@@ -10,8 +9,8 @@
 #include <wiringPi.h>
 #include <stdbool.h>
 #include "motorsPi.h"
-#include "ordres.h"
-#include "distance.h"
+#include "ordresRobot.h"
+#include "interruption.h"
 #include "lcd1602.h"
 #include "buzzer.h"
 #include "pinsRef.h"
