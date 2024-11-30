@@ -19,4 +19,16 @@ void BUZZ_setup();
 */
 void BUZZ_loop();
 
+/**
+* \fn void BUZZ_ON()
+* \brief Allumer le buzzer 
+*/
+void BUZZ_ON();
+
+/**
+* \fn void BUZZ_OFF()
+* \brief Eteindre le buzzer 
+*/
+void BUZZ_OFF();
+
 #endif

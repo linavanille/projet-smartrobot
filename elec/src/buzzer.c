@@ -13,3 +13,13 @@ void BUZZ_loop()
   delayMicroseconds(500);
   digitalWrite(BUZZ, LOW);
 }
+
+void BUZZ_ON()
+{
+  digitalWrite(BUZZ, HIGH);
+}
+
+void BUZZ_OFF()
+{
+  digitalWrite(BUZZ, LOW);
+}
