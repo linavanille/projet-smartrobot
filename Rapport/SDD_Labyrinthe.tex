@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc} % encodage du fichier
 \usepackage[french]{babel} % document en francais
 \usepackage[T1]{fontenc} % pour les caracteres accentues
+\usepackage[french]{algorithm2e}
+\usepackage{pseudocode}
 
 
       
@@ -20,30 +22,96 @@
 %\selectfont%
 
 \section*{Structures de Données}
-\noindent\textbf{Type} Case = \textbf{Tableau[1..4] de Naturel}
 
-\noindent\textbf{Type} Labyrinthe = \textbf{Structure}
+\begin{algorithme}
+    \type{Case}{\tableau{1..4}{de}{\naturel}}
 
-lesConnections: \textbf{Tableau[1..MAX] de Case}
-
-entrée: \textbf{Naturel}
-
-sortie: \textbf{Naturel}\\
-\textbf{fin Structure}
+    \begin{enregistrement}{Labyrinthe}
+        \champEnregistrement{lesConnections}{\tableau{1..MAX}{de}{Case}}
+        \champEnregistrement{entree}{\naturel}
+        \champEnregistrement{sortie}{\naturel}
+    \end{enregistrement}
+    \end{algorithme}
 
 \section*{Conception Préliminaire Labyrinthe}
 
+\begin{algorithme}
+    \signatureFonction{LAB\_creerLabyrinthe}
+    {}{Labyrinthe}
+    {}
 
-\textbf{fonction} labrinthe (): \textbf{Labyrinthe}
+    \signatureFonction{LAB\_chemin}
+    {lab : Labyrinthe}{\tableau{1..MAX}{de}{\naturelNonNul}}
+    {}
 
-\textbf{fonction} obtenirCasesAccessibles (lab: \textbf{Labyrinthe}): \textbf{Tableau[1..4] de Naturel}
+    \signatureFonction{LAB\_obtenirCasesAccessibles}
+    {lab : Labyrinthe, uneCase : Case}{\tableau{1..4}{de}{Case}}
+    {}
 
-\textbf{fonction} obtenirEntrée (lab: \textbf{Labyrinthe}): \textbf{Naturel}
+    \signatureFonction{LAB\_obtenirEntree}
+    {lab : Labyrinthe}{\naturelNonNul}
+    {}
 
-\textbf{fonction} obtenirSortie (lab: \textbf{Labyrinthe}): \textbf{Naturel}
+    \signatureFonction{LAB\_obtenirSortie}
+    {lab : Labyrinthe}{\naturelNonNul}
+    {}
+\end{algorithme}
 
+\section*{Conception Détaillée Labyrinthe}
 
+\begin{algorithme}
 
+    \fonction{LAB\_creerLabyrinthe}{l : \naturelNonNul, p: \naturel}{Labyrinthe}
+    {}{}
+    {
+        \retourner{}
+    }
+    
+\end{algorithme}
 
+\begin{algorithme}
+
+    \fonction{LAB\_chemin}{lab : Labyrinthe}{\tableau{1..MAX}{de}{\naturelNonNul}}
+    {}{}
+    {
+        \retourner{}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirEntree}{lab : Labyrinthe}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{lab.entree}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirSortie}{lab : Labyrinthe}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{lab.sortie}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirCasesAccessibles}{lab : Labyrinthe, uneCase : Case}{\tableau{1..4}{de}{Case}}
+    {}{res : \tableau{1..4}{de}{Case}}
+    {
+        \pour{i}{1}{longueur(lab)}{}{
+            \sialors{iemeCaractere(lab, i) = 1}{
+            \instruction{ajouter(res, i)}
+            }
+        }
+        \retourner{res}
+    }
+    
+    \end{algorithme}
 
 \end{document}
