@@ -1,6 +1,6 @@
 digraph TopDownAnalysis {
     rankdir=LR; // Orientation top-down
-    //splines=false; // Force straight arrows
+    splines=false; // Force straight arrows
     node [shape=box, style=filled, color=lightblue]; // Style des noeuds
 
     // Tâche principale
@@ -19,11 +19,22 @@ digraph TopDownAnalysis {
         "CHM_chemin":e -> sortie_chm:w; // Sortie
 
             //casesAccessibles 
-            "LAB_casesAccessibles";
-            entree_CA [label= "Case"]
-            entree_CA:e -> "LAB_casesAccessibles":w; // Entree
+            "LAB_casesAccessibles" -> {"LAB_iemeCase"};
+            entree_CA1 [label= "Labyrinthe"]
+            entree_CA1:e -> "LAB_casesAccessibles":w; // Entree
+            entree_CA2 [label= "Case"]
+            entree_CA2:e -> "LAB_casesAccessibles":w; // Entree
             sortie_CA [label="Liste<Case>"]
             "LAB_casesAccessibles":e -> sortie_CA:w; // Sortie
+
+                //casesAccessibles 
+                "LAB_iemeCase";
+                entree_iC1 [label= "Labyrinthe"]
+                entree_iC1:e -> "LAB_iemeCase":w; // Entree
+                entree_iC2 [label= "Naturel"]
+                entree_iC2:e -> "LAB_iemeCase":w; // Entree
+                sortie_iC [label="Case"]
+                "LAB_iemeCase":e -> sortie_iC:w; // Sortie
 
             //obtenirEntree 
             "LAB_obtenirEntree";
@@ -47,7 +58,7 @@ digraph TopDownAnalysis {
         "ORD_obtenirOrdres":e -> sortie_oOrd:w; // Sortie
 
         //ROBOT_evolutionRobot
-        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence" "USON_obtenirDistance" "CPTR"};
+        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence" "STOP_Loop" "CPTR"};
         entree_eR [label= "Liste<ORD_Orde>"]
         entree_eR:e -> "ROBOT_evolutionRobot":w; // Entree
 
@@ -95,12 +106,27 @@ digraph TopDownAnalysis {
                 entree_Mar [label= "4 * NNN"]
                 entree_Mar:e -> "MTR_arreter":w; // Entree
             
+    //Style Main
+    Main [shape = ellipse, color = gray]
 
+    //Style Labyrinthe
+    LAB_casesAccessibles, LAB_iemeCase, LAB_obtenirEntree, LAB_obtenirSortie, LAB_labyrinthe [shape = box, color= purple]
                 
+    //Style Ordre 
+    ORD_obtenirOrdres [shape = box, color = orange]
+
+    //Style Chemin 
+    CHM_chemin [shape = box, color = pink]
+
+    //Style Moteur
+    MTR_arreter, MTR_avancer, MTR_redresser, MTR_tournerDroite, MTR_tournerGauche [shape=box, color = lightgreen]
+
+    //Style Robot
+    ROBOT_avancer, ROBOT_evolutionRobot, ROBOT_intersection, ROBOT_urgence [shape = box, color = red]
 
     // Styles spécifiques pour Entrées/Sorties
-    entree_chm, entree_CA, entree_oE, entree_oS, entree_oOrd, entree_eR, entree_Ra, entree_Mav, entree_Mr, entree_Ri1, entree_Ri2, entree_MtD, entree_MtG, entree_Mar [shape=none, color=none];
-    sortie_lab, sortie_chm, sortie_CA, sortie_oE, sortie_oS, sortie_oOrd, sortie_Ra, sortie_Ri [shape=none, color=none];
+    entree_chm, entree_CA1, entree_CA2, entree_iC1, entree_iC2, entree_oE, entree_oS, entree_oOrd, entree_eR, entree_Ra, entree_Mav, entree_Mr, entree_Ri1, entree_Ri2, entree_MtD, entree_MtG, entree_Mar [shape=none, color=none];
+    sortie_lab, sortie_chm, sortie_CA, sortie_iC, sortie_oE, sortie_oS, sortie_oOrd, sortie_Ra, sortie_Ri [shape=none, color=none];
     
 
 }
