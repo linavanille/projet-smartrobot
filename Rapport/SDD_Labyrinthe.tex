@@ -28,8 +28,9 @@
 
     \begin{enregistrement}{Labyrinthe}
         \champEnregistrement{lesConnections}{\tableau{1..MAX}{de}{Case}}
-        \champEnregistrement{entree}{\naturel}
-        \champEnregistrement{sortie}{\naturel}
+        \champEnregistrement{entree}{\naturelNonNul}
+        \champEnregistrement{sortie}{\naturelNonNul}
+        \champEnregistrement{largeur}{\naturelNonNul}
     \end{enregistrement}
     \end{algorithme}
 
@@ -37,11 +38,11 @@
 
 \begin{algorithme}
     \signatureFonction{LAB\_creerLabyrinthe}
-    {}{Labyrinthe}
+    {l: \naturelNonNul, entree, sortie: Case}{Labyrinthe}
     {}
 
-    \signatureFonction{LAB\_chemin}
-    {lab : Labyrinthe}{\tableau{1..MAX}{de}{\naturelNonNul}}
+    \signatureFonction{LAB\_obtenirLargeur}
+    {lab : Labyrinthe}{\naturelNonNul}
     {}
 
     \signatureFonction{LAB\_obtenirCasesAccessibles}
@@ -55,26 +56,33 @@
     \signatureFonction{LAB\_obtenirSortie}
     {lab : Labyrinthe}{\naturelNonNul}
     {}
+
+    \signatureFonction{LAB\_iemeCase}
+    {lab : Labyrinthe, iCase: \naturelNonNul}{Case}
+    {}
 \end{algorithme}
 
 \section*{Conception Détaillée Labyrinthe}
 
 \begin{algorithme}
 
-    \fonction{LAB\_creerLabyrinthe}{l : \naturelNonNul, p: \naturel}{Labyrinthe}
+    \fonction{LAB\_creerLabyrinthe}{l : \naturelNonNul, entree, sortie: Case}{Labyrinthe}
     {}{}
     {
-        \retourner{}
+        \affecter{lab}{\tableau{1..l*l}{de}{Case}}
+        \affecter{lab.entree}{entree}
+        \affecter{lab.sortie}{sortie}
+        \affecter{lab.largeur}{largeur}
     }
     
 \end{algorithme}
 
 \begin{algorithme}
 
-    \fonction{LAB\_chemin}{lab : Labyrinthe}{\tableau{1..MAX}{de}{\naturelNonNul}}
+    \fonction{LAB\_obtenirLargeur}{lab : Labyrinthe}{\naturelNonNul}
     {}{}
     {
-        \retourner{}
+        \retourner{lab.largeur}
     }
     
 \end{algorithme}
@@ -101,17 +109,24 @@
 
 \begin{algorithme}
 
-    \fonction{LAB\_obtenirCasesAccessibles}{lab : Labyrinthe, uneCase : Case}{\tableau{1..4}{de}{Case}}
-    {}{res : \tableau{1..4}{de}{Case}}
+    \fonction{LAB\_obtenirCasesAccessibles}{lab : Labyrinthe, iCase : Case}{Case}
+    {}{res : Case}
     {
-        \pour{i}{1}{longueur(lab)}{}{
-            \sialors{iemeCaractere(lab, i) = 1}{
-            \instruction{ajouter(res, i)}
-            }
-        }
+        \affecter{res}{LAB\_iemeCase(lab, iCase)}
         \retourner{res}
     }
     
-    \end{algorithme}
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_iemeCase}{lab : Labyrinthe, iCase : Case}{Case}
+    {}{res : Case}
+    {
+        \affecter{res}{lab[iCase]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
 
 \end{document}
