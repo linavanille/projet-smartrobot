@@ -12,8 +12,7 @@
  * @struct Position
  * @brief Représente une position dans le labyrinthe
  */
-typedef unsigned int Position;
-} Position;
+typedef Case Position;
  
 /**
  * @enum Orientation
@@ -25,7 +24,7 @@ typedef enum {Nord,Sud,Est,Ouest} Orientation;
  * @enum Ordre
  * @brief Représente les 3 types d'ordres que le robot peut exécuter 
  */
-typedef enum {AV,TG,TD} Ordre;
+typedef enum {AV,TG,TD, .} Ordre;
 
 //-------------------------------------------------------
 //Fonctions de motricité (avancer, gauche, droite)
@@ -70,7 +69,7 @@ Position tournerDroite(Position position, Orientation* orientation, Position** c
  * @return La position initiale du robot (entrée)
  * @param orientation L'orientation initiale du robot (modifiée par la fonction)
  */
-Position initialiser(Orientation* orientation);
+Position initialisation(Orientation* orientation);
 
 /**
  * @brief Génère une liste d'ordres pour sortir du labyrinthe à partir d'un chemin donné
