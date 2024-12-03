@@ -26,9 +26,9 @@ typedef enum {Nord,Sud,Est,Ouest} Orientation;
  */
 typedef enum {AV,TG,TD, .} Ordre;
 
-//-------------------------------------------------------
+//------------------------------------------------------
 //Fonctions de motricité (avancer, gauche, droite)
-//-------------------------------------------------------
+//------------------------------------------------------
 
 /**
  * @brief Fait avancer le robot depuis sa position actuelle jusqu'à la prochaine intersection ou virage en suivant sa direction actuelle
