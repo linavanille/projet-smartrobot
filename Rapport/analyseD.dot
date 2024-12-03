@@ -110,19 +110,19 @@ digraph TopDownAnalysis {
     Main [shape = ellipse, color = gray]
 
     //Style Labyrinthe
-    LAB_casesAccessibles, LAB_iemeCase, LAB_obtenirEntree, LAB_obtenirSortie, LAB_labyrinthe [shape = box, color= purple]
+    LAB_casesAccessibles, LAB_iemeCase, LAB_obtenirEntree, LAB_obtenirSortie, LAB_labyrinthe [shape = box, color= darkorchid]
                 
     //Style Ordre 
     ORD_obtenirOrdres [shape = box, color = orange]
 
     //Style Chemin 
-    CHM_chemin [shape = box, color = pink]
+    CHM_chemin [shape = box, color = coral1]
 
     //Style Moteur
     MTR_arreter, MTR_avancer, MTR_redresser, MTR_tournerDroite, MTR_tournerGauche [shape=box, color = lightgreen]
 
     //Style Robot
-    ROBOT_avancer, ROBOT_evolutionRobot, ROBOT_intersection, ROBOT_urgence [shape = box, color = red]
+    ROBOT_avancer, ROBOT_evolutionRobot, ROBOT_intersection, ROBOT_urgence [shape = box, color = firebrick2]
 
     // Styles spécifiques pour Entrées/Sorties
     entree_chm, entree_CA1, entree_CA2, entree_iC1, entree_iC2, entree_oE, entree_oS, entree_oOrd, entree_eR, entree_Ra, entree_Mav, entree_Mr, entree_Ri1, entree_Ri2, entree_MtD, entree_MtG, entree_Mar [shape=none, color=none];

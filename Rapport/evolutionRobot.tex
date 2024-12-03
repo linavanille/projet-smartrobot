@@ -101,7 +101,7 @@
 \textbf{début}
 
     \begin{algorithm}[H]
-        \Suivant{prochainVirage}{
+        \Suivant{prochaineAction}{
             \uCas{TD}{MTR\_tournerDroite (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\attendre()\\ etat $\leftarrow$ Avancer}
             \uCas{TG}{MTR\_tournerGauche (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\attendre()\\ etat $\leftarrow$ Avancer}
             \uCas{AV}{etat $\leftarrow$ Avancer}
@@ -136,7 +136,7 @@
     \begin{algorithm}[H]
         numOrdre $\leftarrow$ 1\\
         etat $\leftarrow$ Avancer\\
-        prochaineAction $\leftarrow$ listeDOrdre[numOrdre]\\
+        prochaineAction $\leftarrow$ ORD\_obtenirIemeOrdre (listeDOrdre, numOrdre)\\
         \Tq{etat $\neq$ Sorti \textbf{et} prochaineAction $\neq$.}{
             \Suivant{etat}{
                 \Cas{Avancer}{ROBOT\_avancer (etat)}
