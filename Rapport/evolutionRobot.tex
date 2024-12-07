@@ -28,7 +28,7 @@
     \Huge{Conception module EvolutionRobot}
 \end{center}
 
-\section*{Conception Préliminaire}
+\section*{Situation possibles des capteurs}
 
 \textbf{Booléen} SENS\_redresserADroite $\leftarrow$  (\textbf{digitalRead} ($LINE\_SENSOR\_RIGH$) = 1) \textbf{and} 
 
@@ -46,11 +46,9 @@
 
 \indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 1)]
 
-\indent\textbf{Enumération} Ordre = \{AV, TD, TG, . \}
+\subsection*{Conception Préliminaire}
 
-\indent\textbf{Enumération} ROBOT\_EtatDAvancement = \{Avancer, Intersection, Urgence, Sorti\}
-
-\subsection*{Signatures}
+\textbf{Enumération} ROBOT\_EtatDAvancement = \{Avancer, Intersection, Urgence, Sorti\}\\
 
 \textbf{procedure} ROBOT\_avancer (\textbf{E/S:} etat: \textbf{ROBOT\_EtatDAvancement})
 
