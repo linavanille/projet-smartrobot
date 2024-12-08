@@ -110,7 +110,18 @@
 
 \begin{algorithme}
 
-    \fonction{LAB\_obtenirCasesAccessibles}{lab : Labyrinthe, iCase : Case}{Case}
+    \fonction{LAB\_iemeCase}{lab : Labyrinthe, iCase : \naturelNonNul}{\naturelNonNul}
+    {}{res : Case}
+    {
+        \affecter{res}{lab.lesConnections[iCase]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirCasesAccessibles}{lab : Labyrinthe, iCase : \naturelNonNul}{Case}
     {}{res : Case}
     {
         \affecter{res}{LAB\_iemeCase(lab, iCase)}
@@ -119,15 +130,6 @@
     
 \end{algorithme}
 
-\begin{algorithme}
 
-    \fonction{LAB\_iemeCase}{lab : Labyrinthe, iCase : Case}{Case}
-    {}{res : Case}
-    {
-        \affecter{res}{lab[iCase]}
-        \retourner{res}
-    }
-    
-\end{algorithme}
 
 \end{document}
