@@ -12,11 +12,10 @@
 int main(int argc, char** argv){
     LAB_Labyrinthe labyrinthe;
     CASE_Case* chemin;
-    Ordre* listeDOrdre;
+    ORD_Ordre* listeDOrdre;
 
     uint i = 0;
     bool done = false;
-    char print[4];
 
     if(argc != 2){
         printf("Le fichier non precise\n"); 
@@ -30,29 +29,27 @@ int main(int argc, char** argv){
     }
     
     initialisationLabyrinthe(path, &labyrinthe);
-    chemim = CHM_chemin(labyrinthe)
-    listeDOrdre = ORD_obtenirOrdres(&chemin, LAB_obtenirLargeur(labyrinthe));
+    //chemim = CHM_chemin(labyrinthe)
+    //listeDOrdre = ORD_obtenirOrdres(&chemin, LAB_obtenirLargeur(labyrinthe));
     do{
-        switch(ORD_iemOrdre(listeDOrdre, i)){
+        switch(ORD_iemeOrdre(listeDOrdre, i)){
             case AV :
-                print = "AV";
-                break;
+                printf("AV");
             case TD :
-                print = "TD";
+                printf("TD");
                 break;
             case TG :
-                print = "TG";
+                printf("TG");
                 break;
-            case . :
-                print = ".";
+            case FIN :
+                printf(".");
                 done = true;
                 break;
             default :
-                print = "ERR";
+                printf("ERROR");
                 break; 
         }
-        printf("%s", print);
-        i++
+        i++;
     }while(!done);
 
     return 0;

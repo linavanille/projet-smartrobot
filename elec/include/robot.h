@@ -6,22 +6,17 @@
  */
 
 
-#include <wiringPi.h>
-#include <stdbool.h>
-#include "motorsPi.h"
-#include "ordresRobot.h"
-#include "interruption.h"
-#include "lcd1602.h"
-#include "buzzer.h"
-#include "pinsRef.h"
+#ifndef __EVOLUTION_ROBOT_
+#define __EVOLUTION_ROBOT_
 
+#include "ordresRobot.h"
 
 /**
  * @enum EtatDAvancement
  * @brief Enumération de situations potentielles du ROBOT
  */
 
-typedef enum{Avancer, Intersection, Urgence, Sorti}ROBOT_EtatDAvancement;
+typedef enum{Avancer,Intersection,Urgence,Sorti} ROBOT_EtatDAvancement;
 
 
 
@@ -35,7 +30,7 @@ typedef enum{Avancer, Intersection, Urgence, Sorti}ROBOT_EtatDAvancement;
  * 
  */
 
-void ROBOT_avancer(etat : *ROBOT_EtatDAvancement);
+void ROBOT_avancer(ROBOT_EtatDAvancement* etat);
 
 /**
  * @fn void ROBOT_intersection(etat : *ROBOT_EtatDAvancement, prochaineAction : ORD_Ordre) 
@@ -47,7 +42,7 @@ void ROBOT_avancer(etat : *ROBOT_EtatDAvancement);
  * 
  */
 
-void ROBOT_intersection(etat : *ROBOT_EtatDAvancement, prochaineAction : ORD_Ordre);
+void ROBOT_intersection(ROBOT_EtatDAvancement* etat, ORD_Ordre prochaineAction);
 
 /**
  * @fn void ROBOT_urgence() 
@@ -59,7 +54,7 @@ void ROBOT_intersection(etat : *ROBOT_EtatDAvancement, prochaineAction : ORD_Ord
 void ROBOT_urgence();
 
 /**
- * @fn void ROBOT_evolutionRobot(listeDOrdre : *ORD_ListeOrdres) 
+ * @fn void ROBOT_evolutionRobot(listeDOrdre : *ORD_Ordre) 
  * @brief Faire évoluer le ROBOT au sein du labyrinthe en suivant la liste d'Ordres.
  * @param listeDOrdre Suite d'instructions que doit suivre le ROBOT pour sortir du Labyrinthe.
  * 
@@ -68,4 +63,6 @@ void ROBOT_urgence();
  * 
  */
 
-void ROBOT_evolutionRobot(listeDOrdre : *ORD_ListeOrdres);
+void ROBOT_evolutionRobot(ORD_Ordre* listeDOrdre);
+
+#endif

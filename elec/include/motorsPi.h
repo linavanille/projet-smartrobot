@@ -4,14 +4,13 @@
  * @brief Signatures des procédures pour l'utilisation des moteurs
  */
 
-#include <wiringPi.h> 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#ifndef __MOTORS__
+#define __MOTORS__
 
-//====================================================
+
+//================================================================
 //Fonctions de motricité (avant, gauche, droite, arriere, stop)
-
+//----------------------------------------------------------------
 
 /**
  * @fn void MTR_avancer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
@@ -26,7 +25,7 @@
  * Différence définie au préalable
  */
 
-void MTR_avancer(int A_1, int A_2, int A_3, int A_4);
+void MTR_avancer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1);
 
 
 /**
@@ -64,7 +63,7 @@ void MTR_tournerGauche(int A_1, int A_2, int A_3, int A_4);
  * @details Augmente légèrement le pmwInterieur et baisse le pwmExterieur
  */
 
-void MTR_redresser(int pwmInterieur, int pwmExterieur)
+void MTR_redresser(int pwmInterieur, int pwmExterieur);
 
 
 /**
@@ -86,6 +85,7 @@ void MTR_arreter(int A_1, int A_2, int A_3, int A_4);
 
 //====================================================
 //Fonctions d'initialisation des GPIO
+//----------------------------------------------------
 
 /**
  * @fn void MTR_initialisationPWM(int pwm0, int pwm1)
@@ -120,3 +120,5 @@ void MTR_changerVitessePWM(int pwm, int cycleD);
 void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1);
 
 //====================================================
+
+#endif

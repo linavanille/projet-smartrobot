@@ -9,11 +9,11 @@
 #ifndef _GPIO_
 #define _GPIO_
 
-#define BUZZ             16
+#define BUZZ              16
 
-#define LINE_SENSOR_FRONT 25
-#define LINE_SENSOR_LEFT  7
-#define LINE_SENSOR_RIGHT 8
+#define CPTR_LIGNE_AVANT  25
+#define CPTR_LIGNE_GAUCHE 7
+#define CPTR_LIGNE_DROIT  8
 
 #define TRIG              4
 #define ECHO              5
