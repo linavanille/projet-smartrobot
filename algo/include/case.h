@@ -15,10 +15,10 @@ int CASE_obtenirHaut(CASE_Case);
 int CASE_obtenirBas(CASE_Case);
 int CASE_obtenirGauche(CASE_Case);
 int CASE_obtenirDroite(CASE_Case);
-void CASE_fixerHaut(CASE_Case*);
-void CASE_fixerBas(CASE_Case*);
-void CASE_fixerGauche(CASE_Case*);
-void CASE_fixerDroite(CASE_Case*);
+void CASE_fixerHaut(CASE_Case*, int);
+void CASE_fixerBas(CASE_Case*, int);
+void CASE_fixerGauche(CASE_Case*, int);
+void CASE_fixerDroite(CASE_Case*, int);
 int *CASE_obtenirCasesAccessibles(CASE_Case);
 
 #endif
