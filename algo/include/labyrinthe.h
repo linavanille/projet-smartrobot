@@ -5,18 +5,12 @@
 
 #ifndef __LABYRINTHE__
 #define __LABYRINTHE__
+#include "case.h"
 
 typedef unsigned int uint;
 
 typedef struct {
-    int Haut;
-    int Gauche;
-    int Bas;
-    int Droite;
-} LAB_Case;
-
-typedef struct {
-    LAB_Case *lesConnections;
+    CASE_Case *lesConnections;
     int entree;
     int sortie;
     unsigned int largeur;
@@ -34,24 +28,24 @@ LAB_Labyrinthe LAB_creerLabyrinthe(uint, int, int);
 /**
 * @brief Obtenir la liste des cases accessibles d'une case 
 * @param LAB_Labyrinthe le labyrinthe
-* @param LAB_Case une case
+* @param CASE_Case une case
 * @return liste de cases accessibles
 */
-LAB_Case LAB_obtenirCasesAccessibles(LAB_Labyrinthe, LAB_Case);
+CASE_Case *LAB_obtenirCasesAccessibles(LAB_Labyrinthe, CASE_Case);
 
 /**
 * @brief Obtenir la case entrée d'un labyrinthe
 * @param LAB_Labyrinthe un labyrinthe
 * @return la case d'entrée
 */
-LAB_Case LAB_obtenirEntree(LAB_Labyrinthe);
+CASE_Case LAB_obtenirEntree(LAB_Labyrinthe);
 
 /**
 * @brief Obtenir la case sortie d'un labyrinthe
 * @param LAB_Labyrinthe un labyrinthe
 * @return la case de sortie
 */
-LAB_Case LAB_obtenirSortie(LAB_Labyrinthe);
+CASE_Case LAB_obtenirSortie(LAB_Labyrinthe);
 
 /**
 * @brief Obtenir la largeur d'un labyrinthe
@@ -66,6 +60,6 @@ unsigned int LAB_obtenirLargeur(LAB_Labyrinthe);
 * @param uint Le numéro de la case
 * @return la ième case
 */
-LAB_Case LAB_iemeCase(LAB_Labyrinthe, uint);
+CASE_Case LAB_iemeCase(LAB_Labyrinthe, uint);
 
 #endif
