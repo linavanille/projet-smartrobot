@@ -26,9 +26,9 @@ typedef enum {Nord,Sud,Est,Ouest} Orientation;
  */
 typedef enum {AV,TG,TD, .} Ordre;
 
-//------------------------------------------------------
+//-------------------------------------------------------
 //Fonctions de motricité (avancer, gauche, droite)
-//------------------------------------------------------
+//-------------------------------------------------------
 
 /**
  * @brief Fait avancer le robot depuis sa position actuelle jusqu'à la prochaine intersection ou virage en suivant sa direction actuelle
@@ -37,7 +37,7 @@ typedef enum {AV,TG,TD, .} Ordre;
  * @param casesAccessibles donne les cases accessibles pour chaque position
  * @return La nouvelle position du robot après avoir avancé.
  */
-Position avancer(Position position, Orientation orientation, Position** casesAccessibles);
+Position* ORD_avancer(Position* position, Orientation orientation, Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
 /**
  * @brief Change l'orientation actuelle du robot en tournant à gauche, puis fait avancer le robot
@@ -47,7 +47,7 @@ Position avancer(Position position, Orientation orientation, Position** casesAcc
  * @param casesAccessibles donne les cases accessibles pour chaque position
  * @return La nouvelle position du robot après avoir tourné et avancé
  */
-Position tournerGauche(Position position, Orientation* orientation, Position** casesAccessibles);
+Position* ORD_tournerGauche(Position* position, Orientation* orientation, Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
 /**
  * @brief Change l'orientation actuelle du robot en tournant à droite, puis fait avancer le robot
@@ -57,7 +57,7 @@ Position tournerGauche(Position position, Orientation* orientation, Position** c
  * @param casesAccessibles donne les cases accessibles pour chaque position
  * @return La nouvelle position du robot après avoir tourné et avancé
  */
-Position tournerDroite(Position position, Orientation* orientation, Position** casesAccessibles);
+Position* ORD_tournerDroite(Position position, Orientation* orientation, Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
 
 //-------------------------------------------------------
@@ -69,14 +69,14 @@ Position tournerDroite(Position position, Orientation* orientation, Position** c
  * @return La position initiale du robot (entrée)
  * @param orientation L'orientation initiale du robot (modifiée par la fonction)
  */
-Position initialisation(Orientation* orientation);
+Position ORD_initialisation(LAbyrinthe* labyrinthe, Orientation* orientation);
 
 /**
  * @brief Génère une liste d'ordres pour sortir du labyrinthe à partir d'un chemin donné
  * @param chemin La liste des positions formant le chemin
  * @return Un tableau dynamique contenant les ordres nécessaires pour suivre le chemin
  */
-Ordre* obtenirOrdres(Position* chemin);
+Ordre* ORD_obtenirOrdres(Position** chemin, int largeurLabyrinthe);
 
 
 //-------------------------------------------------------
@@ -89,7 +89,7 @@ Ordre* obtenirOrdres(Position* chemin);
  * @param caseSuivante La position cible
  * @return L'orientation à adopter pour atteindre la case cible
  */
-Orientation calculerOrientation(Position caseActuelle, Position caseSuivante);
+Orientation ORD_calculerOrientation(Position* caseActuelle, Position* caseSuivante, int largeurLabyrinthe);
 
 /**
  * @brief Détermine si le robot doit tourner à gauche, à droite, ou continuer tout droit pour atteindre une orientation cible à partir de son orientation actuelle
@@ -97,6 +97,24 @@ Orientation calculerOrientation(Position caseActuelle, Position caseSuivante);
  * @param orientationCible L'orientation que le robot doit atteindre
  * @return Ordre à effectuer 
  */
-Ordre tournerVers(Orientation orientationActuelle, Orientation orientationCible);
+Ordre ORD_tournerVers(Orientation orientationActuelle, Orientation orientationCible);
+
+/**
+ * @brief Vérifie si une case est une intersection
+ * @param posiiton Case à vérifier
+ * @param labyrinthe Contenant les informations sur les cases du labyrinthe (casesAccessibles par exemple)
+ * @return vrai si c'est une intersection, faux sinon
+ */
+ bool ORD_estIntersection(Position* position, Labyrinthe* labyrinthe);
+ 
+ /**
+ * @brief Vérifie si une case est un virage
+ * @param position Case à vérifier
+ * @param labyrinthe Contenant les informations sur les cases du labyrinthe (casesAccessibles par exemple)
+ * @param largeurLabyrinthe La largeur du labyrinthe
+ * @return vrai si c'est un virage, faux sinon
+ */
+bool ORD_estVirage(Position* position, Labyrinthe* labyrinthe, int largeurLabyrinthe);
+
 
 #endif // ORDRES_ROBOT_H
