@@ -7,4 +7,5 @@ int main()
     BUZZ_setup();
     USON_init();
     STOP_loop(BUZZ_loop, BUZZ_loop);
+    return 0;
 }

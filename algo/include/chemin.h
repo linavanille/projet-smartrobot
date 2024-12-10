@@ -1,10 +1,10 @@
 /**/
-#include "Labyrinthe.h"
+#include "labyrinthe.h"
 
 typedef ListeCase;
 
-ListeCase chemin(Labyrinthe l);
+ListeCase chemin(LAB_Labyrinthe l);
 /*Renvoi un chemin : une liste de case */
 
 
-void recSortirLabyrinthe(Labyrinthe l);
+void recSortirLabyrinthe(LAB_Labyrinthe l);
