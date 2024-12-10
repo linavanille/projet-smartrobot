@@ -1,9 +1,10 @@
 #include <wiringPi.h>
 #include <stdbool.h>
 #include "interruption.h"
-#include "lcd1602.h"
 #include "buzzer.h"
 #include "ultrason.h"
+#include "lcd1602.h"
+#include "capteursLignes.h"
 #include "motorsPi.h"
 #include "pinsRef.h"
 #include "robot.h"
@@ -17,11 +18,11 @@
 #endif
 
 void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
-    while(!SENS_intersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT) && etat != Urgence){
+    while(!CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT) && *etat != Urgence){
         MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
-        if(SENS_redresserADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+        if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
-            while(digitalRead(CPTR_LIGNE_CENTRE)==0){
+            while(CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN2, PWM_EN1);
                 /*if(USON_obtenirDistance()<=10){
                     ROBOT_urgence();
@@ -31,7 +32,7 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
            delayMicroseconds(TEMPS_REDRESSEMENT);
            MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
-        else if(SENS_redresserAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+        else if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
             while(digitalRead(CPTR_LIGNE_CENTRE)==0){
                 MTR_redresser(PWM_EN1, PWM_EN2);

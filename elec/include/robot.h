@@ -1,6 +1,6 @@
 /**
- * @file evolutionRobot.h
- * @brief Module des mouvements du ROBOT
+ * @file robot.h
+ * @brief Module des mouvements physiques du ROBOT
  *
  * @details Procédures permettant au robot d'évoluer au sein du labyrinthe
  */
