@@ -60,6 +60,6 @@ unsigned int LAB_obtenirLargeur(LAB_Labyrinthe);
 * @param uint Le numéro de la case
 * @return la ième case
 */
-CASE_Case LAB_iemeCase(LAB_Labyrinthe, uint);
+CASE_Case* LAB_iemeCase(LAB_Labyrinthe, uint);
 
 #endif
