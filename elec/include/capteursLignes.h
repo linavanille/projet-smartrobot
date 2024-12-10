@@ -10,6 +10,18 @@
 #include <stdbool.h>
 
 /**
+ * @fn void CPTR_init(int capteurCentre, int capteurGauche, int capteurDroit)
+ * @brief Initialise les GPIO des capteurs
+ * @param capteurCentre numéro du GPIO du capteur central
+ * @param capteurGauche numéro du GPIO du capteur gauche
+ * @param capteurDroit numéro du GPIO du capteur droit
+ * 
+ */
+void CPTR_init(int capteurCentre, int capteurGauche, int capteurDroit);
+
+
+
+/**
  * @fn bool CPTR_estSurLaLigne(int pinCapteur)
  * @brief Renvoie si le capteur est au dessus de la ligne ou pas
  * @param pinCapteur numéro du GPIO du capteur

@@ -11,7 +11,7 @@
 
 #define BUZZ              16
 
-#define CPTR_LIGNE_AVANT  25
+#define CPTR_LIGNE_CENTRE 25
 #define CPTR_LIGNE_GAUCHE 7
 #define CPTR_LIGNE_DROIT  8
 

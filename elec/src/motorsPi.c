@@ -74,10 +74,10 @@ void MTR_redresser(int pwmInterieur, int pwmExterieur)
 	//initialise egalement les PWM en les mettant par defaut à 50% de la sortie maximale
 void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1){
 	
-	if(wiringPiSetupGpio() == -1){
+	/*if(wiringPiSetupGpio() == -1){
 		printf("Erreur d'initialisation\n");
 	}
-	else{
+	else{*/
 
 		pinMode(A_1,OUTPUT);
 		pinMode(A_2,OUTPUT);
@@ -89,7 +89,7 @@ void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int 
 		MTR_initialisationPWM(pwm0, pwm1);
 		MTR_changerVitessePWM(pwm0, 50);
 		MTR_changerVitessePWM(pwm0, 50);
-	}
+	//}
 }
 
 

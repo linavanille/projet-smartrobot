@@ -98,7 +98,7 @@ void ROBOT_evolutionRobot(ORD_Ordre* listeDOrdre){
 
     prochaineAction = ORD_iemeOrdre(listeDOrdre, numOrdre);
 
-    while(etat!=Sorti && prochaineAction != FIN){
+    while(/*etat!=Sorti &&*/ prochaineAction != FIN){
         switch(etat){
             case Avancer :
                 ROBOT_avancer(&etat);

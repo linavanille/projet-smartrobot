@@ -7,7 +7,7 @@
 
 void USON_init()
 {
-	wiringPiSetupGpio();
+	//wiringPiSetupGpio();
 	pinMode(ECHO, INPUT);
 	pinMode(TRIG, OUTPUT);
 }

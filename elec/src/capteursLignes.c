@@ -1,6 +1,11 @@
 #include <wiringPi.h>
 #include <stdbool.h>
 
+void CPTR_init(int capteurCentre, int capteurGauche, int capteurDroit){
+    pinMode(capteurCentre, INPUT);                                                               //initialisation des Capteurs
+    pinMode(capteurGauche, INPUT); 
+    pinMode(capteurDroit, INPUT);
+}
 
 bool CPTR_estSurLaLigne(int pinCapteur)
 {
