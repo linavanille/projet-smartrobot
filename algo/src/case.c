@@ -1,4 +1,5 @@
 #include "case.h"
+#include <stdlib.h>
 
 int CASE_obtenirNumeroCase(CASE_Case c)
 {
@@ -43,4 +44,35 @@ void CASE_fixerGauche(CASE_Case* c, int num)
 void CASE_fixerDroite(CASE_Case* c, int num)
 {
     c->Droite = num;
+}
+
+int *CASE_obtenirCasesAccessibles(CASE_Case c)
+{
+    int *res = (int *)malloc(5 * sizeof(int));
+    int ca;
+    ca = CASE_obtenirBas(c);
+    if (ca != 0)
+    {
+        res[res[0]] = ca; 
+        res[0]++;
+    }
+    ca = CASE_obtenirHaut(c);
+    if (ca != 0)
+    {
+        res[res[0]] = ca; 
+        res[0]++;
+    }
+    ca = CASE_obtenirGauche(c);
+    if (ca != 0)
+    {
+        res[res[0]] = ca; 
+        res[0]++;
+    }
+    ca = CASE_obtenirDroite(c);
+    if (ca != 0)
+    {
+        res[res[0]] = ca; 
+        res[0]++;
+    }
+    return res;
 }

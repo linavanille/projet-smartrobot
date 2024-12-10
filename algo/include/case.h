@@ -9,7 +9,7 @@ typedef struct {
     int Droite;
 } CASE_Case;
 
-void CASE_creerCase(int);
+CASE_Case CASE_creerCase(int);
 int CASE_obtenirNumeroCase(CASE_Case);
 int CASE_obtenirHaut(CASE_Case);
 int CASE_obtenirBas(CASE_Case);
