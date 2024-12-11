@@ -7,7 +7,7 @@
 //-------------------------------------------------
 // Fonctions utilitaires
 //-------------------------------------------------
-Position* CASE_obtenirParNumero(int numero, LAB_Labyrinthe* labyrinthe) {
+ORD_Position* CASE_obtenirParNumero(int numero, LAB_Labyrinthe* labyrinthe) {
     if (numero < 0 || numero >= labyrinthe->largeur * labyrinthe->largeur) {
         return NULL;
     }
@@ -17,7 +17,7 @@ Position* CASE_obtenirParNumero(int numero, LAB_Labyrinthe* labyrinthe) {
 //-------------------------------------------------
 // Fonctions de motricité (avancer, gauche, droite)
 //-------------------------------------------------
-Position* ORD_avancer(Position* position, Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
+ORD_Position* ORD_avancer(ORD_Position* position, Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
     while (1) {
         int voisinNumero = -1;
 
@@ -31,7 +31,7 @@ Position* ORD_avancer(Position* position, Orientation orientation, LAB_Labyrinth
             voisinNumero = CASE_obtenirGauche(*position);
         }
 
-        Position* voisinTrouvé = CASE_obtenirParNumero(voisinNumero, labyrinthe);
+        ORD_Position* voisinTrouvé = CASE_obtenirParNumero(voisinNumero, labyrinthe);
 
         if (voisinTrouvé == NULL || !estAccessible(position, voisinTrouvé)) {
             return position; 
@@ -49,7 +49,7 @@ Position* ORD_avancer(Position* position, Orientation orientation, LAB_Labyrinth
     }
 }
 
-Position* ORD_tournerGauche(Position* position, Orientation* orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
+ORD_Position* ORD_tournerGauche(ORD_Position* position, Orientation* orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
     if (*orientation == Nord) {
         *orientation = Ouest;
     } else if (*orientation == Ouest) {
@@ -63,7 +63,7 @@ Position* ORD_tournerGauche(Position* position, Orientation* orientation, LAB_La
     return ORD_avancer(position, *orientation, labyrinthe, largeurLabyrinthe);
 }
 
-Position* ORD_tournerDroite(Position* position, Orientation* orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
+ORD_Position* ORD_tournerDroite(ORD_Position* position, Orientation* orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
     if (*orientation == Nord) {
         *orientation = Est;
     } else if (*orientation == Est) {
@@ -88,8 +88,8 @@ bool estAccessible(CASE_Case* positionActuelle, CASE_Case* positionSuivante) {
 //----------------------------
 // Fonctions d'initialisation 
 //----------------------------
-Position* ORD_initialisation(LAB_Labyrinthe* labyrinthe, Orientation* orientation) {
-    Position* entree = CASE_obtenirParNumero(labyrinthe->entree, labyrinthe);
+ORD_Position* ORD_initialisation(LAB_Labyrinthe* labyrinthe, Orientation* orientation) {
+    ORD_Position* entree = CASE_obtenirParNumero(labyrinthe->entree, labyrinthe);
 
     if (entree == NULL) {
         perror("Erreur : entrée invalide dans le labyrinthe.");
@@ -115,7 +115,7 @@ Position* ORD_initialisation(LAB_Labyrinthe* labyrinthe, Orientation* orientatio
 //-------------------------------------------------------
 // Fonctions de décision (quelle action à effectuer)
 //-------------------------------------------------------
-Orientation ORD_calculerOrientation(Position* caseActuelle, Position* caseSuivante, unsigned int largeurLabyrinthe) {
+Orientation ORD_calculerOrientation(ORD_Position* caseActuelle, ORD_Position* caseSuivante, unsigned int largeurLabyrinthe) {
     unsigned int numActuelle = CASE_obtenirNumeroCase(*caseActuelle);
     unsigned int numSuivante = CASE_obtenirNumeroCase(*caseSuivante);
 
@@ -142,7 +142,7 @@ Ordre ORD_tournerVers(Orientation orientationActuelle, Orientation orientationCi
     return TD;
 }
 
-bool ORD_estIntersection(Position* position, LAB_Labyrinthe* labyrinthe) {
+bool ORD_estIntersection(ORD_Position* position, LAB_Labyrinthe* labyrinthe) {
     int voisinsAccessibles = 0;
 
     if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe))) voisinsAccessibles++;
@@ -153,9 +153,9 @@ bool ORD_estIntersection(Position* position, LAB_Labyrinthe* labyrinthe) {
     return voisinsAccessibles > 2;
 }
 
-bool ORD_estVirage(Position* position, Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
-    Position* voisin1 = NULL;
-    Position* voisin2 = NULL;
+bool ORD_estVirage(ORD_Position* position, Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
+    ORD_Position* voisin1 = NULL;
+    ORD_Position* voisin2 = NULL;
 
     if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe))) {
         if (voisin1 == NULL) voisin1 = CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe);
@@ -189,7 +189,7 @@ bool ORD_estVirage(Position* position, Orientation orientation, LAB_Labyrinthe* 
 //--------------------
 // Fonction principale
 //--------------------
-Ordre* ORD_obtenirOrdres(Position** chemin, unsigned int tailleChemin, LAB_Labyrinthe* labyrinthe) {
+Ordre* ORD_obtenirOrdres(ORD_Position** chemin, unsigned int tailleChemin, LAB_Labyrinthe* labyrinthe) {
     Ordre* ordres = malloc(tailleChemin * sizeof(Ordre));
     unsigned int largeurLabyrinthe = labyrinthe->largeur;
 
