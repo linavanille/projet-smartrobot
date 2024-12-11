@@ -8,8 +8,8 @@
 // Fonctions utilitaires
 //-------------------------------------------------
 ORD_Position* CASE_obtenirParNumero(int numero, LAB_Labyrinthe* labyrinthe) {
-    if (numero < 0 || numero >= labyrinthe->largeur * labyrinthe->largeur) {
-        return NULL;
+	if (numero < 0 || numero >= labyrinthe->largeur * labyrinthe->largeur) {
+		return NULL;
     }
     return &labyrinthe->lesConnections[numero];
 }
