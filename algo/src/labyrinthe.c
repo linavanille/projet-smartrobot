@@ -31,12 +31,12 @@ CASE_Case LAB_obtenirSortie(LAB_Labyrinthe lab)
     return lab.lesConnections[lab.sortie];
 }
 
-CASE_Case LAB_iemeCase(LAB_Labyrinthe lab, unsigned int iCase)
+CASE_Case* LAB_iemeCase(LAB_Labyrinthe lab, unsigned int iCase)
 {
-    return lab.lesConnections[iCase];
+    return &lab.lesConnections[iCase];
 }
 
-CASE_Case *Lab_obtenirCasesAccessibles(LAB_Labyrinthe lab, unsigned int iCase)
+CASE_Case* Lab_obtenirCasesAccessibles(LAB_Labyrinthe lab, unsigned int iCase)
 {
-	// return LAB_iemeCase(lab, iCase);
+	return LAB_iemeCase(lab, iCase);
 }
