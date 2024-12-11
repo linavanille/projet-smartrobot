@@ -1,6 +1,6 @@
 #include "buzzer.h"
 #include "pinsRef.h"
-#include "wiringPi.h"
+#include <wiringPi.h>
 
 void BUZZ_setup()
 {

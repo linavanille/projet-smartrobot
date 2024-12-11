@@ -1,6 +1,6 @@
 #include "ultrason.h"
 #include <stdbool.h>
-#include "wiringPi.h"
+#include <wiringPi.h>
 
 void STOP_loop(void (*interruption)(void), void (*activation)(void))
 {

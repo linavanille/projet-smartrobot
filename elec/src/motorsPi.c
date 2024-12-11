@@ -88,7 +88,7 @@ void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int 
 
 		MTR_initialisationPWM(pwm0, pwm1);
 		MTR_changerVitessePWM(pwm0, 50);
-		MTR_changerVitessePWM(pwm0, 50);
+		MTR_changerVitessePWM(pwm1, 50);
 	//}
 }
 
