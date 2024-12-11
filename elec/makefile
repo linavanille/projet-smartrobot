@@ -10,32 +10,24 @@ OBJDIR := $(ROOTDIR)/obj
 SRCDIR := $(ROOTDIR)/src
 
 # Fichiers utiles
-TARGET := $(BINDIR)/algo
-GENDOCFILE := $(DOCDIR)/generate
-OUTDOCDIR := $(DOCDIR)/output
-
 SRC := $(wildcard $(SRCDIR)/*.c)
 OBJ := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
+ROBFUNC := $(OBJDIR)/buzzer.o $(OBJDIR)/capteursLignes.o $(OBJDIR)/initElec.o $(OBJDIR)/lcd1602.o $(OBJDIR)/motorsPi.o $(OBJDIR)/ultrason.o
 
 # Commandes utiles
+AR := ar
 CC := gcc
 CFLAGS := -Wall -pedantic
 IFLAGS := -I$(INCDIR)
-LIBFLAGS := 
+LIBFLAGS := -lwiringPi -lwiringPiDev
 
-all: $(TARGET)
-
-gendoc:
+robot: $(ROBFUNC)
 	cd $(ROOTDIR)
-	doxygen $(GENDOCFILE)
-
-$(TARGET): $(OBJ) | $(BINDIR)
-	cd $(ROOTDIR)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
+	$(AR) -r $@ $^
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	cd $(ROOTDIR)
-	$(CC) $(CFLAGS) $(IFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(IFLAGS) -o $@ -c $< $(LIBFLAGS)
 
 $(BINDIR) $(OBJDIR):
 	cd $(ROOTDIR)
