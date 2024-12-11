@@ -21,7 +21,9 @@ CFLAGS := -Wall -pedantic
 IFLAGS := -I$(INCDIR)
 LIBFLAGS := -lwiringPi -lwiringPiDev
 
-robot: $(ROBFUNC)
+robot: $l(LIBDIR)/robot.a
+
+$(LIBDIR)/robot.a: $(ROBFUNC)
 	cd $(ROOTDIR)
 	$(AR) -r $@ $^
 
