@@ -51,20 +51,21 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, ORD_Ordre prochaineAction){
     switch(prochaineAction){
         case TD:
-
-            do{
-                MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
-                delayMicroseconds(TEMPS_VIRAGE);
-            }while(digitalRead(CPTR_LIGNE_CENTRE)!=1);
-
+            MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
+            delayMicroseconds(TEMPS_VIRAGE);
+            while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
+                delayMicroseconds(TEMPS_VIRAGE/4);
+            }
             break;
         case TG :
 
-            do{
-                MTR_tournerGauche(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
-                delayMicroseconds(TEMPS_VIRAGE);
-            }while(digitalRead(CPTR_LIGNE_CENTRE)!=1);
-
+            MTR_tournerGauche(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
+            delayMicroseconds(TEMPS_VIRAGE);
+            while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
+                delayMicroseconds(TEMPS_VIRAGE/4);
+            }
+            break; 
+            
         case AV :
             *etat = Avancer;
             break;
