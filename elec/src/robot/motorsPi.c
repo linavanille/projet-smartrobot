@@ -84,7 +84,7 @@ void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int 
 		pinMode(A_3,OUTPUT);
 		pinMode(A_4,OUTPUT);
 		
-		MTR_arret(A_1, A_2, A_3, A_4); 
+		MTR_arreter(A_1, A_2, A_3, A_4); 
 
 		MTR_initialisationPWM(pwm0, pwm1);
 		MTR_changerVitessePWM(pwm0, 50);
