@@ -41,6 +41,8 @@ typedef struct Liste {
     unsigned int taille;  
 } Liste;
 
+ORD_Position* CASE_obtenirParNumero(int numero, LAB_Labyrinthe* labyrinthe);
+
 ORD_Position* ORD_avancer(ORD_Position* position, ORD_Orientation orientation, LAB_Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
 /**
