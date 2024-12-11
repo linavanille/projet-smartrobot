@@ -21,7 +21,7 @@ OBJRBT := $(patsubst $(RBTDIR)/%.c,$(OBJRBTDIR)/%.o,$(RBT))
 AR := ar
 CC := gcc
 CFLAGS := -Wall -pedantic
-IFLAGS := -I$(INCDIR)
+IFLAGS := -I$(INCDIR) -I$(INCDIR)/algo
 LIBRBTFLAGS := -lwiringPi
 LIBSRCFLAGS := -Llib -lrobot -lwiringPi
 
