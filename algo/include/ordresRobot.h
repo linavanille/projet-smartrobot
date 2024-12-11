@@ -1,5 +1,5 @@
 /**
- * @file ordresRobot.h
+ * @file ordresRobot_test.h
  * @author Lina El Omari Bouya
  * @brief Structures et fonctions nécessaires au mouvement du robot
  */
@@ -7,6 +7,8 @@
 #ifndef ORDRES_ROBOT_H
 #define ORDRES_ROBOT_H 
 #include <stdbool.h> 
+#include "labyrinthe.h"
+#include "case.h"
 
 /**
  * @struct ORD_Position
@@ -31,12 +33,16 @@ typedef enum {AV,TG,TD,FIN} ORD_Ordre;
 //-------------------------------------------------------
 
 /**
- * @brief Fait avancer le robot depuis sa position actuelle jusqu'à la prochaine intersection ou virage en suivant sa direction actuelle
- * @param position La position actuelle du robot
- * @param orientation L'orientation actuelle du robot
- * @param casesAccessibles donne les cases accessibles pour chaque position
- * @return La nouvelle position du robot après avoir avancé.
+ * @struct Liste
+ * @brief Représente une liste de cases
  */
+typedef struct Liste {
+    Position** cases;  
+    unsigned int taille;  
+} Liste;
+
+ORD_Position* CASE_obtenirParNumero(int numero, LAB_Labyrinthe* labyrinthe);
+
 ORD_Position* ORD_avancer(ORD_Position* position, ORD_Orientation orientation, LAB_Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
 /**
@@ -59,11 +65,6 @@ ORD_Position* ORD_tournerGauche(ORD_Position* position, ORD_Orientation* orienta
  */
 ORD_Position* ORD_tournerDroite(ORD_Position position, ORD_Orientation* orientation, LAB_Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
-
-//-------------------------------------------------------
-//Fonctions d'initialisation et fonction principale 
-//-------------------------------------------------------
-
 /**
  * @brief Initialise la position et l'orientation de départ du robot
  * @return La position initiale du robot (entrée)
@@ -78,6 +79,7 @@ ORD_Position ORD_initialisation(LAB_Labyrinthe* labyrinthe, ORD_Orientation* ori
  */
 ORD_Ordre* ORD_obtenirOrdres(ORD_Position** chemin, int largeurLabyrinthe);
 
+bool ORD_estVirage(Position* position, Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
 
 //-------------------------------------------------------
 //Fonctions de décision (quelle action à effectuer)
@@ -116,5 +118,6 @@ ORD_Ordre ORD_tournerVers(ORD_Orientation orientationActuelle, ORD_Orientation o
  */
 bool ORD_estVirage(ORD_Position* position, LAB_Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
+bool estAccessible(Position* positionActuelle, Position* positionVoisine);
 
 #endif // ORDRES_ROBOT_H
