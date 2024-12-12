@@ -1,4 +1,4 @@
-#include "wiringPi.h"
+#include <wiringPi.h>
 #include <stdio.h>
 #include <sys/time.h>
 #include <time.h>
@@ -7,7 +7,7 @@
 
 void USON_init()
 {
-	wiringPiSetupGpio();
+	//wiringPiSetupGpio();
 	pinMode(ECHO, INPUT);
 	pinMode(TRIG, OUTPUT);
 }

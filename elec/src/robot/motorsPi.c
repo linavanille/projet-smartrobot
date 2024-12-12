@@ -6,10 +6,10 @@
 #ifndef _VITESSE_PWM_CYCLE_
 #define _VITESSE_PWM_CYCLE_
 
-#define AVANCER_GAUCHE		80
-#define AVANCER_DROIT		80
-#define TOURNER_INTERIEUR	70
-#define TOURNER_EXTERIEUR	80
+#define AVANCER_GAUCHE		100
+#define AVANCER_DROIT		100
+#define TOURNER_INTERIEUR	90
+#define TOURNER_EXTERIEUR	100
 #define FREQUENCE           1024
 
 #endif
@@ -47,7 +47,7 @@ void MTR_avancer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
 	MTR_modifierMoteur(A_1,A_2,A_3,A_4,1,0,0,1);
 }
 
-void MTR_arret(int A_1, int A_2, int A_3, int A_4)
+void MTR_arreter(int A_1, int A_2, int A_3, int A_4)
 {
 	MTR_modifierMoteur(A_1,A_2,A_3,A_4,0,0,0,0);
 }
@@ -74,22 +74,22 @@ void MTR_redresser(int pwmInterieur, int pwmExterieur)
 	//initialise egalement les PWM en les mettant par defaut à 50% de la sortie maximale
 void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1){
 	
-	if(wiringPiSetupGpio() == -1){
+	/*if(wiringPiSetupGpio() == -1){
 		printf("Erreur d'initialisation\n");
 	}
-	else{
+	else{*/
 
 		pinMode(A_1,OUTPUT);
 		pinMode(A_2,OUTPUT);
 		pinMode(A_3,OUTPUT);
 		pinMode(A_4,OUTPUT);
 		
-		MTR_arret(A_1, A_2, A_3, A_4); 
+		MTR_arreter(A_1, A_2, A_3, A_4); 
 
 		MTR_initialisationPWM(pwm0, pwm1);
 		MTR_changerVitessePWM(pwm0, 50);
-		MTR_changerVitessePWM(pwm0, 50);
-	}
+		MTR_changerVitessePWM(pwm1, 50);
+	//}
 }
 
 
