@@ -37,7 +37,7 @@ typedef enum {AV,TG,TD,FIN} ORD_Ordre;
  * @brief Représente une liste de cases
  */
 typedef struct Liste {
-    Position** cases;  
+    ORD_Position** cases;  
     unsigned int taille;  
 } Liste;
 
@@ -79,7 +79,7 @@ ORD_Position ORD_initialisation(LAB_Labyrinthe* labyrinthe, ORD_Orientation* ori
  */
 ORD_Ordre* ORD_obtenirOrdres(ORD_Position** chemin, int largeurLabyrinthe);
 
-bool ORD_estVirage(Position* position, Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
+bool ORD_estVirage(ORD_Position* position, ORD_Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
 
 //-------------------------------------------------------
 //Fonctions de décision (quelle action à effectuer)
@@ -118,6 +118,6 @@ ORD_Ordre ORD_tournerVers(ORD_Orientation orientationActuelle, ORD_Orientation o
  */
 bool ORD_estVirage(ORD_Position* position, LAB_Labyrinthe* labyrinthe, int largeurLabyrinthe);
 
-bool estAccessible(Position* positionActuelle, Position* positionVoisine);
+bool estAccessible(ORD_Position* positionActuelle, ORD_Position* positionVoisine);
 
 #endif // ORDRES_ROBOT_H
