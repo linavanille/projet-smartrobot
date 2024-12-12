@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ordresRobot_test.h"
-#include "labyrinthe_test.h"
-#include "case_test.h"
+#include "ordresRobot.h"
+#include "labyrinthe.h"
+#include "case.h"
 
 LAB_Labyrinthe* creerLabyrintheExemple() {
 	LAB_Labyrinthe* labyrinthe = malloc(sizeof(LAB_Labyrinthe));
