@@ -41,6 +41,14 @@ typedef struct Liste {
 // Fonctions de motricité (avancer, gauche, droite)
 //-------------------------------------------------------
 
+/**
+ * @brief Fait avancer le robot jusqu'à la prochaine intersection ou le prochain virage 
+ * @param position La position actuelle du robot
+ * @param orientation L'orientation actuelle du robot
+ * @param labyrinthe Labyrinthe où se trouve le robot
+ * @param largeurLabyrinthe Taille du labyrinthe
+ * @return La nouvelle position du robot après avoir tourné et avancé
+ */
 ORD_Position* ORD_avancer(ORD_Position* position, ORD_Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
 
 /**
@@ -48,7 +56,8 @@ ORD_Position* ORD_avancer(ORD_Position* position, ORD_Orientation orientation, L
  * jusqu'à la prochaine intersection ou virage
  * @param position La position actuelle du robot
  * @param orientation L'orientation actuelle du robot
- * @param casesAccessibles donne les cases accessibles pour chaque position
+ * @param labyrinthe Labyrinthe où se trouve le robot
+ * @param largeurLabyrinthe Taille du labyrinthe
  * @return La nouvelle position du robot après avoir tourné et avancé
  */
 ORD_Position* ORD_tournerGauche(ORD_Position* position, ORD_Orientation* orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
@@ -58,7 +67,8 @@ ORD_Position* ORD_tournerGauche(ORD_Position* position, ORD_Orientation* orienta
  * jusqu'à la prochaine intersection ou virage
  * @param position La position actuelle du robot
  * @param orientation L'orientation actuelle du robot
- * @param casesAccessibles donne les cases accessibles pour chaque position
+ * @param labyrinthe Labyrinthe où se trouve le robot
+ * @param largeurLabyrinthe Taille du labyrinthe
  * @return La nouvelle position du robot après avoir tourné et avancé
  */
 ORD_Position* ORD_tournerDroite(ORD_Position* position, ORD_Orientation* orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
@@ -69,8 +79,9 @@ ORD_Position* ORD_tournerDroite(ORD_Position* position, ORD_Orientation* orienta
 
 /**
  * @brief Initialise la position et l'orientation de départ du robot
+ * @param labyrinthe Labyrinthe où se trouve le robot
+ * @param orientation L'orientation initiale du robot 
  * @return La position initiale du robot (entrée)
- * @param orientation L'orientation initiale du robot (modifiée par la fonction)
  */
 ORD_Position* ORD_initialisation(LAB_Labyrinthe* labyrinthe, ORD_Orientation* orientation);
 
@@ -82,6 +93,7 @@ ORD_Position* ORD_initialisation(LAB_Labyrinthe* labyrinthe, ORD_Orientation* or
  * @brief Calcule l'orientation nécessaire pour passer d'une case à une autre
  * @param caseActuelle La position actuelle
  * @param caseSuivante La position cible
+ * @param largeurLabyrinthe Taille du labyrinthe
  * @return L'orientation à adopter pour atteindre la case cible
  */
 ORD_Orientation ORD_calculerOrientation(ORD_Position* caseActuelle, ORD_Position* caseSuivante, unsigned int largeurLabyrinthe);
@@ -99,7 +111,7 @@ ORD_Orientation ORD_calculerOrientation(ORD_Position* caseActuelle, ORD_Position
  */
 bool ORD_estIntersection(ORD_Position* position, LAB_Labyrinthe* labyrinthe);
 
- /**
+/**
  * @brief Vérifie si une case est un virage
  * @param position Case à vérifier
  * @param labyrinthe Contenant les informations sur les cases du labyrinthe (casesAccessibles par exemple)
@@ -108,6 +120,13 @@ bool ORD_estIntersection(ORD_Position* position, LAB_Labyrinthe* labyrinthe);
  */
 bool ORD_estVirage(ORD_Position* position, ORD_Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
 
+
+/**
+ * @brief Vérifie si une case est accessible
+ * @param positionActuelle Case où le robot est
+ * @param positionVoisine Case à vérifier
+ * @return vrai si c'est une case accesible, faux sinon
+ */
 bool estAccessible(ORD_Position* positionActuelle, ORD_Position* positionVoisine);
 
 //-------------------------------------------------------
@@ -117,6 +136,8 @@ bool estAccessible(ORD_Position* positionActuelle, ORD_Position* positionVoisine
 /**
  * @brief Génère une liste d'ordres pour sortir du labyrinthe à partir d'un chemin donné
  * @param chemin La liste des positions formant le chemin
+ * @param tailleChemin Nombre de cases à parcourir
+ * @param labyrinthe Labyrinthe où se trouve le robot
  * @return Un tableau dynamique contenant les ordres nécessaires pour suivre le chemin
  */
 ORD_Ordre* ORD_obtenirOrdres(ORD_Position** chemin, unsigned int tailleChemin, LAB_Labyrinthe* labyrinthe);
