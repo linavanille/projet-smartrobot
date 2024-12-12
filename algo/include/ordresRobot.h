@@ -33,8 +33,8 @@ typedef enum {AV,TG,TD} Ordre;
  * @brief Représente une liste de cases
  */
 typedef struct Liste {
-    Position** cases;  
-    unsigned int taille;  
+	Position** cases;  
+	unsigned int taille;  
 } Liste;
 
 Position* ORD_avancer(Position* position, Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe);
