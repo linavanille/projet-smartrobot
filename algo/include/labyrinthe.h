@@ -38,21 +38,21 @@ CASE_Case *LAB_obtenirCasesAccessibles(LAB_Labyrinthe, CASE_Case);
 * @param LAB_Labyrinthe un labyrinthe
 * @return la case d'entrée
 */
-CASE_Case LAB_obtenirEntree(LAB_Labyrinthe);
+CASE_Case* LAB_obtenirEntree(LAB_Labyrinthe*);
 
 /**
 * @brief Obtenir la case sortie d'un labyrinthe
 * @param LAB_Labyrinthe un labyrinthe
 * @return la case de sortie
 */
-CASE_Case LAB_obtenirSortie(LAB_Labyrinthe);
+CASE_Case* LAB_obtenirSortie(LAB_Labyrinthe*);
 
 /**
 * @brief Obtenir la largeur d'un labyrinthe
 * @param LAB_Labyrinthe un labyrinthe
 * @return la largeur
 */
-unsigned int LAB_obtenirLargeur(LAB_Labyrinthe);
+unsigned int LAB_obtenirLargeur(LAB_Labyrinthe*);
 
 /**
 * @brief Obtenir la ième case d'un labyrinthe
@@ -60,6 +60,6 @@ unsigned int LAB_obtenirLargeur(LAB_Labyrinthe);
 * @param uint Le numéro de la case
 * @return la ième case
 */
-CASE_Case LAB_iemeCase(LAB_Labyrinthe, uint);
+CASE_Case* LAB_iemeCase(LAB_Labyrinthe*, uint);
 
 #endif
