@@ -23,8 +23,7 @@ int lcdHandle;
 
 int LCD_Init()
 {
-    int i;
-    int nc=0; 
+    int i; 
     pcf8574Setup(AF_BASE,0x27); //pcf8574 I2C address
     for(i=0;i<8;i++)
     {
@@ -42,9 +41,7 @@ int LCD_Init()
 }
 
 void LCD_Write(char arcLine1[17], char arcLine2[17])
-{
-    int nc =2;
-    
+{    
     lcdClear(lcdHandle);
     lcdPosition(lcdHandle, 0, 0);
     lcdPrintf(lcdHandle, arcLine1);
