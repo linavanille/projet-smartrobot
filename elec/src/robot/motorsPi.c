@@ -20,6 +20,9 @@ void MTR_initialisationPWM(int pwm0, int pwm1){
 
 	pinMode(pwm0,PWM_OUTPUT);
 	pinMode(pwm1,PWM_OUTPUT);
+	pwmSetMode(PWM_MODE_MS);
+    pwmSetRange(FREQUENCE);
+    pwmSetClock(32);
 }
 
 

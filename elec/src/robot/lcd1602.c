@@ -24,25 +24,34 @@ int lcdHandle;
 int LCD_Init()
 {
     int i;
+    int nc=0; 
     pcf8574Setup(AF_BASE,0x27); //pcf8574 I2C address
-    lcdHandle = lcdInit(2, 16, 4, AF_RS, AF_E, AF_DB4,AF_DB5,AF_DB6,AF_DB7, 0,0,0,0);
+    for(i=0;i<8;i++)
+    {
+        pinMode(AF_BASE+i,OUTPUT);
+    }
+    digitalWrite(AF_LED, HIGH);
+    digitalWrite(AF_RW, LOW);
+    lcdHandle = lcdInit(2, 16, 4, AF_RS, AF_E, AF_DB4, AF_DB5, AF_DB6, AF_DB7, 0,0,0,0);
     if (lcdHandle < 0)
     {
-        // fprintf(stderr, "lcdInit failed\n");
-        return EXIT_FAILURE;
+	printf("Erreur d'initiatlisation LCD\n");
+	return EXIT_FAILURE; 
     }
-    for(i=0;i<8;i++)
-        pinMode(AF_BASE+i,OUTPUT);
-    digitalWrite(AF_LED,1);
-    digitalWrite(AF_RW,0);
-
     return EXIT_SUCCESS;
 }
 
 void LCD_Write(char arcLine1[17], char arcLine2[17])
 {
+    int nc =2;
+    
     lcdClear(lcdHandle);
     lcdPosition(lcdHandle, 0, 0);
     lcdPrintf(lcdHandle, arcLine1);
+    lcdPosition(lcdHandle, 0, 1);
     lcdPrintf(lcdHandle, arcLine2);
+}
+
+void LCD_clear(int handle){
+    lcdClear(handle);
 }

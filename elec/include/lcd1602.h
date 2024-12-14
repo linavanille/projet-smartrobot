@@ -22,4 +22,11 @@ int LCD_Init(void);
  */
 void LCD_Write(char arcLine1[17], char arcLine2[17]);
 
+/**
+ * @brief Efface le LCD
+ * @param handle identifiant du LCD attribué par lcdInit
+ *
+ */
+void LCD_clear(int handle);
+
 #endif

@@ -10,7 +10,7 @@ void BUZZ_setup()
 void BUZZ_loop()
 {
   digitalWrite(BUZZ, HIGH);
-  delayMicroseconds(500);
+  delayMicroseconds(500000);
   digitalWrite(BUZZ, LOW);
 }
 

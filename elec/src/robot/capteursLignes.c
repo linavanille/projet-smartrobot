@@ -11,7 +11,7 @@ bool CPTR_estSurLaLigne(int pinCapteur)
 {
     int signal = digitalRead(pinCapteur);
     
-    if(signal == HIGH){
+    if(signal == LOW){
         return false;
     }
     else{
