@@ -95,12 +95,15 @@ void ROBOT_urgence(){
 
 void ROBOT_evolutionRobot()
 {
-    char prochaineAction[3] = "00";
+    char prochaineAction[10];
     
     ROBOT_EtatDAvancement etat = Avancer;
 
     while(prochaineAction[0] != '.'){
         scanf("%s", prochaineAction);
+        if(prochaineAction[0] == 'E'){
+            scanf("%s", prochaineAction);
+        }
         switch(etat){
             case Avancer :
                 ROBOT_avancer(&etat);
