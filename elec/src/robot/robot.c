@@ -13,8 +13,9 @@
 #ifndef __TEMPS__
 #define __TEMPS__
 
-#define TEMPS_REDRESSEMENT      100000      //temps en ms pour remetrre le robot droit après redressement
-#define TEMPS_VIRAGE            250000      //temps en ms d'un virage
+#define TEMPS_ATTENTE           200000      //temps d'attente en ms du début du virage 
+#define TEMPS_VIRAGE            100         //temps en ms d'un virage
+#define TEMPS_ARRIVE_INTER      700000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
 
 #endif
 
@@ -29,8 +30,6 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
                     ROBOT_urgence();
                 }
             }
-           MTR_redresser(PWM_EN1, PWM_EN2);
-           delayMicroseconds(TEMPS_REDRESSEMENT);
            MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
         else if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
@@ -41,10 +40,9 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
                     ROBOT_urgence();
                 }
             }
-            MTR_redresser(PWM_EN2, PWM_EN1);
-            delayMicroseconds(TEMPS_REDRESSEMENT);
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
+        delayMicroseconds(TEMPS_ARRIVE_INTER);
         *etat = Intersection; 
     }
 }
@@ -53,17 +51,17 @@ void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
     switch(prochaineAction[1]){
         case 'D':
             MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
-            delayMicroseconds(TEMPS_VIRAGE);
-            while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
-                delayMicroseconds(TEMPS_VIRAGE/4);
+            delayMicroseconds(TEMPS_ATTENTE);
+            while(!CPTR_estSurLaLigne(CPTR_LIGNE_DROIT)){
+                delayMicroseconds(TEMPS_VIRAGE);
             }
             break;
         case 'G' :
 
             MTR_tournerGauche(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
             delayMicroseconds(TEMPS_VIRAGE);
-            while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
-                delayMicroseconds(TEMPS_VIRAGE/4);
+            while(!CPTR_estSurLaLigne(CPTR_LIGNE_GAUCHE)){
+                delayMicroseconds(TEMPS_VIRAGE);
             }
             break; 
             
