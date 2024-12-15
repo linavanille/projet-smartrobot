@@ -13,8 +13,8 @@
 #ifndef __TEMPS__
 #define __TEMPS__
 
-#define TEMPS_REDRESSEMENT      250       //temps en ms pour remetrre le robot droit après redressement
-#define TEMPS_VIRAGE            500      //temps en ms d'un virage
+#define TEMPS_REDRESSEMENT      100000      //temps en ms pour remetrre le robot droit après redressement
+#define TEMPS_VIRAGE            250000      //temps en ms d'un virage
 
 #endif
 
@@ -97,11 +97,12 @@ void ROBOT_urgence(){
 
 void ROBOT_evolutionRobot()
 {
-    char prochaineAction[5];
-    scanf("%s", prochaineAction);
+    char prochaineAction[3] = "00";
+    
     ROBOT_EtatDAvancement etat = Avancer;
 
     while(prochaineAction[0] != '.'){
+        scanf("%s", prochaineAction);
         switch(etat){
             case Avancer :
                 ROBOT_avancer(&etat);

@@ -77,7 +77,6 @@ void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int 
 		printf("Erreur d'initialisation\n");
 	}
 	else{*/
-	printf("Debut Init\n");
 
 	pinMode(A_1,OUTPUT);
 	pinMode(A_2,OUTPUT);
