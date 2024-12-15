@@ -49,6 +49,6 @@ void LCD_Write(char arcLine1[17], char arcLine2[17])
     lcdPrintf(lcdHandle, arcLine2);
 }
 
-void LCD_clear(int handle){
-    lcdClear(handle);
+void LCD_clear(){
+    lcdClear(lcdHandle);
 }

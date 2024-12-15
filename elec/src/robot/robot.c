@@ -1,5 +1,6 @@
 #include <wiringPi.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "interruption.h"
 #include "buzzer.h"
 #include "ultrason.h"
@@ -22,11 +23,11 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
         MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
-            while(CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
+            while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN2, PWM_EN1);
-                /*if(USON_obtenirDistance()<=10){
+                if(USON_obtenirDistance()<=10){
                     ROBOT_urgence();
-                }*/
+                }
             }
            MTR_redresser(PWM_EN1, PWM_EN2);
            delayMicroseconds(TEMPS_REDRESSEMENT);
@@ -34,11 +35,11 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
         }
         else if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
-            while(digitalRead(CPTR_LIGNE_CENTRE)==0){
+            while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN1, PWM_EN2);
-                /*if(USON_obtenirDistance()<=10){
+                if(USON_obtenirDistance()<=10){
                     ROBOT_urgence();
-                }*/
+                }
             }
             MTR_redresser(PWM_EN2, PWM_EN1);
             delayMicroseconds(TEMPS_REDRESSEMENT);
@@ -48,16 +49,16 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
     }
 }
 
-void ROBOT_intersection(ROBOT_EtatDAvancement* etat, ORD_Ordre prochaineAction){
-    switch(prochaineAction){
-        case TD:
+void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
+    switch(prochaineAction[1]){
+        case 'D':
             MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
             delayMicroseconds(TEMPS_VIRAGE);
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 delayMicroseconds(TEMPS_VIRAGE/4);
             }
             break;
-        case TG :
+        case 'G' :
 
             MTR_tournerGauche(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
             delayMicroseconds(TEMPS_VIRAGE);
@@ -66,7 +67,7 @@ void ROBOT_intersection(ROBOT_EtatDAvancement* etat, ORD_Ordre prochaineAction){
             }
             break; 
             
-        case AV :
+        case 'V' :
             *etat = Avancer;
             break;
         default :
@@ -77,29 +78,30 @@ void ROBOT_intersection(ROBOT_EtatDAvancement* etat, ORD_Ordre prochaineAction){
 
 void ROBOT_urgence(){
     float dist;
-    BUZZ_ON();
+    char texte1[17] = "Interruption";
+    char texte2[17]= "Obstacle";
+
 
     dist = USON_obtenirDistance();
     while (dist<=10)
     {
+        BUZZ_loop();
         MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
-        LCD_Write("Attention", "Obstacle");
+        LCD_Write(texte1, texte2);
         dist = USON_obtenirDistance();
-        delayMicroseconds(500);
+        delayMicroseconds(200000);
     }
-
     BUZZ_OFF();
+    LCD_clear();
 }
 
-void ROBOT_evolutionRobot(ORD_Ordre* listeDOrdre){
-
-    ORD_Ordre prochaineAction;
+void ROBOT_evolutionRobot()
+{
+    char prochaineAction[5];
+    scanf("%s", prochaineAction);
     ROBOT_EtatDAvancement etat = Avancer;
-    int numOrdre = 1;
 
-    prochaineAction = ORD_iemeOrdre(listeDOrdre, numOrdre);
-
-    while(/*etat!=Sorti &&*/ prochaineAction != FIN){
+    while(prochaineAction[0] != '.'){
         switch(etat){
             case Avancer :
                 ROBOT_avancer(&etat);
