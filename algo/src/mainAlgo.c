@@ -7,7 +7,7 @@
 #include "labyrinthe.h"
 #include "initLab.h"
 #include "chemin.h"
-#include "ordresRobot.h"
+#include "ordres.h"
 
 int main(int argc, char** argv){
     LAB_Labyrinthe labyrinthe;
