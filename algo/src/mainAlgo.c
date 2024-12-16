@@ -7,7 +7,7 @@
 #include "labyrinthe.h"
 #include "initLab.h"
 #include "chemin.h"
-#include "ordresRobot.h"
+#include "ordres.h"
 
 int main(int argc, char** argv){
     LAB_Labyrinthe labyrinthe;
@@ -30,24 +30,24 @@ int main(int argc, char** argv){
     
     initialisationLabyrinthe(path, &labyrinthe);
     //chemim = CHM_chemin(labyrinthe)
-    //listeDOrdre = ORD_obtenirOrdres(&chemin, LAB_obtenirLargeur(labyrinthe));
+    listeDOrdre = ORD_obtenirOrdres(&chemin, CHM_obtenirLongueur(chemin), LAB_obtenirLargeur(&labyrinthe));
     do{
         switch(ORD_iemeOrdre(listeDOrdre, i)){
             case AV :
-                printf("AV");
+                printf("AV ");
             case TD :
-                printf("TD");
+                printf("TD ");
                 break;
             case TG :
-                printf("TG");
+                printf("TG ");
                 break;
             case FIN :
-                printf(".");
+                printf(". ");
                 done = true;
                 break;
             default :
                 printf("ERROR");
-                break; 
+                break;
         }
         i++;
     }while(!done);

@@ -23,8 +23,8 @@
 #define MOTEUR_IN3        14
 #define MOTEUR_IN4        15
 
-#define PWM_EN1           13
-#define PWM_EN2           12
+#define PWM_EN1           12
+#define PWM_EN2           13
 
 #define I2C_SDA           2
 #define I2C_SCL           3

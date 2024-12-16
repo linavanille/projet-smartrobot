@@ -67,18 +67,18 @@
         \Tq{(\textbf{non} SENS\_instersection) \textbf{et} (etat $\neq$ Urgence)}{
             \eSi{USON\_obtenirDistance () $\leq$ 10}{etat $\leftarrow$ Urgence}
             {MTR\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)\\
-                \uSi{$SENS\_redresserADroite$}{
+                \uSi{CPTR\_estTropAGauche (CPTR\_LIGNE\_CENTRE, CPTR\_LIGNE\_GAUCHE, CPTR\_LIGNE\_DROIT)}{
                     MTR\_redresser (PWM\_EN2, PWM\_EN1)\\
-                    \Repeter{digitalRead (LINE\_SENSOR\_FRONT) = 1}{
+                    \Repeter{CPTR\_estSurLaLigne (CPTR\_LIGNE\_CENTRE)}{
                         \Si{USON\_obtenirDistance () $\leq$ 10}{ROBOT\_urgence ()}
                     }
                     MTR\_redresser (PWM\_EN1, PWM\_EN2)\\
                     attendre ()\\
                     MTR\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)
                 }
-                \SinonSi{$SENS\_redresserAGauche$}{
+                \SinonSi{CPTR\_estTropADroite (CPTR\_LIGNE\_CENTRE, CPTR\_LIGNE\_GAUCHE, CPTR\_LIGNE\_DROIT)}{
                     MTR\_redresser (PWM\_EN1, PWM\_EN2)\\
-                    \Repeter{digitalRead (LINE\_SENSOR\_FRONT) = 1}{
+                    \Repeter{CPTR\_estSurLaLigne (CPTR\_LIGNE\_CENTRE)}{
                         \Si{USON\_obtenirDistance () $\leq$ 10}{ROBOT\_urgence ()}
                     }
                     MTR\_redresser (PWM\_EN2, PWM\_EN1)\\
@@ -88,12 +88,12 @@
             etat $\leftarrow$ Intersection
             }
         }
-    \end{algorithm}
+\end{algorithm}
 
 \noindent\textbf{fin}
 
 \newpage
-\noindent\textbf{procedure} ROBOT\_intersection (\textbf{E/S:} etat: \textbf{ROBOT\_EtatDAvancement}, \textbf{E:} prochaineAction: \textbf{ORD\_Ordre})
+\noindent\textbf{procedure} ROBOT\_intersection (\textbf{E/S:} etat: \textbf{ROBOT\_EtatDAvancement}, \textbf{E:} listeDOrdres: \textbf{Chaine de caractères})
 
 \noindent
 \textbf{début}
@@ -114,28 +114,33 @@
 \textbf{début}
 
     \begin{algorithm}[H]
-        BUZZ\_ON ()\\
-        STOP\_loop ()\\
-        BUZZ\_OFF ()
+        dist $\leftarrow$ USON\_obtenirDistance ()\\
+        \Tq{dist $\leq $ 10}{
+            BUZZ\_loop ()\\
+            MTR\_arreter (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\
+            LCD\_Write ("Interrution", "Obstacle")\\
+            dist $\leftarrow$ USON\_obtenirDistance ()\\
+            attendre (0.2)
+            }
+        BUZZ\_OFF ()\\
+        LCD\_clear ()
     \end{algorithm}
 
 \noindent\textbf{fin}\\
 
-\noindent\textbf{procedure} ROBOT\_evolutionRobot (\textbf{E:} listeDOrdres: \textbf{ORD\_ListeDOrdres})
+\noindent\textbf{procedure} ROBOT\_evolutionRobot ()
 
 \begin{tabular}{ll}
-    \textbf{Déclaration:} & prochaineAction: \textbf{ORD\_Ordre}\\
+    \textbf{Déclaration:} & prochaineAction: \textbf{Chaine de caractères}\\
      & etat: \textbf{ROBOT\_EtatDAvancement}\\
-     & numOrdre: \textbf{Naturel Non Nul}
 \end{tabular}
 
 \noindent\textbf{début}
 
     \begin{algorithm}[H]
-        numOrdre $\leftarrow$ 1\\
+        \textbf{lire} (prochaineAction)\\
         etat $\leftarrow$ Avancer\\
-        prochaineAction $\leftarrow$ ORD\_obtenirIemeOrdre (listeDOrdre, numOrdre)\\
-        \Tq{etat $\neq$ Sorti \textbf{et} prochaineAction $\neq$.}{
+        \Tq{prochaineAction $\neq$ '.'}{
             \Suivant{etat}{
                 \Cas{Avancer}{ROBOT\_avancer (etat)}
                 \Cas{Intersection}{tourner (etat)}

@@ -22,4 +22,10 @@ int LCD_Init(void);
  */
 void LCD_Write(char arcLine1[17], char arcLine2[17]);
 
+/**
+ * @brief Efface le LCD
+ *
+ */
+void LCD_clear();
+
 #endif
