@@ -7,19 +7,19 @@
 #define _VITESSE_PWM_CYCLE_
 
 #define AVANCER_GAUCHE		100
-#define AVANCER_DROIT		100
-#define TOURNER_INTERIEUR	90
+#define AVANCER_DROITE		100
+#define TOURNER_INTERIEUR	30
 #define TOURNER_EXTERIEUR	100
 #define FREQUENCE           1024
 
 #endif
 
-//Note : le PWM0 correspondra à la roue gauche et le PWM1 à la roue droite
+//Note : le PWM0 correspond à la roue droite et le PWM1 à la roue gauche
 
 void MTR_initialisationPWM(int pwm0, int pwm1){
 
-	pinMode(pwm0,PWM_OUTPUT);
-	pinMode(pwm1,PWM_OUTPUT);
+    pinMode(pwm0,PWM_OUTPUT);
+    pinMode(pwm1,PWM_OUTPUT);
 }
 
 
@@ -42,12 +42,11 @@ void MTR_modifierMoteur(int A_1, int A_2, int A_3, int A_4, int val1, int val2, 
 void MTR_avancer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
 {
 	MTR_changerVitessePWM(pwm0, AVANCER_GAUCHE);
-	MTR_changerVitessePWM(pwm1, AVANCER_DROIT);
-	
-	MTR_modifierMoteur(A_1,A_2,A_3,A_4,1,0,0,1);
+	MTR_changerVitessePWM(pwm1, AVANCER_DROITE);
+	MTR_modifierMoteur(A_1,A_2,A_3,A_4,0,1,0,1);
 }
 
-void MTR_arret(int A_1, int A_2, int A_3, int A_4)
+void MTR_arreter(int A_1, int A_2, int A_3, int A_4)
 {
 	MTR_modifierMoteur(A_1,A_2,A_3,A_4,0,0,0,0);
 }
@@ -55,12 +54,12 @@ void MTR_arret(int A_1, int A_2, int A_3, int A_4)
 
 void MTR_tournerDroite(int A_1, int A_2, int A_3, int A_4)
 {
-	MTR_modifierMoteur(A_1,A_2,A_3,A_4,1,0,1,0);
+	MTR_modifierMoteur(A_1,A_2,A_3,A_4, 1,0,0,1);
 }
 
 void MTR_tournerGauche(int A_1, int A_2, int A_3, int A_4)
 {
-	MTR_modifierMoteur(A_1,A_2,A_3,A_4,0,1,0,1);
+	MTR_modifierMoteur(A_1,A_2,A_3,A_4,0,1,1,0);
 }
 
 void MTR_redresser(int pwmInterieur, int pwmExterieur)
@@ -79,16 +78,25 @@ void MTR_initialisationMoteur(int A_1, int A_2, int A_3, int A_4, int pwm0, int 
 	}
 	else{*/
 
-		pinMode(A_1,OUTPUT);
-		pinMode(A_2,OUTPUT);
-		pinMode(A_3,OUTPUT);
-		pinMode(A_4,OUTPUT);
-		
-		MTR_arret(A_1, A_2, A_3, A_4); 
+	pinMode(A_1,OUTPUT);
+	pinMode(A_2,OUTPUT);
+	pinMode(A_3,OUTPUT);
+	pinMode(A_4,OUTPUT);
+	
+	printf("GPIO init done\n");
 
-		MTR_initialisationPWM(pwm0, pwm1);
-		MTR_changerVitessePWM(pwm0, 50);
-		MTR_changerVitessePWM(pwm0, 50);
+	MTR_arreter(A_1, A_2, A_3, A_4);
+
+	printf("arret des moteurs done\n");
+
+	MTR_initialisationPWM(pwm0, pwm1);
+	
+	printf("Init PWM done\n");
+
+	MTR_changerVitessePWM(pwm0, AVANCER_DROITE);
+	MTR_changerVitessePWM(pwm1, AVANCER_GAUCHE);
+
+	printf("Initialisation Done\n");
 	//}
 }
 

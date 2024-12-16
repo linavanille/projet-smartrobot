@@ -9,8 +9,6 @@
 #ifndef __EVOLUTION_ROBOT_
 #define __EVOLUTION_ROBOT_
 
-#include "ordresRobot.h"
-
 /**
  * @enum EtatDAvancement
  * @brief Enumération de situations potentielles du ROBOT
@@ -42,7 +40,7 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat);
  * 
  */
 
-void ROBOT_intersection(ROBOT_EtatDAvancement* etat, ORD_Ordre prochaineAction);
+void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction);
 
 /**
  * @fn void ROBOT_urgence() 
@@ -63,6 +61,6 @@ void ROBOT_urgence();
  * 
  */
 
-void ROBOT_evolutionRobot(ORD_Ordre* listeDOrdre);
+void ROBOT_evolutionRobot();
 
 #endif

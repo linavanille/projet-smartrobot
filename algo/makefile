@@ -31,7 +31,7 @@ gendoc:
 
 $(TARGET): $(OBJ) | $(BINDIR)
 	cd $(ROOTDIR)
-	$(CC) $(CFLAGS) $(LIBFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	cd $(ROOTDIR)
