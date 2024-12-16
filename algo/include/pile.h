@@ -6,10 +6,10 @@
 */
 #ifndef __PILE_H__
 #define __PILE_H__
-#define MAXELEM  1000
+#define MAXELEM_PILE  25
 
 typedef struct  {
-    int lesCases[MAXELEM];
+    int lesCases[MAXELEM_PILE];
     int nbCase;
 }PILE;
 
