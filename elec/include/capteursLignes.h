@@ -36,7 +36,7 @@ bool CPTR_estSurLaLigne(int pinCapteur);
  * @param capteurCentre numéro du GPIO du capteur central
  * @param capteurGauche numéro du GPIO du capteur gauche
  * @param capteurDroit numéro du GPIO du capteur droit
- * @details Une intersection correspond à une détection du capteur central et de l'un des deux autres capteurs.
+ * @details Une intersection correspond à une détection du capteur central et de l'un des deux autres capteurs (ou des deux).
  */
 
 bool CPTR_estSurUneIntersection(int capteurCentre, int capteurGauche, int capteurDroit);

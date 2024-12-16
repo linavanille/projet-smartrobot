@@ -20,8 +20,15 @@
 #endif
 
 void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
-    while(!CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT) && *etat != Urgence){
-        MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+    char avant[17] = "Let's go !"; 
+    char vide[17] = "";
+
+    LCD_Write(avant, vide);
+    MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+    while(!CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+        if (USON_obtenirDistance()<=10){
+                    ROBOT_urgence();
+                }
         if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
@@ -43,8 +50,8 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
         delayMicroseconds(TEMPS_ARRIVE_INTER);
-        *etat = Intersection; 
     }
+    *etat = Intersection; 
 }
 
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
@@ -77,7 +84,7 @@ void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
 void ROBOT_urgence(){
     float dist;
     char texte1[17] = "Interruption";
-    char texte2[17]= "Obstacle";
+    char texte2[17]= "Obstacle !";
 
 
     dist = USON_obtenirDistance();
@@ -111,9 +118,6 @@ void ROBOT_evolutionRobot()
             case Intersection :
                 ROBOT_intersection(&etat, prochaineAction);
                 break;
-            case Urgence :
-                ROBOT_urgence();
-                break;
             case Sorti :
                 MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
                 delayMicroseconds(2000);
@@ -122,6 +126,9 @@ void ROBOT_evolutionRobot()
                     BUZZ_loop();
                 }
                 MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
+                break;
+            default :
+                ROBOT_urgence();
                 break;
         }
     }

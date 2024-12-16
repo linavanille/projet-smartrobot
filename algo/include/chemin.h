@@ -5,7 +5,7 @@
 #include "ensemble.h"
 
 
-*CASE_Case chemin(LAB_Labyrinthe l);
+CASE_Case* chemin(LAB_Labyrinthe l);
 /*Renvoi un chemin : une liste de case */
 
 /**
