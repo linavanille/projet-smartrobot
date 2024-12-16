@@ -6,6 +6,7 @@
 #include "motorsPi.h"
 #include "capteursLignes.h"
 #include "ultrason.h"
+#include "buzzer.h"
 #include "robot.h"
 
 #ifndef TPS
@@ -16,42 +17,45 @@
 #endif
 
 int main(){
-	char bonjour[17] = "Bonjour";
+    char bonjour[17] = "Bonjour";
     char vide[17] = "";
-    char init[17] = "Initialisation...";
+    char depart[17] = "LESS' GO !";
     char init2[17] = "Initialisation";
     char fin[17] = "finie !";
 
+    initialisationGPIO();
     LCD_Write(bonjour, vide);
     delayMicroseconds(2000000);
-    LCD_Write(init, vide);
-	initialisationGPIO();
     LCD_Write(init2, fin);
+    delayMicroseconds(1500000);
+    LCD_Write(depart, vide);
+    delayMicroseconds(1500000);
+    LCD_clear();
 
-    MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
-    if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
-
-        while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
-            MTR_redresser(PWM_EN2, PWM_EN1);
-            if(USON_obtenirDistance()<=10){
-                ROBOT_urgence();
-            }
-        }
-        MTR_redresser(PWM_EN1, PWM_EN2);
-        delayMicroseconds(TEMPS_REDRESSEMENT);
-        MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
-    }
-    else if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
-
-        while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
-            MTR_redresser(PWM_EN1, PWM_EN2);
-            if(USON_obtenirDistance()<=10){
-                ROBOT_urgence();
-            }
-        }
-        MTR_redresser(PWM_EN2, PWM_EN1);
-        delayMicroseconds(TEMPS_REDRESSEMENT);
-        MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+    while(1){
+    	MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+    	if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+	    while (!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
+	    	MTR_redresser(PWM_EN2, PWM_EN1);
+	    }
+	    MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+    	}
+    	if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+	    while (!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
+		MTR_redresser(PWM_EN1, PWM_EN2);
+	    }
+	    MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+	}
+	if (CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+	    delayMicroseconds(750000);
+	    MTR_tournerGauche(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
+	    delayMicroseconds(200000);
+	    while (!CPTR_estSurLaLigne(CPTR_LIGNE_GAUCHE)){
+		    delayMicroseconds(100);
+	    }
+	    MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
+	    break;
+	}
     }
 	return 0;
 }
