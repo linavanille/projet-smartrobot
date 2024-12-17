@@ -27,18 +27,16 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
     MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
     while(!estSurInter){
         estSurInter = CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT);
-        if (CPTR_estSurLaLigne(CPTR_LIGNE_GAUCHE))
-
-        if (USON_obtenirDistance()<=10){
+        /*if (USON_obtenirDistance()<=10){
                     ROBOT_urgence();
-                }
+                }*/
         if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN2, PWM_EN1);
-                if(USON_obtenirDistance()<=10){
-                    ROBOT_urgence();
-                }
+                // if(USON_obtenirDistance()<=10){
+                //     ROBOT_urgence();
+                // }
             }
            MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
@@ -46,9 +44,9 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN1, PWM_EN2);
-                if(USON_obtenirDistance()<=10){
-                    ROBOT_urgence();
-                }
+                // if(USON_obtenirDistance()<=10){
+                //     ROBOT_urgence();
+                // }
             }
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
