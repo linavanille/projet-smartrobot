@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ordresRobot.h"
+#include "ordres.h"
 #include "case.h"
 #include "labyrinthe.h"
 
