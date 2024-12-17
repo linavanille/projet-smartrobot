@@ -1,4 +1,4 @@
-#include "case.h"
+#include "../include/case.h"
 #include <stdlib.h>
 
 int CASE_obtenirNumeroCase(CASE_Case c)
