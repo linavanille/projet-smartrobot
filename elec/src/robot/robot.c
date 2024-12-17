@@ -62,8 +62,8 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
 }
 
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
+    printf("%s\n", prochaineAction); 
     switch(prochaineAction[1]){
-        printf("%s\n", prochaineAction); 
         case 'D':
             MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
             delayMicroseconds(TEMPS_ATTENTE);
