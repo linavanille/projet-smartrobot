@@ -1,4 +1,5 @@
 #include "../include/chemin.h"
+#include "../include/ensemble.h"
 
 /*Permet d'obtenir un chemin*/
 PILE* chemin(LAB_Labyrinthe* l){
@@ -22,12 +23,12 @@ void recSortirLabyrinthe(CASE_Case c, Ensemble* visitees,CASE_Case objectif,PILE
         if(CASE_obtenirNumeroCase(c)!= CASE_obtenirNumeroCase(objectif)){
             enfants = CASE_obtenirCasesAccessibles(c);
             i=1;
-            while((i<=enfants[0])&&(obtenirCase(res)!=objectif)){
+            while((i<=enfants[0])&&(obtenirCase(res)!=CASE_obtenirNumeroCase(objectif))){
                 enfant.Numero = enfants[i];
                 recSortirLabyrinthe(enfant,visitees,objectif,res);
                 i++;
             };
-            if(objectif != obtenirCase(res)){
+            if(CASE_obtenirNumeroCase(objectif) != obtenirCase(res)){
                 depiler(res);
             }
         }
