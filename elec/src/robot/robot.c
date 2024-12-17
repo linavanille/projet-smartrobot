@@ -20,10 +20,6 @@
 #endif
 
 void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
-    char avant[17] = "Let's go !"; 
-    char vide[17] = "";
-
-    LCD_Write(avant, vide);
     MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
     while(!CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
         if (USON_obtenirDistance()<=10){
@@ -102,15 +98,18 @@ void ROBOT_urgence(){
 
 void ROBOT_evolutionRobot()
 {
-    char prochaineAction[10];
-    
+    char prochaineAction[17];
+    char sorti[17]="Sorti !";
+    char gruik[17] = "GRUIK !";
+    	
     ROBOT_EtatDAvancement etat = Avancer;
-
+    
     while(prochaineAction[0] != '.'){
         scanf("%s", prochaineAction);
         if(prochaineAction[0] == 'E'){
             scanf("%s", prochaineAction);
         }
+	LCD_Write(prochaineAction, gruik);
         switch(etat){
             case Avancer :
                 ROBOT_avancer(&etat);
@@ -119,6 +118,7 @@ void ROBOT_evolutionRobot()
                 ROBOT_intersection(&etat, prochaineAction);
                 break;
             case Sorti :
+		LCD_Write(sorti, gruik);
                 MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
                 delayMicroseconds(2000);
                 MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
@@ -132,4 +132,7 @@ void ROBOT_evolutionRobot()
                 break;
         }
     }
+    LCD_Write(sorti, gruik);
+    delayMicroseconds(3000000);
+    LCD_clear();
 }
