@@ -53,26 +53,26 @@ int *CASE_obtenirCasesAccessibles(CASE_Case c)
     ca = CASE_obtenirBas(c);
     if (ca != 0)
     {
-        res[res[0]] = ca; 
         res[0]++;
+        res[res[0]] = ca; 
     }
     ca = CASE_obtenirHaut(c);
     if (ca != 0)
     {
-        res[res[0]] = ca; 
         res[0]++;
+        res[res[0]] = ca; 
     }
     ca = CASE_obtenirGauche(c);
     if (ca != 0)
     {
-        res[res[0]] = ca; 
         res[0]++;
+        res[res[0]] = ca; 
     }
     ca = CASE_obtenirDroite(c);
     if (ca != 0)
     {
-        res[res[0]] = ca; 
         res[0]++;
+        res[res[0]] = ca; 
     }
     return res;
 }
