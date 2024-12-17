@@ -3,9 +3,10 @@
 #include "case.h"
 #include "pile.h"
 #include "ensemble.h"
+#include "test_pile.h"
 
 
-CASE_Case* chemin(LAB_Labyrinthe l);
+PILE* chemin(LAB_Labyrinthe* l);
 /*Renvoi un chemin : une liste de case */
 
 /**
