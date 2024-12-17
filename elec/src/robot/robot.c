@@ -58,7 +58,7 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
         }
     }
     *etat = Intersection;
-    printf("*etat = Intersection;");
+    printf("*etat = Intersection;\n");
 }
 
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
