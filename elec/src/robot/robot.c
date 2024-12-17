@@ -26,7 +26,7 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
     int nb = 0;*/
     MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
     while(!estSurInter){
-        estSurInter = CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT);
+        //estSurInter = CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT);
         /*if (USON_obtenirDistance()<=10){
                     ROBOT_urgence();
                 }*/
@@ -40,7 +40,7 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
             }
            MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
-        else if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+        if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN1, PWM_EN2);
@@ -50,9 +50,14 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
             }
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
+        if (CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+            MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
+            estSurInter = true; 
+        }
     }
     delayMicroseconds(TEMPS_ARRIVE_INTER);
-    *etat = Intersection; 
+    *etat = Intersection;
+    print("*etat = Intersection;");
 }
 
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
