@@ -10,7 +10,7 @@ int main(int argc, char** argv){
         printf("Erreur d'initialisation des GPIO\n");
         return EXIT_FAILURE;
     }
-    //recuperation de la liste d'Ordre
-    ROBOT_evolutionRobot(listeDOrdre);
+    
+    ROBOT_evolutionRobot();
     return EXIT_SUCCESS; 
 }
