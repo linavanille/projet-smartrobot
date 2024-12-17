@@ -14,7 +14,7 @@
 #define __TEMPS__
 
 #define TEMPS_ATTENTE           200000      //temps d'attente en ms du début du virage 
-#define TEMPS_VIRAGE            100         //temps en ms d'un virage
+#define TEMPS_VIRAGE            70         //temps en ms d'un virage
 #define TEMPS_ARRIVE_INTER      700000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
 
 #endif

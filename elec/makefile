@@ -22,10 +22,11 @@ AR := ar
 CC := gcc
 CFLAGS := -Wall -pedantic
 IFLAGS := -I$(INCDIR) -I$(INCDIR)/algo
-LIBRBTFLAGS := -lwiringPi
-LIBSRCFLAGS := -Llib -lrobot -lwiringPi
+LIBRBTFLAGS := -lwiringPi -lwiringPiDev
+LIBSRCFLAGS := -Llib -lrobot -lwiringPi -lwiringPiDev
 
 robot: $(LIBDIR)/librobot.a
+	echo "Done"
 
 $(LIBDIR)/librobot.a: $(OBJRBT)
 	cd $(ROOTDIR)
