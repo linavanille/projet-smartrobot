@@ -15,15 +15,15 @@
 
 #define TEMPS_ATTENTE           200000      //temps d'attente en ms du début du virage 
 #define TEMPS_VIRAGE            100         //temps en ms d'un virage
-#define TEMPS_ARRIVE_INTER      700000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
+#define TEMPS_ARRIVE_INTER      100000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
 
 #endif
 
 void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
     bool estSurInter = false;
-    /*char vide[17] = "";
-    char sens[17] = "        ";
-    int nb = 0;*/
+    char vide[17] = "";
+    char sens[17] = "Trouve";
+    //int nb = 0;
     MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
     while(!estSurInter){
         //estSurInter = CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT);
@@ -51,13 +51,14 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
         if (CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+            LCD_write(sens, vide)
             delayMicroseconds(TEMPS_ARRIVE_INTER);
             MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
             estSurInter = true; 
         }
     }
     *etat = Intersection;
-    print("*etat = Intersection;");
+    printf("*etat = Intersection;");
 }
 
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
