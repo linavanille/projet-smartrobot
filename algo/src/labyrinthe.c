@@ -1,7 +1,7 @@
 #include "../include/labyrinthe.h"
 #include <stdlib.h>
 
-LAB_Labyrinthe LAB_creerLabyrinthe(unsigned int largeur, int entree, int sortie)
+LAB_Labyrinthe LAB_creerLabyrinthe(uint largeur, uint entree, uint sortie)
 {
     LAB_Labyrinthe lab;
     lab.entree = entree;
