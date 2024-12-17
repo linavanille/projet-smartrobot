@@ -1,14 +1,14 @@
 #include <wiringPi.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include "interruption.h"
-#include "buzzer.h"
-#include "ultrason.h"
-#include "lcd1602.h"
-#include "capteursLignes.h"
-#include "motorsPi.h"
-#include "pinsRef.h"
-#include "robot.h"
+#include "../../include/interruption.h"
+#include "../../include/buzzer.h"
+#include "../../include/ultrason.h"
+#include "../../include/lcd1602.h"
+#include "../../include/capteursLignes.h"
+#include "../../include/motorsPi.h"
+#include "../../include/pinsRef.h"
+#include "../../include/robot.h"
 
 #ifndef __TEMPS__
 #define __TEMPS__
@@ -25,18 +25,18 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
     char sens[17] = "Trouve";
     //int nb = 0;
     MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+    delayMicroseconds(TEMPS_ATTENTE);
     while(!estSurInter){
-        //estSurInter = CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT);
-        /*if (USON_obtenirDistance()<=10){
-                    ROBOT_urgence();
-                }*/
+            if (USON_obtenirDistance()<=10){
+                ROBOT_urgence();
+            }
         if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN2, PWM_EN1);
-                // if(USON_obtenirDistance()<=10){
-                //     ROBOT_urgence();
-                // }
+                if(USON_obtenirDistance()<=10){
+                    ROBOT_urgence();
+                }
             }
            MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
@@ -44,9 +44,9 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN1, PWM_EN2);
-                // if(USON_obtenirDistance()<=10){
-                //     ROBOT_urgence();
-                // }
+                if(USON_obtenirDistance()<=10){
+                    ROBOT_urgence();
+                }
             }
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
         }
@@ -58,7 +58,6 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
         }
     }
     *etat = Intersection;
-    printf("*etat = Intersection;\n");
 }
 
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
@@ -86,6 +85,10 @@ void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
         default :
             *etat = Sorti;
             break;
+    }
+    scanf("%s", prochaineAction);
+    if(prochaineAction[0] == 'E'){
+        scanf("%s", prochaineAction);
     }
 }
 
@@ -115,12 +118,14 @@ void ROBOT_evolutionRobot()
     char gruik[17] = "GRUIK !";
     	
     ROBOT_EtatDAvancement etat = Avancer;
+
+    scanf("%s", prochaineAction);
+    if(prochaineAction[0] == 'E'){
+        scanf("%s", prochaineAction);
+    }
     
     while(prochaineAction[0] != '.'){
-        scanf("%s", prochaineAction);
-        if(prochaineAction[0] == 'E'){
-            scanf("%s", prochaineAction);
-        }
+
 	    LCD_Write(prochaineAction, gruik);
         switch(etat){
             case Avancer :
