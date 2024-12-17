@@ -15,13 +15,57 @@
 
 #define TEMPS_ATTENTE           200000      //temps d'attente en ms du début du virage 
 #define TEMPS_VIRAGE            100         //temps en ms d'un virage
-#define TEMPS_ARRIVE_INTER      700000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
+#define TEMPS_ARRIVE_INTER      1400000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
 
 #endif
 
 void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
+    bool estSurInter = false;
+    char vide[17] = "";
+    char sens[17] = "        ";
+    int nb = 0;
     MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
-    while(!CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
+    while(!estSurInter){
+        estSurInter = CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT);
+        if (estSurInter){
+            sens[9] = 'I';
+        }
+        else
+        {
+            sens[9] = ' ';
+        }
+        if (CPTR_estSurLaLigne(CPTR_LIGNE_GAUCHE))
+        {
+            sens[0] = 'G';
+            sens[1] = 'a';
+        }
+        else
+        {
+            sens[0] = ' ';
+            sens[1] = ' ';
+        }
+        if (CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE))
+        {
+            sens[3] = 'C';
+            sens[4] = 'e';
+        }
+        else
+        {
+            sens[3] = ' ';
+            sens[4] = ' ';
+        }
+        if (CPTR_estSurLaLigne(CPTR_LIGNE_DROIT))
+        {
+            sens[6] = 'D';
+            sens[7] = 'r';
+        }
+        else
+        {
+            sens[6] = ' ';
+            sens[7] = ' ';
+        }
+        LCD_Write(sens, vide);
+
         if (USON_obtenirDistance()<=10){
                     ROBOT_urgence();
                 }
