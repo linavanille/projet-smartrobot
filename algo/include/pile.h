@@ -6,7 +6,7 @@
 */
 #ifndef __PILE_H__
 #define __PILE_H__
-#define MAXELEM_PILE  25
+#define MAXELEM_PILE  200
 
 typedef struct  {
     int lesCases[MAXELEM_PILE];

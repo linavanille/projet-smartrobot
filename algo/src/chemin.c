@@ -1,12 +1,31 @@
 #include "../include/chemin.h"
 #include "../include/ensemble.h"
+#include <stddef.h>
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /*Permet d'obtenir un chemin*/
 PILE* chemin(LAB_Labyrinthe* l){
-    PILE* res;
-    pile(res);
-    Ensemble* visitees;
+    printf("Dans chemin\n");
+    PILE* res = (PILE*) malloc(sizeof(PILE));
+    if (!res) {
+        perror("Erreur d'allocation mémoire pour res\n");
+        exit(EXIT_FAILURE);
+    }
+    pile(res); 
+    printf("Après pile(res)\n");
+    Ensemble* visitees = (Ensemble*) malloc(sizeof(Ensemble));
+    if (!visitees) {
+        perror("Erreur d'allocation mémoire pour visitees");
+        exit(EXIT_FAILURE);
+    }
+    printf("Avant ensemble : visitees = %p\n", (void*)visitees);
     ensemble(visitees);
+    printf("Après ensemble : visitees = %p\n", (void*)visitees);
+ 
+    assert(visitees!=NULL);
+    printf(" Sortie: %d\n" ,CASE_obtenirNumeroCase(*LAB_obtenirSortie(l)));
     recSortirLabyrinthe(*LAB_obtenirEntree(l),visitees,*LAB_obtenirSortie(l),res);
     afficherPile(res);
     return res;

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../include/test_pile.h"
 
 void afficherPile(PILE *PileDeCase){
@@ -15,17 +16,17 @@ void afficherPile(PILE *PileDeCase){
 }
 /*
 int main(){
-    PILE *PileDeCase;
+    PILE *PileDeCase = (PILE*) malloc(sizeof(PILE));
     pile(PileDeCase);
     empiler(PileDeCase,2);
     empiler(PileDeCase,3);
     empiler(PileDeCase,4);
-    empiler(PileDeCase,5);
-    empiler(PileDeCase,6);
+    empiler(PileDeCase,100);
+    empiler(PileDeCase,0);
     afficherPile(PileDeCase);
     depiler(PileDeCase);
     depiler(PileDeCase);
     printf("Le sommet est %d\n", obtenirCase(PileDeCase));
-
+    free(PileDeCase);
 }
 */
