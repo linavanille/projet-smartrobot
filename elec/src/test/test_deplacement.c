@@ -24,7 +24,7 @@ int main()
     LCD_Write(texte2, texte2);
     ROBOT_EtatDAvancement etat = Avancer;
     ROBOT_avancer(&etat);
-    if (etat=Intersection)
+    if (etat==Intersection)
     {
         LCD_Write(texte1, texte2);
         printf("Trouvé !\n");

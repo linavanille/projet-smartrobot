@@ -14,9 +14,9 @@
 #define __TEMPS__
 
 #define TEMPS_ATTENTE           200000      //temps d'attente en ms du début du virage 
-#define TEMPS_VIRAGE            70         //temps en ms d'un virage
+#define TEMPS_VIRAGE            100         //temps en ms d'un virage
 #define TEMPS_ARRIVE_INTER      700000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
-
+#define TEMPS_LANCEMENT		500000	    //temps d'attente en ms pour relancer le robot apres les intersections
 #endif
 
 void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
@@ -25,35 +25,36 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
     char sens[17] = "Trouve";
     //int nb = 0;
     MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
-    delayMicroseconds(TEMPS_ATTENTE);
     while(!estSurInter){
-            if (USON_obtenirDistance()<=10){
-                ROBOT_urgence();
-            }
+            //if (USON_obtenirDistance()<=10){
+            //    ROBOT_urgence();
+            //}
         if(CPTR_estTropAGauche(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN2, PWM_EN1);
-                if(USON_obtenirDistance()<=10){
-                    ROBOT_urgence();
-                }
+                //if(USON_obtenirDistance()<=10){
+                //    ROBOT_urgence();
+                //}
             }
            MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+	   delayMicroseconds(TEMPS_ATTENTE);
         }
         if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_CENTRE)){
                 MTR_redresser(PWM_EN1, PWM_EN2);
-                if(USON_obtenirDistance()<=10){
-                    ROBOT_urgence();
-                }
+                //if(USON_obtenirDistance()<=10){
+                //    ROBOT_urgence();
+                //}
             }
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+	    delayMicroseconds(TEMPS_ATTENTE);
         }
         if (CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
             LCD_Write(sens, vide);
             delayMicroseconds(TEMPS_ARRIVE_INTER);
-            MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
+            //MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
             estSurInter = true; 
         }
     }
@@ -61,22 +62,27 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
 }
 
 void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
+    //scanf("%s", prochaineAction);
     printf("%s\n", prochaineAction); 
+    MTR_changerVitessePWM(PWM_EN1, 50);
+    MTR_changerVitessePWM(PWM_EN2, 50);
     switch(prochaineAction[1]){
         case 'D':
             MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
             delayMicroseconds(TEMPS_ATTENTE);
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_DROIT)){
                 delayMicroseconds(TEMPS_VIRAGE);
-            }
+   	    }
+	    *etat = Avancer;
             break;
         case 'G' :
 
             MTR_tournerGauche(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
-            delayMicroseconds(TEMPS_VIRAGE);
+            delayMicroseconds(TEMPS_ATTENTE);
             while(!CPTR_estSurLaLigne(CPTR_LIGNE_GAUCHE)){
                 delayMicroseconds(TEMPS_VIRAGE);
             }
+	    *etat = Avancer; 
             break; 
             
         case 'V' :
@@ -85,10 +91,6 @@ void ROBOT_intersection(ROBOT_EtatDAvancement* etat, char* prochaineAction){
         default :
             *etat = Sorti;
             break;
-    }
-    scanf("%s", prochaineAction);
-    if(prochaineAction[0] == 'E'){
-        scanf("%s", prochaineAction);
     }
 }
 
@@ -119,14 +121,12 @@ void ROBOT_evolutionRobot()
     	
     ROBOT_EtatDAvancement etat = Avancer;
 
-    scanf("%s", prochaineAction);
-    if(prochaineAction[0] == 'E'){
-        scanf("%s", prochaineAction);
-    }
-    
     while(prochaineAction[0] != '.'){
-
-	    LCD_Write(prochaineAction, gruik);
+	scanf("%s", prochaineAction);
+	if (prochaineAction[0] == 'E'){
+	    scanf("%s", prochaineAction);
+	}
+	LCD_Write(prochaineAction, gruik);
         switch(etat){
             case Avancer :
                 ROBOT_avancer(&etat);
@@ -135,7 +135,7 @@ void ROBOT_evolutionRobot()
                 ROBOT_intersection(&etat, prochaineAction);
                 break;
             case Sorti :
-		        LCD_Write(sorti, gruik);
+		LCD_Write(sorti, gruik);
                 MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
                 delayMicroseconds(2000);
                 MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
@@ -150,6 +150,7 @@ void ROBOT_evolutionRobot()
         }
     }
     LCD_Write(sorti, gruik);
+    BUZZ_loop();
     MTR_arreter(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
     delayMicroseconds(3000000);
     LCD_clear();
