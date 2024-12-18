@@ -6,8 +6,8 @@
 #ifndef _VITESSE_PWM_CYCLE_
 #define _VITESSE_PWM_CYCLE_
 
-#define AVANCER_GAUCHE		50
-#define AVANCER_DROITE		50
+#define AVANCER_GAUCHE		80
+#define AVANCER_DROITE		80
 #define TOURNER_INTERIEUR	40	
 #define TOURNER_EXTERIEUR	100
 #define FREQUENCE           	1024
@@ -44,6 +44,13 @@ void MTR_avancer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
 	MTR_changerVitessePWM(pwm1, AVANCER_GAUCHE);
 	MTR_changerVitessePWM(pwm0, AVANCER_DROITE);
 	MTR_modifierMoteur(A_1,A_2,A_3,A_4,0,1,0,1);
+}
+
+void MTR_reculer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
+{
+	MTR_changerVitessePWM(pwm1, 100);
+	MTR_changerVitessePWM(pwm0, 100);
+	MTR_modifierMoteur(A_1,A_2,A_3,A_4,1,0,1,0);
 }
 
 void MTR_arreter(int A_1, int A_2, int A_3, int A_4)

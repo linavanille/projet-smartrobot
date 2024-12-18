@@ -26,7 +26,7 @@ typedef enum {Nord,Sud,Est,Ouest,Invalide} ORD_Orientation;
  * @enum ORD_Ordre
  * @brief Représente les 3 types d'ordres que le robot peut exécuter 
  */
-typedef enum {AV,TG,TD} ORD_Ordre;
+typedef enum {AV,TG,TD, FIN} ORD_Ordre;
 
 /**
  * @struct Liste

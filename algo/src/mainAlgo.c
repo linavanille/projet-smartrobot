@@ -3,11 +3,11 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
-#include "case.h"
-#include "labyrinthe.h"
-#include "initLab.h"
-#include "chemin.h"
-#include "ordres.h"
+#include "../include/case.h"
+#include "../include/labyrinthe.h"
+#include "../include/initLab.h"
+#include "../include/chemin.h"
+#include "../include/ordresRobot.h"
 
 int main(int argc, char** argv){
     LAB_Labyrinthe labyrinthe;
@@ -28,7 +28,7 @@ int main(int argc, char** argv){
         return EXIT_FAILURE; 
     }
     
-    initialisationLabyrinthe(path, &labyrinthe);
+    labyrinthe = initialisationLabyrinthe(path);
     //chemim = CHM_chemin(labyrinthe)
     listeDOrdre = ORD_obtenirOrdres(&chemin, CHM_obtenirLongueur(chemin), LAB_obtenirLargeur(&labyrinthe));
     do{

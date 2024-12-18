@@ -26,8 +26,8 @@ void attributionConnections(LAB_Labyrinthe* labyrinthe, int c1, int c2){
     CASE_Case* uneCase;
     CASE_Case* lAutreCase;
 
-    uneCase = LAB_iemeCase(*labyrinthe, c1);
-    lAutreCase = LAB_iemeCase(*labyrinthe, c2);
+    uneCase = LAB_iemeCase(labyrinthe, c1);
+    lAutreCase = LAB_iemeCase(labyrinthe, c2);
 
     if(c2 < c1){
         if (c2+1 == c1){
@@ -55,7 +55,8 @@ void attributionConnections(LAB_Labyrinthe* labyrinthe, int c1, int c2){
 LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
     char temp[4];
     char buffer[10];
-    int l, sortie, entree;
+    int l;
+    char *sortie, *entree;
     int c1, c2;
     LAB_Labyrinthe labyrinthe;
     
@@ -65,16 +66,12 @@ LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
     l = atoi(buffer); 
 
     fgets(buffer, 10, fichier);
-    strncpy(temp, buffer, strlen(buffer)-1);
-    temp[strlen(buffer)-1] = '\0';
-    entree = atoi(temp);
+    entree = buffer;
 
     fgets(buffer, 10, fichier);
-    strncpy(temp, buffer, strlen(buffer)-1);
-    temp[strlen(buffer)-1] = '\0';
-    sortie = atoi(temp);
+    sortie = buffer;
 
-    printf("largeur = %d\n entree = %d\n sortie = %d\n", l, entree, sortie);
+    printf("largeur = %d\n entree = %d\n sortie = %d\n", l, atoi(entree), atoi(sortie));
     labyrinthe = LAB_creerLabyrinthe(l, entree, sortie);
 
 
@@ -91,6 +88,7 @@ LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
     return labyrinthe; 
 }
 
-void initialisationLabyrinthe(char* fnom, LAB_Labyrinthe* lab){
-    *lab = initialiserLabyrinthe(fnom);
+LAB_Labyrinthe initialisationLabyrinthe(char* fnom){
+    LAB_Labyrinthe lab = initialiserLabyrinthe(fnom);
+    return lab;
 }

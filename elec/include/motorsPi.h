@@ -27,6 +27,22 @@
 
 void MTR_avancer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1);
 
+/**
+ * @fn void MTR_reculer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
+ * @brief Faire reculer le ROBOT grâce au L293D
+ * @param A_1 numéro du GPIO du in1
+ * @param A_2 numéro du GPIO du in2
+ * @param A_3 numéro du GPIO du in3
+ * @param A_4 numéro du GPIO du in4
+ * @param pwm0 numéro du GPIO pour le PWM 0
+ * @param pwm1 numéro du GPIO pour le PWM 1
+ * @details Les PWM sont utilisés pour compenser une potentielle différence de vitesse de rotation entre les moteurs
+ * Différence définie au préalable
+ */
+
+void MTR_reculer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1);
+
+
 
 /**
  * @fn void MTR_tournerDroite(int A_1, int A_2, int A_3, int A_4)

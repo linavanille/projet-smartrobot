@@ -5,6 +5,11 @@
 #include "ultrason.h"
 #include "pinsRef.h"
 
+#ifndef DELAY
+#define DELAY		100000
+
+#endif
+
 void USON_init()
 {
 	//wiringPiSetupGpio();
@@ -18,6 +23,7 @@ float USON_obtenirDistance()
 	struct timeval tv2;
 	long start, stop;
 	float dis;
+	int compteur = 0;
 
 	digitalWrite(TRIG, LOW);
 	delayMicroseconds(2);
@@ -26,10 +32,15 @@ float USON_obtenirDistance()
 	delayMicroseconds(10);
 	digitalWrite(TRIG, LOW);
 
-	while(!(digitalRead(ECHO) == 1));
+	while(!(digitalRead(ECHO) == 1) || (compteur < DELAY) ){
+		compteur++;
+	};
 	gettimeofday(&tv1, NULL);
 
-	while(!(digitalRead(ECHO) == 0));
+	compteur = 0;
+	while(!(digitalRead(ECHO) == 0) || (compteur < DELAY) ){
+		compteur++;
+	}
 	gettimeofday(&tv2, NULL);
 
 	start = tv1.tv_sec * 1000000 + tv1.tv_usec;

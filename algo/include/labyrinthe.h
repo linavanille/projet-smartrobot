@@ -11,8 +11,8 @@ typedef unsigned int uint;
 
 typedef struct {
     CASE_Case *lesConnections;
-    int entree;
-    int sortie;
+    char* entree;
+    char* sortie;
     unsigned int largeur;
 } LAB_Labyrinthe;
 
@@ -23,7 +23,7 @@ typedef struct {
 * @param entree L'entrée du labyrinthe
 * @param sortie La sortie du labyrinthe
 */
-LAB_Labyrinthe LAB_creerLabyrinthe(uint l, uint entree, uint sortie);
+LAB_Labyrinthe LAB_creerLabyrinthe(uint l, char* entree, char* sortie);
 
 /**
 * @brief Obtenir la liste des cases accessibles d'une case 
@@ -61,5 +61,19 @@ unsigned int LAB_obtenirLargeur(LAB_Labyrinthe* labyrinthe);
 * @return la ième case
 */
 CASE_Case* LAB_iemeCase(LAB_Labyrinthe* lab, uint i);
+
+/**
+* @brief Obtenir la direction d'entrée d'un labyrinthe
+* @param labyrinthe un labyrinthe
+* @return la direction de l'entrée
+*/
+char* LAB_obtenirDirectionEntree(LAB_Labyrinthe* labyrinthe);
+
+/**
+* @brief Obtenir la direction de sortie d'un labyrinthe
+* @param labyrinthe un labyrinthe
+* @return la direction de la sortie
+*/
+char* LAB_obtenirDirectionSortie(LAB_Labyrinthe* labyrinthe);
 
 #endif

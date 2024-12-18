@@ -19,6 +19,6 @@
 * @param labyrinthe Labyrinthe à "remplir"
 * 
 */
-void initialisationLabyrinthe(char* fnom, LAB_Labyrinthe* labyrinthe);
+LAB_Labyrinthe initialisationLabyrinthe(char* fnom);
 
 #endif

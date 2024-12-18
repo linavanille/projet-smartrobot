@@ -1,7 +1,7 @@
-#include "../include/labyrinthe.h"
+#include "labyrinthe.h"
 #include <stdlib.h>
 
-LAB_Labyrinthe LAB_creerLabyrinthe(unsigned int largeur, int entree, int sortie)
+LAB_Labyrinthe LAB_creerLabyrinthe(uint largeur, char* entree, char* sortie)
 {
     LAB_Labyrinthe lab;
     lab.entree = entree;
@@ -23,12 +23,12 @@ unsigned int LAB_obtenirLargeur(LAB_Labyrinthe* lab)
 
 CASE_Case* LAB_obtenirEntree(LAB_Labyrinthe* lab)
 {
-    return &lab->lesConnections[lab->entree];
+    return &lab->lesConnections[atoi(lab->entree)];
 }
 
 CASE_Case* LAB_obtenirSortie(LAB_Labyrinthe* lab)
 {
-    return &lab->lesConnections[lab->sortie];
+    return &lab->lesConnections[atoi(lab->sortie)];
 }
 
 CASE_Case* LAB_iemeCase(LAB_Labyrinthe* lab, unsigned int iCase)
@@ -39,4 +39,14 @@ CASE_Case* LAB_iemeCase(LAB_Labyrinthe* lab, unsigned int iCase)
 CASE_Case *Lab_obtenirCasesAccessibles(LAB_Labyrinthe* lab, unsigned int iCase)
 {
 	return LAB_iemeCase(lab, iCase);
+}
+
+char* LAB_obtenirDirectionEntree(LAB_Labyrinthe* lab)
+{
+    return &lab->entree[1];
+}
+
+char* LAB_obtenirDirectionSortie(LAB_Labyrinthe* lab)
+{
+    return &lab->sortie[1];
 }

@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <wiringPi.h>
-#include "pinsRef.h"
-#include "initElec.h"
-#include "lcd1602.h"
-#include "motorsPi.h"
-#include "capteursLignes.h"
-#include "ultrason.h"
-#include "buzzer.h"
-#include "robot.h"
+#include "../../include/pinsRef.h"
+#include "../../include/initElec.h"
+#include "../../include/lcd1602.h"
+#include "../../include/motorsPi.h"
+#include "../../include/capteursLignes.h"
+#include "../../include/ultrason.h"
+#include "../../include/buzzer.h"
+#include "../../include/robot.h"
 
 
 int main(){
