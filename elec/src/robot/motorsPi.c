@@ -48,8 +48,8 @@ void MTR_avancer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
 
 void MTR_reculer(int A_1, int A_2, int A_3, int A_4, int pwm0, int pwm1)
 {
-	MTR_changerVitessePWM(pwm1, AVANCER_GAUCHE);
-	MTR_changerVitessePWM(pwm0, AVANCER_DROITE);
+	MTR_changerVitessePWM(pwm1, 100);
+	MTR_changerVitessePWM(pwm0, 100);
 	MTR_modifierMoteur(A_1,A_2,A_3,A_4,1,0,1,0);
 }
 
