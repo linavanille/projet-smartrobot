@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include "../include/labyrinthe.h"
-#include "../include/case.h"
+#include "labyrinthe.h"
+#include "case.h"
 
 void extraireNumCases(char* buffer, int* c1, int* c2){
     int i=0;
@@ -55,7 +55,8 @@ void attributionConnections(LAB_Labyrinthe* labyrinthe, int c1, int c2){
 LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
     char temp[4];
     char buffer[10];
-    int l, sortie, entree;
+    int l;
+    char *sortie, *entree;
     int c1, c2;
     LAB_Labyrinthe labyrinthe;
     
@@ -65,16 +66,12 @@ LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
     l = atoi(buffer); 
 
     fgets(buffer, 10, fichier);
-    strncpy(temp, buffer, strlen(buffer)-1);
-    temp[strlen(buffer)-1] = '\0';
-    entree = atoi(temp);
+    entree = buffer;
 
     fgets(buffer, 10, fichier);
-    strncpy(temp, buffer, strlen(buffer)-1);
-    temp[strlen(buffer)-1] = '\0';
-    sortie = atoi(temp);
+    sortie = buffer;
 
-    printf("largeur = %d\n entree = %d\n sortie = %d\n", l, entree, sortie);
+    printf("largeur = %d\n entree = %d\n sortie = %d\n", l, atoi(entree), atoi(sortie));
     labyrinthe = LAB_creerLabyrinthe(l, entree, sortie);
 
 
