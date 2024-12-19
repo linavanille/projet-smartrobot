@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ordres.h"
+#include "ordresRobot.h"
 #include "case.h"
 #include "labyrinthe.h"
 
@@ -19,27 +19,28 @@ ORD_Position* ORD_avancer(ORD_Position* position, ORD_Orientation orientation, L
 	while (1) {
 		int voisinNumero = -1;
 
-		if (orientation == Nord) {
-			voisinNumero = CASE_obtenirHaut(*position);
-		} else if (orientation == Sud) {
-			voisinNumero = CASE_obtenirBas(*position);
-		} else if (orientation == Est) {
-			voisinNumero = CASE_obtenirDroite(*position);
-		} else if (orientation == Ouest) {
-			voisinNumero = CASE_obtenirGauche(*position);
-		}
+		// Détermine le voisin suivant basé sur l'orientation
+		if (orientation == Nord) voisinNumero = CASE_obtenirHaut(*position);
+		else if (orientation == Sud) voisinNumero = CASE_obtenirBas(*position);
+		else if (orientation == Est) voisinNumero = CASE_obtenirDroite(*position);
+		else if (orientation == Ouest) voisinNumero = CASE_obtenirGauche(*position);
 
+		// Obtenir le voisin trouvé
 		ORD_Position* voisinTrouve = CASE_obtenirParNumero(voisinNumero, labyrinthe);
 
-		if (voisinTrouve == NULL || !estAccessible(position, voisinTrouve) ||
-			ORD_estIntersection(voisinTrouve, labyrinthe) ||
-			ORD_estVirage(voisinTrouve, orientation, labyrinthe, largeurLabyrinthe)) {
+		// Conditions d'arrêt : mur, intersection, ou virage
+		if (voisinTrouve == NULL ||
+		    ORD_estIntersection(voisinTrouve, labyrinthe) ||
+		    ORD_estVirage(voisinTrouve, orientation, labyrinthe, largeurLabyrinthe)) {
 			return voisinTrouve;
 		}
 
+		// Avance à la case suivante
 		position = voisinTrouve;
 	}
 }
+
+
 
 ORD_Position* ORD_tournerGauche(ORD_Position* position, ORD_Orientation* orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
 	if (*orientation == Nord) {
@@ -121,63 +122,78 @@ ORD_Ordre ORD_tournerVers(ORD_Orientation orientationActuelle, ORD_Orientation o
 }
 
 bool ORD_estIntersection(ORD_Position* position, LAB_Labyrinthe* labyrinthe) {
-	int voisinsAccessibles = 0;
+    int voisinsAccessibles = 0;
 
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe))) voisinsAccessibles++;
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirBas(*position), labyrinthe))) voisinsAccessibles++;
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirGauche(*position), labyrinthe))) voisinsAccessibles++;
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirDroite(*position), labyrinthe))) voisinsAccessibles++;
+    if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe))) voisinsAccessibles++;
+    if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirBas(*position), labyrinthe))) voisinsAccessibles++;
+    if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirGauche(*position), labyrinthe))) voisinsAccessibles++;
+    if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirDroite(*position), labyrinthe))) voisinsAccessibles++;
 
-	return voisinsAccessibles > 2;
+    printf("Case %d a %d connexions accessibles.\n", CASE_obtenirNumeroCase(*position), voisinsAccessibles);
+
+    return voisinsAccessibles > 2; // Intersection si plus de 2 connexions
 }
 
+
+
 bool ORD_estVirage(ORD_Position* position, ORD_Orientation orientation, LAB_Labyrinthe* labyrinthe, unsigned int largeurLabyrinthe) {
-	ORD_Position* voisin1 = NULL;
-	ORD_Position* voisin2 = NULL;
+    ORD_Position* voisinHaut = CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe);
+    ORD_Position* voisinBas = CASE_obtenirParNumero(CASE_obtenirBas(*position), labyrinthe);
+    ORD_Position* voisinGauche = CASE_obtenirParNumero(CASE_obtenirGauche(*position), labyrinthe);
+    ORD_Position* voisinDroite = CASE_obtenirParNumero(CASE_obtenirDroite(*position), labyrinthe);
 
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe))) {
-		voisin1 = voisin1 == NULL ? CASE_obtenirParNumero(CASE_obtenirHaut(*position), labyrinthe) : voisin2;
-	}
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirBas(*position), labyrinthe))) {
-		voisin1 = voisin1 == NULL ? CASE_obtenirParNumero(CASE_obtenirBas(*position), labyrinthe) : voisin2;
-	}
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirGauche(*position), labyrinthe))) {
-		voisin1 = voisin1 == NULL ? CASE_obtenirParNumero(CASE_obtenirGauche(*position), labyrinthe) : voisin2;
-	}
-	if (estAccessible(position, CASE_obtenirParNumero(CASE_obtenirDroite(*position), labyrinthe))) {
-		voisin1 = voisin1 == NULL ? CASE_obtenirParNumero(CASE_obtenirDroite(*position), labyrinthe) : voisin2;
-	}
+    int directionsAccessibles = 0;
+    if (voisinHaut) directionsAccessibles++;
+    if (voisinBas) directionsAccessibles++;
+    if (voisinGauche) directionsAccessibles++;
+    if (voisinDroite) directionsAccessibles++;
 
-	if (voisin1 == NULL || voisin2 == NULL) return false;
+    printf("Case %d a %d directions accessibles (Orientation actuelle : %d).\n", CASE_obtenirNumeroCase(*position), directionsAccessibles, orientation);
 
-	return (orientation == Nord || orientation == Sud)
-		? (CASE_obtenirNumeroCase(*voisin1) != CASE_obtenirNumeroCase(*voisin2))
-		: true;
+    if (directionsAccessibles == 2) {
+        if ((orientation == Nord || orientation == Sud) && (voisinGauche || voisinDroite)) {
+            return true; // Virage pour Nord/Sud connecté à Gauche/Droite
+        }
+        if ((orientation == Est || orientation == Ouest) && (voisinHaut || voisinBas)) {
+            return true; // Virage pour Est/Ouest connecté à Haut/Bas
+        }
+    }
+
+    return false;
 }
 
 ORD_Ordre* ORD_obtenirOrdres(ORD_Position** chemin, unsigned int tailleChemin, LAB_Labyrinthe* labyrinthe) {
-	ORD_Ordre* ordres = malloc((tailleChemin + 1) * sizeof(ORD_Ordre));
-	unsigned int largeurLabyrinthe = labyrinthe->largeur;
+    ORD_Ordre* ordres = malloc((2 * tailleChemin + 2) * sizeof(ORD_Ordre)); 
+    unsigned int ordreIndex = 0;
 
-	ORD_Orientation orientationActuelle = ORD_calculerOrientation(chemin[0], chemin[1], largeurLabyrinthe);
+    ORD_Orientation orientationActuelle = ORD_calculerOrientation(chemin[0], chemin[1], labyrinthe->largeur);
 
-	unsigned int ordreIndex = 0;
+    if (ORD_estIntersection(chemin[0], labyrinthe) || 
+        ORD_estVirage(chemin[0], orientationActuelle, labyrinthe, labyrinthe->largeur)) {
+        ordres[ordreIndex++] = AV;
+    }
 
-	for (unsigned int i = 1; i < tailleChemin; i++) {
-		ORD_Orientation orientationSuivante = ORD_calculerOrientation(chemin[i - 1], chemin[i], largeurLabyrinthe);
+    for (unsigned int i = 1; i < tailleChemin; i++) {
+        ORD_Orientation orientationSuivante = ORD_calculerOrientation(chemin[i - 1], chemin[i], labyrinthe->largeur);
 
-		if (orientationActuelle != orientationSuivante) {
-			ordres[ordreIndex++] = ORD_tournerVers(orientationActuelle, orientationSuivante);
-		} else {
-			if (ordreIndex == 0 || ordres[ordreIndex - 1] != AV) {
-				ordres[ordreIndex++] = AV;
-			}
-		}
+        if (orientationActuelle != orientationSuivante) {
+            ordres[ordreIndex++] = ORD_tournerVers(orientationActuelle, orientationSuivante);
+            ordres[ordreIndex++] = AV;
+            orientationActuelle = orientationSuivante;
+        } else {
+            if (ORD_estIntersection(chemin[i], labyrinthe) || 
+                ORD_estVirage(chemin[i], orientationActuelle, labyrinthe, labyrinthe->largeur)) {
+                ordres[ordreIndex++] = AV;
+            }
+        }
+    }
 
-		orientationActuelle = orientationSuivante;
-	}
+    if (ORD_estIntersection(chemin[tailleChemin - 1], labyrinthe) || 
+        ORD_estVirage(chemin[tailleChemin - 1], orientationActuelle, labyrinthe, labyrinthe->largeur)) {
+        ordres[ordreIndex++] = AV;
+    }
 
-	ordres[ordreIndex] = FIN;
+    ordres[ordreIndex] = FIN;
 
-	return ordres;
+    return ordres;
 }
