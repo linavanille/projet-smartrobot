@@ -2,14 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "pinsRef.h"
 
 #ifndef _VITESSE_PWM_CYCLE_
 #define _VITESSE_PWM_CYCLE_
 
-#define AVANCER_GAUCHE		80
-#define AVANCER_DROITE		80
-#define TOURNER_INTERIEUR	40	
-#define TOURNER_EXTERIEUR	100
+#define AVANCER_GAUCHE		60
+#define AVANCER_DROITE		60
+#define TOURNER_INTERIEUR	30	
+#define TOURNER_EXTERIEUR	60
 #define FREQUENCE           	1024
 
 #endif
@@ -71,9 +72,9 @@ void MTR_tournerGauche(int A_1, int A_2, int A_3, int A_4)
 
 void MTR_redresser(int pwmInterieur, int pwmExterieur)
 {
-	MTR_changerVitessePWM(pwmInterieur, TOURNER_INTERIEUR);
-	MTR_changerVitessePWM(pwmExterieur, TOURNER_EXTERIEUR);
-
+	MTR_changerVitessePWM(pwmInterieur, TOURNER_EXTERIEUR);
+	MTR_changerVitessePWM(pwmExterieur, TOURNER_INTERIEUR);
+	MTR_modifierMoteur(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4,1,0,1,0);
 }
 
 //SetUp les GPIO et met en OUTPUT tout ceux qui sont utilisés par le moteur

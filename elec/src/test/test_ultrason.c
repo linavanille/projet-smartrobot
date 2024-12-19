@@ -1,16 +1,17 @@
 #include <wiringPi.h>
 #include <stdio.h>
-#include "../../include/ultrason.h"
+#include "ultrason.h"
 
 int main(){
-    while (1){
+    printf("Début !\n");
 	if (wiringPiSetupGpio()==-1){
 		return 1;
-	}
-	printf("Init done");
-	USON_init();
-        float d = USON_obtenirDistance();
-        printf("%f", d);
-        delayMicroseconds(3000000);
     }
+	printf("Init GPIO done\n");
+	USON_init();
+	printf("Init USON done\n");
+    float d = USON_obtenirDistance();
+    printf("%f\n", d);
+    delayMicroseconds(3000000);
+    return 0;
 }

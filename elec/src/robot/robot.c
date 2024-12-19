@@ -17,6 +17,7 @@
 #define TEMPS_VIRAGE            100         //temps en ms d'un virage
 #define TEMPS_ARRIVE_INTER      700000      //temps d'attente en ms pour mettre le point de pivot à l'intersection
 #define TEMPS_LANCEMENT		500000	    //temps d'attente en ms pour relancer le robot apres les intersections
+
 #endif
 
 void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
@@ -37,8 +38,8 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
                 //    ROBOT_urgence();
                 //}
             }
-           MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
-	   delayMicroseconds(TEMPS_ATTENTE);
+        MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
+	    //delayMicroseconds(TEMPS_ATTENTE);
         }
         if(CPTR_estTropADroite(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
 
@@ -49,7 +50,7 @@ void ROBOT_avancer(ROBOT_EtatDAvancement* etat){
                 //}
             }
             MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
-	    delayMicroseconds(TEMPS_ATTENTE);
+	    //delayMicroseconds(TEMPS_ATTENTE);
         }
         if (CPTR_estSurUneIntersection(CPTR_LIGNE_CENTRE, CPTR_LIGNE_GAUCHE, CPTR_LIGNE_DROIT)){
             LCD_Write(sens, vide);

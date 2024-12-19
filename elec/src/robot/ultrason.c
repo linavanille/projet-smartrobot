@@ -6,7 +6,7 @@
 #include "pinsRef.h"
 
 #ifndef DELAY
-#define DELAY		100000
+#define DELAY		10
 
 #endif
 
@@ -19,10 +19,11 @@ void USON_init()
 
 float USON_obtenirDistance()
 {
+	printf("USON!\n");
 	struct timeval tv1;
 	struct timeval tv2;
 	long start, stop;
-	float dis;
+	float dis = 10000;
 	int compteur = 0;
 
 	digitalWrite(TRIG, LOW);
