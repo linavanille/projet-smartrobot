@@ -1,3 +1,4 @@
+/*
 /** 
 * @file pile.h
 * @brief  Pile de case. Les cases sont désignées par leurs numéros

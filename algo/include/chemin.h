@@ -1,12 +1,12 @@
 /**/
 #include "labyrinthe.h"
 #include "case.h"
-#include "pile.h"
+#include "pileLc.h"
 #include "ensemble.h"
-#include "test_pile.h"
+#include "test_pileLc.h"
 
 
-PILE* chemin(LAB_Labyrinthe* l);
+PILELC chemin(LAB_Labyrinthe* l);
 /*Renvoi un chemin : une liste de case */
 
 /**
@@ -16,4 +16,4 @@ PILE* chemin(LAB_Labyrinthe* l);
 *@param objectif la case de sortie
 *@param res la pile de case qui compose le chemin vers la sortie
 */
-void recSortirLabyrinthe(CASE_Case c, Ensemble* visitees,CASE_Case objectif,PILE* res);
+void recSortirLabyrinthe(CASE_Case c, Ensemble* visitees,CASE_Case objectif,PILELC* res);

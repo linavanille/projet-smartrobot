@@ -1,4 +1,4 @@
-#include "labyrinthe.h"
+#include "../include/labyrinthe.h"
 #include <stdlib.h>
 
 LAB_Labyrinthe LAB_creerLabyrinthe(uint largeur, char* entree, char* sortie)

@@ -50,6 +50,7 @@ int *CASE_obtenirCasesAccessibles(CASE_Case c)
 {
     int *res = (int *)malloc(5 * sizeof(int));
     int ca;
+    res[0]=0;
     ca = CASE_obtenirBas(c);
     if (ca != 0)
     {
