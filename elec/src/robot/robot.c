@@ -136,7 +136,7 @@ void ROBOT_evolutionRobot()
                 ROBOT_intersection(&etat, prochaineAction);
                 break;
             case Sorti :
-		LCD_Write(sorti, gruik);
+		        LCD_Write(sorti, gruik);
                 MTR_avancer(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4, PWM_EN1, PWM_EN2);
                 delayMicroseconds(2000);
                 MTR_tournerDroite(MOTEUR_IN1, MOTEUR_IN2, MOTEUR_IN3, MOTEUR_IN4);
