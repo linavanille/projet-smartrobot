@@ -1,0 +1,192 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc} % encodage du fichier
+\usepackage[french]{babel} % document en francais
+\usepackage[T1]{fontenc} % pour les caracteres accentues
+
+\setlength{\hoffset}{-18pt}        
+\setlength{\oddsidemargin}{-10pt} % Marge gauche sur pages impaires
+\setlength{\evensidemargin}{9pt} % Marge gauche sur pages paires
+\setlength{\marginparwidth}{54pt} % Largeur de note dans la marge
+\setlength{\textwidth}{520pt} % Largeur de la zone de texte (17cm)
+\setlength{\voffset}{-18pt} % Bon pour DOS
+\setlength{\topmargin}{-10pt} % Pas de marge en haut
+\setlength{\headheight}{0pt} % Haut de page
+\setlength{\headsep}{20pt} % Entre le haut de page et le texte
+\setlength{\footskip}{27pt} % Bas de page + séparation
+\setlength{\textheight}{750pt} % Hauteur de la zone de texte (25cm)
+
+\begin{document}
+
+\fontfamily{lmr} %
+\fontseries{m} %
+\selectfont
+\begin{center}
+    \Huge{Conception Détaillée ordres}
+\end{center}
+
+\noindent\textbf{fonction} \textbf{ORD\_tournerGauche} ({ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Position*}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}\textbf{si} orientation = Nord \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Ouest\\
+    \hspace*{1cm}\textbf{sinon si} orientation = Ouest \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Sud\\
+    \hspace*{1cm}\textbf{sinon si} orientation = Sud \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Est\\
+    \hspace*{1cm}\textbf{sinon si} orientation = Est \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Nord\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner ORD\_avancer(position, orientation, labyrinthe, largeurLabyrinthe)
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{ORD\_tournerDroite} ({ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Position*}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}\textbf{si} orientation = Nord \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Est\\
+    \hspace*{1cm}\textbf{sinon si} orientation = Est \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Sud\\
+    \hspace*{1cm}\textbf{sinon si} orientation = Sud \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Ouest\\
+    \hspace*{1cm}\textbf{sinon si} orientation = Ouest \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Nord\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner ORD\_avancer(position, orientation, labyrinthe, largeurLabyrinthe)
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{ORD\_initialisation} ({LAB\_Labyrinthe} labyrinthe, \textbf{ORD\_Orientation} orientation) : \textbf{ORD\_Position*}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}entree $\gets$ CASE\_obtenirParNumero(labyrinthe.entree, labyrinthe)\\
+    \hspace*{1cm}\textbf{si} entree = NULL \textbf{alors}\\
+    \hspace*{2cm}afficher "Erreur : entrée invalide dans le labyrinthe."\\
+    \hspace*{2cm}quitter le programme\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} estAccessible(entree, CASE\_obtenirParNumero(CASE\_obtenirHaut(entree), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Nord\\
+    \hspace*{1cm}\textbf{sinon si} estAccessible(entree, CASE\_obtenirParNumero(CASE\_obtenirBas(entree), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Sud\\
+    \hspace*{1cm}\textbf{sinon si} estAccessible(entree, CASE\_obtenirParNumero(CASE\_obtenirGauche(entree), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Ouest\\
+    \hspace*{1cm}\textbf{sinon si} estAccessible(entree, CASE\_obtenirParNumero(CASE\_obtenirDroite(entree), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}orientation $\gets$ Est\\
+    \hspace*{1cm}\textbf{sinon}\\
+    \hspace*{2cm}afficher "Erreur : aucune direction accessible."\\
+    \hspace*{2cm}quitter le programme\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner entree
+\end{flushleft}
+\textbf{fin}\\ 
+
+\noindent\textbf{fonction} \textbf{ORD\_calculerOrientation} (	extbf{ORD\_Position*} caseActuelle, \textbf{ORD\_Position*} caseSuivante, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Orientation}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}numActuelle $\gets$ CASE\_obtenirNumeroCase(caseActuelle)\\
+    \hspace*{1cm}numSuivante $\gets$ CASE\_obtenirNumeroCase(caseSuivante)\\
+    \hspace*{1cm}\textbf{si} numSuivante = numActuelle - largeurLabyrinthe \textbf{alors}\\
+    \hspace*{2cm}retourner Nord\\
+    \hspace*{1cm}\textbf{sinon si} numSuivante = numActuelle + largeurLabyrinthe \textbf{alors}\\
+    \hspace*{2cm}retourner Sud\\
+    \hspace*{1cm}\textbf{sinon si} numSuivante = numActuelle + 1 \textbf{alors}\\
+    \hspace*{2cm}retourner Est\\
+    \hspace*{1cm}\textbf{sinon si} numSuivante = numActuelle - 1 \textbf{alors}\\
+    \hspace*{2cm}retourner Ouest\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner Invalide
+\end{flushleft}
+\textbf{fin}\\
+
+
+\noindent\textbf{fonction} \textbf{ORD\_tournerVers} (\textbf{ORD\_Orientation} orientationActuelle, \textbf{ORD\_Orientation} orientationCible) : \textbf{ORD\_Ordre}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}\textbf{si} orientationActuelle = orientationCible \textbf{alors}\\
+    \hspace*{2cm}retourner AV\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} (orientationActuelle = Nord \textbf{et} orientationCible = Ouest) \textbf{ou}\\
+    \hspace*{2cm}(orientationActuelle = Ouest \textbf{et} orientationCible = Sud) \textbf{ou}\\
+    \hspace*{2cm}(orientationActuelle = Sud \textbf{et} orientationCible = Est) \textbf{ou}\\
+    \hspace*{2cm}(orientationActuelle = Est \textbf{et} orientationCible = Nord) \textbf{alors}\\
+    \hspace*{2cm}retourner TG\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner TD
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{ORD\_estIntersection} (\textbf{ORD\_Position*} position, \textbf{LAB\_Labyrinthe} labyrinthe) : \textbf{Booléen}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}voisinsAccessibles $\gets$ 0\\
+    \hspace*{1cm}\textbf{si} estAccessible(position, CASE\_obtenirParNumero(CASE\_obtenirHaut(position), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}voisinsAccessibles $\gets$ voisinsAccessibles + 1\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} estAccessible(position, CASE\_obtenirParNumero(CASE\_obtenirBas(position), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}voisinsAccessibles $\gets$ voisinsAccessibles + 1\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} estAccessible(position, CASE\_obtenirParNumero(CASE\_obtenirGauche(position), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}voisinsAccessibles $\gets$ voisinsAccessibles + 1\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} estAccessible(position, CASE\_obtenirParNumero(CASE\_obtenirDroite(position), labyrinthe)) \textbf{alors}\\
+    \hspace*{2cm}voisinsAccessibles $\gets$ voisinsAccessibles + 1\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner voisinsAccessibles > 2
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{ORD\_estVirage} (\textbf{ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{Booléen}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}voisinHaut $\gets$ CASE\_obtenirParNumero(CASE\_obtenirHaut(position), labyrinthe)\\
+    \hspace*{1cm}voisinBas $\gets$ CASE\_obtenirParNumero(CASE\_obtenirBas(position), labyrinthe)\\
+    \hspace*{1cm}voisinGauche $\gets$ CASE\_obtenirParNumero(CASE\_obtenirGauche(position), labyrinthe)\\
+    \hspace*{1cm}voisinDroite $\gets$ CASE\_obtenirParNumero(CASE\_obtenirDroite(position), labyrinthe)\\
+    \hspace*{1cm}directionsAccessibles $\gets$ 0\\
+    \hspace*{1cm}\textbf{si} voisinHaut \textbf{alors} directionsAccessibles $\gets$ directionsAccessibles + 1 \textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} voisinBas \textbf{alors} directionsAccessibles $\gets$ directionsAccessibles + 1 \textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} voisinGauche \textbf{alors} directionsAccessibles $\gets$ directionsAccessibles + 1 \textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} voisinDroite \textbf{alors} directionsAccessibles $\gets$ directionsAccessibles + 1 \textbf{fin si}\\
+    \hspace*{1cm}\textbf{si} directionsAccessibles = 2 \textbf{alors}\\
+    \hspace*{2cm}\textbf{si} (orientation = Nord \textbf{ou} orientation = Sud) \textbf{et} (voisinGauche \textbf{ou} voisinDroite) \textbf{alors}\\
+    \hspace*{3cm}retourner vrai\\
+    \hspace*{2cm}\textbf{fin si}\\
+    \hspace*{2cm}\textbf{si} (orientation = Est \textbf{ou} orientation = Ouest) \textbf{et} (voisinHaut \textbf{ou} voisinBas) \textbf{alors}\\
+    \hspace*{3cm}retourner vrai\\
+    \hspace*{2cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner faux
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{ORD\_obtenirOrdres} (\textbf{Tableau[ORD\_Position*]} chemin, \textbf{NaturelNonNul} tailleChemin, \textbf{LAB\_Labyrinthe} labyrinthe) : \textbf{Tableau[ORD\_Ordre]}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}ordres $\gets$ tableau de taille (2 $\times$ tailleChemin + 2)\\
+    \hspace*{1cm}ordreIndex $\gets$ 0\\
+    \hspace*{1cm}orientationActuelle $\gets$ ORD\_calculerOrientation(chemin[0], chemin[1], labyrinthe.largeur)\\
+    \hspace*{1cm}\textbf{si} ORD\_estIntersection(chemin[0], labyrinthe) \textbf{ou} ORD\_estVirage(chemin[0], orientationActuelle, labyrinthe, labyrinthe.largeur) \textbf{alors}\\
+    \hspace*{2cm}ordres[ordreIndex] $\gets$ AV\\
+    \hspace*{2cm}ordreIndex $\gets$ ordreIndex + 1\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{pour} i $\gets$ 1 \textbf{à} tailleChemin - 1 \textbf{faire}\\
+    \hspace*{2cm}orientationSuivante $\gets$ ORD\_calculerOrientation(chemin[i - 1], chemin[i], labyrinthe.largeur)\\
+    \hspace*{2cm}\textbf{si} orientationActuelle $\neq$ orientationSuivante \textbf{alors}\\
+    \hspace*{3cm}ordres[ordreIndex] $\gets$ ORD\_tournerVers(orientationActuelle, orientationSuivante)\\
+    \hspace*{3cm}ordreIndex $\gets$ ordreIndex + 1\\
+    \hspace*{3cm}ordres[ordreIndex] $\gets$ AV\\
+    \hspace*{3cm}ordreIndex $\gets$ ordreIndex + 1\\
+    \hspace*{3cm}orientationActuelle $\gets$ orientationSuivante\\
+    \hspace*{2cm}\textbf{sinon}\\
+    \hspace*{3cm}\textbf{si} ORD\_estIntersection(chemin[i], labyrinthe) \textbf{ou} ORD\_estVirage(chemin[i], orientationActuelle, labyrinthe, labyrinthe.largeur) \textbf{alors}\\
+    \hspace*{4cm}ordres[ordreIndex] $\gets$ AV\\
+    \hspace*{4cm}ordreIndex $\gets$ ordreIndex + 1\\
+    \hspace*{3cm}\textbf{fin si}\\
+    \hspace*{2cm}\textbf{fin si}\\
+    \hspace*{1cm}\textbf{fin pour}\\
+    \hspace*{1cm}ordres[ordreIndex] $\gets$ FIN\\
+    \hspace*{1cm}retourner ordres
+\end{flushleft}
+\textbf{fin}\\
+
+\end{document}
