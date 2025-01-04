@@ -16,9 +16,8 @@
 * @brief Initialise le labyrinthe avec les données du fichier
 * @return un labyrinthe modifie
 * @param fnom Nom du fichier utilisé
-* @param labyrinthe Labyrinthe à "remplir"
 * 
 */
-LAB_Labyrinthe initialisationLabyrinthe(char* fnom);
+LAB_Labyrinthe initialiserLabyrinthe(char* fnom);
 
 #endif

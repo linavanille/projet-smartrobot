@@ -53,7 +53,6 @@ void attributionConnections(LAB_Labyrinthe* labyrinthe, int c1, int c2){
 
 
 LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
-    //char temp[4];
     char buffer[10];
     int l;
     char *sortie, *entree;

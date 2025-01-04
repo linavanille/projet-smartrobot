@@ -4,66 +4,30 @@ digraph TopDownAnalysis {
     node [shape=box, style=filled, color=lightblue]; // Style des noeuds
 
     // Tâche principale
-    "Main" -> {"LAB_labyrinthe" "CHM_chemin" "ORD_obtenirOrdres" "ROBOT_evolutionRobot" };
-
-        //LAB_labyrinthe
-        "LAB_labyrinthe";
-        sortie_lab [label="Labyrinthe"]
-        "LAB_labyrinthe":e -> sortie_lab:w; // Sortie
-
-        //CHM_chemin 
-        "CHM_chemin" -> { "LAB_casesAccessibles" "LAB_obtenirEntree" "LAB_obtenirSortie"};
-        entree_chm [label= "Labyrinthe"]
-        entree_chm:e -> "CHM_chemin":w; // Entree
-        sortie_chm [label="Liste<Case>"]
-        "CHM_chemin":e -> sortie_chm:w; // Sortie
-
-            //casesAccessibles 
-            "LAB_casesAccessibles" -> {"LAB_iemeCase"};
-            entree_CA1 [label= "Labyrinthe"]
-            entree_CA1:e -> "LAB_casesAccessibles":w; // Entree
-            entree_CA2 [label= "Case"]
-            entree_CA2:e -> "LAB_casesAccessibles":w; // Entree
-            sortie_CA [label="Liste<Case>"]
-            "LAB_casesAccessibles":e -> sortie_CA:w; // Sortie
-
-                //casesAccessibles 
-                "LAB_iemeCase";
-                entree_iC1 [label= "Labyrinthe"]
-                entree_iC1:e -> "LAB_iemeCase":w; // Entree
-                entree_iC2 [label= "Naturel"]
-                entree_iC2:e -> "LAB_iemeCase":w; // Entree
-                sortie_iC [label="Case"]
-                "LAB_iemeCase":e -> sortie_iC:w; // Sortie
-
-            //obtenirEntree 
-            "LAB_obtenirEntree";
-            entree_oE [label= "Labyrinthe"]
-            entree_oE:e -> "LAB_obtenirEntree":w; // Entree
-            sortie_oE [label="Case"]
-            "LAB_obtenirEntree":e -> sortie_oE:w; // Sortie
-
-            //obtenirSortie 
-            "LAB_obtenirSortie";
-            entree_oS [label= "Labyrinthe"]
-            entree_oS:e -> "LAB_obtenirSortie":w; // Entree
-            sortie_oS [label="Case"]
-            "LAB_obtenirSortie":e -> sortie_oS:w; // Sortie
-        
-        //ORD_obtenirOrdres
-        "ORD_obtenirOrdres" -> { "LAB_casesAccessibles"};
-        entree_oOrd [label= "Liste<Case>"]
-        entree_oOrd:e -> "ORD_obtenirOrdres":w; // Entree
-        sortie_oOrd [label="Liste<ORD_Orde>"]
-        "ORD_obtenirOrdres":e -> sortie_oOrd:w; // Sortie
+    "MainElec" -> {"ROBOT_evolutionRobot" "initialisationGPIO"};
 
         //ROBOT_evolutionRobot
-        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence" "STOP_Loop" "CPTR"};
+        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence"};
         entree_eR [label= "Liste<ORD_Orde>"]
         entree_eR:e -> "ROBOT_evolutionRobot":w; // Entree
 
+            //initElec
+            "initialisationGPIO" -> {"wiringPiSetup" "CPTR_init" "MTR_initialisation" "USON_init" "LCD_init"}
+
+                //CPTR_init
+                "CPTR_init";
+                entree_Cin [label= "3 * NNN"]
+                entree_Cin:e -> "CPTR_init":w; // Entree
+
+                //MTR_initialisation
+                "MTR_initialisation";
+                entree_Mi [label= "6 * NNN"]
+                entree_Mi:e -> "MTR_initialisation":w; // Entree
+
+
+
             //ROBOT_avancer
-            "ROBOT_avancer" -> {"MTR_avancer" "MTR_redresser"};
+            "ROBOT_avancer" -> {"MTR_avancer" "MTR_redresser" "CPTR_estSurUneIntersection" "CPTR_estTropAGauche" "CPTR_estTropADroite"};
             entree_Ra [label= "ROBOT_etatDAvancement"]
             entree_Ra:e -> "ROBOT_avancer":w; // Entree
             sortie_Ra [label="ROBOT_etatDAvancement"]
@@ -78,6 +42,27 @@ digraph TopDownAnalysis {
                 "MTR_redresser";
                 entree_Mr [label= "2* NNN"]
                 entree_Mr:e -> "MTR_redresser":w; // Entree
+
+                //CPTR_estSurUneIntersection
+                "CPTR_estSurUneIntersection";
+                entree_Ci [label= "3 * NNN"]
+                sortie_Ci [label= "Booléen"]
+                entree_Ci:e -> "CPTR_estSurUneIntersection":w; // Entree
+                "CPTR_estSurUneIntersection":e -> sortie_Ci:w; // Sortie
+
+                //CPTR_estTropAGauche
+                "CPTR_estTropAGauche";
+                entree_Ctag [label= "3 * NNN"]
+                sortie_Ctag [label= "Booléen"]
+                entree_Ctag:e -> "CPTR_estTropAGauche":w; // Entree
+                "CPTR_estTropAGauche":e -> sortie_Ctag:w; // Sortie
+
+                //CPTR_estTropADroite
+                "CPTR_estTropADroite";
+                entree_Ctad [label= "3 * NNN"]
+                sortie_Ctad [label= "Booléen"]
+                entree_Ctad:e -> "CPTR_estTropADroite":w; // Entree
+                "CPTR_estTropADroite":e -> sortie_Ctad:w; // Sortie
 
             //ROBOT_intersection
             "ROBOT_intersection" -> {"MTR_tournerGauche" "MTR_tournerDroite"};
@@ -107,26 +92,27 @@ digraph TopDownAnalysis {
                 entree_Mar:e -> "MTR_arreter":w; // Entree
             
     //Style Main
-    Main [shape = ellipse, color = gray]
+    MainElec [shape = ellipse, color = gray]
 
-    //Style Labyrinthe
-    LAB_casesAccessibles, LAB_iemeCase, LAB_obtenirEntree, LAB_obtenirSortie, LAB_labyrinthe [shape = box, color= darkorchid]
-                
-    //Style Ordre 
-    ORD_obtenirOrdres [shape = box, color = orange]
+    //Style InitELec
+    initialisationGPIO [shape = box, color = orange]
 
-    //Style Chemin 
-    CHM_chemin [shape = box, color = coral1]
+    //Style USON LCD
+
+    LCD_init [shape = box, color = "#3365ee"]
+    USON_init [shape = box, color = "#a933ee"]
+    wiringPiSetup [shape = box, color = lightgrey]
+
 
     //Style Moteur
-    MTR_arreter, MTR_avancer, MTR_redresser, MTR_tournerDroite, MTR_tournerGauche [shape=box, color = lightgreen]
+    MTR_arreter, MTR_avancer, MTR_redresser, MTR_tournerDroite, MTR_tournerGauche, MTR_initialisation [shape=box, color = lightgreen]
 
     //Style Robot
     ROBOT_avancer, ROBOT_evolutionRobot, ROBOT_intersection, ROBOT_urgence [shape = box, color = firebrick2]
 
     // Styles spécifiques pour Entrées/Sorties
-    entree_chm, entree_CA1, entree_CA2, entree_iC1, entree_iC2, entree_oE, entree_oS, entree_oOrd, entree_eR, entree_Ra, entree_Mav, entree_Mr, entree_Ri1, entree_Ri2, entree_MtD, entree_MtG, entree_Mar [shape=none, color=none];
-    sortie_lab, sortie_chm, sortie_CA, sortie_iC, sortie_oE, sortie_oS, sortie_oOrd, sortie_Ra, sortie_Ri [shape=none, color=none];
-    
-
+    entree_eR, entree_Ra, entree_Mav, entree_Mr, entree_Ri1, entree_Ri2, entree_MtD, entree_MtG, entree_Mar, entree_Cin, entree_Mi [shape=none, color=none];
+    entree_Ci, entree_Ctag, entree_Ctad [shape=none, color=none];
+    sortie_Ra, sortie_Ri [shape=none, color=none];
+    sortie_Ci, sortie_Ctag, sortie_Ctad [shape=none, color=none];
 }
