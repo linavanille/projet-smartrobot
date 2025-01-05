@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ordresRobot.h"
+#include "ordres.h"
 
 LAB_Labyrinthe* creerLabyrintheExemple() {
 	LAB_Labyrinthe* labyrinthe = malloc(sizeof(LAB_Labyrinthe));
@@ -15,37 +15,36 @@ LAB_Labyrinthe* creerLabyrintheExemple() {
 		labyrinthe->lesConnections[i].Droite = -1;
 	}
 
-	// Définition des connexions
 	labyrinthe->lesConnections[0].Droite = 1;
 
-	labyrinthe->lesConnections[1].Gauche = 0; // Connexion avec 0
-	labyrinthe->lesConnections[1].Bas = 4;    // Connexion avec 4
+	labyrinthe->lesConnections[1].Gauche = 0; 
+	labyrinthe->lesConnections[1].Bas = 4;   
 
 	labyrinthe->lesConnections[2].Bas = 5;
 
 	labyrinthe->lesConnections[3].Droite = 4;
 
-	labyrinthe->lesConnections[4].Haut = 1;   // Connexion avec 1
-	labyrinthe->lesConnections[4].Gauche = 3; // Connexion avec 3
-	labyrinthe->lesConnections[4].Bas = 7;    // Connexion avec 7
+	labyrinthe->lesConnections[4].Haut = 1;   
+	labyrinthe->lesConnections[4].Gauche = 3; 
+	labyrinthe->lesConnections[4].Bas = 7;   
 
 	labyrinthe->lesConnections[5].Haut = 2;
 	labyrinthe->lesConnections[5].Bas = 8;
 
 	labyrinthe->lesConnections[6].Droite = 7;
 
-	labyrinthe->lesConnections[7].Haut = 4;   // Connexion avec 4
-	labyrinthe->lesConnections[7].Gauche = 6; // Connexion avec 6
-	labyrinthe->lesConnections[7].Droite = 8; // Connexion avec 8
+	labyrinthe->lesConnections[7].Haut = 4;  
+	labyrinthe->lesConnections[7].Gauche = 6; 
+	labyrinthe->lesConnections[7].Droite = 8; 
 
 	labyrinthe->lesConnections[8].Gauche = 7;
 	labyrinthe->lesConnections[8].Haut = 5;
 
-	// Définir l'entrée et la sortie
+
 	labyrinthe->entree = 2;
 	labyrinthe->sortie = 8;
 
-	// Vérification des intersections et virages
+
 	if (ORD_estVirage(&labyrinthe->lesConnections[1], Est, labyrinthe, labyrinthe->largeur)) {
 		printf("Case 1 est un virage.\n");
 	}

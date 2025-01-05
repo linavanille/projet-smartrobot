@@ -24,7 +24,48 @@
     \Huge{Conception Détaillée ordres}
 \end{center}
 
-\noindent\textbf{fonction} \textbf{ORD\_tournerGauche} ({ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Position*}\\
+\noindent\textbf{fonction} \textbf{CASE\_obtenirParNumero} (\textbf{Entier} numero, \textbf{LAB\_Labyrinthe} labyrinthe) : \textbf{ORD\_Position*}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}\textbf{si} numero $<$ 0 \textbf{ou} numero $\geq$ largeur $\times$ largeur \textbf{alors}\\
+    \hspace*{2cm}retourner NULL\\
+    \hspace*{1cm}\textbf{fin si}\\
+    \hspace*{1cm}retourner labyrinthe.lesConnections[numero]
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{estAccessible} (\textbf{ORD\_Position*} positionActuelle, \textbf{ORD\_Position*} positionVoisine) : \textbf{Booléen}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}retourner positionVoisine $\neq$ NULL
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{ORD\_avancer} (\textbf{ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{Entier} largeurLabyrinthe) : \textbf{ORD\_Position*}\\
+\textbf{début}
+\begin{flushleft}
+    \hspace*{1cm}\textbf{tant que} vrai \textbf{faire}\\
+    \hspace*{2cm}voisinNumero $\gets$ -1\\
+    \hspace*{2cm}\textbf{si} orientation = Nord \textbf{alors}\\
+    \hspace*{3cm}voisinNumero $\gets$ CASE\_obtenirHaut(position)\\
+    \hspace*{2cm}\textbf{sinon si} orientation = Sud \textbf{alors}\\
+    \hspace*{3cm}voisinNumero $\gets$ CASE\_obtenirBas(position)\\
+    \hspace*{2cm}\textbf{sinon si} orientation = Est \textbf{alors}\\
+    \hspace*{3cm}voisinNumero $\gets$ CASE\_obtenirDroite(position)\\
+    \hspace*{2cm}\textbf{sinon si} orientation = Ouest \textbf{alors}\\
+    \hspace*{3cm}voisinNumero $\gets$ CASE\_obtenirGauche(position)\\
+    \hspace*{2cm}\textbf{fin si}\\
+    \hspace*{2cm}voisinTrouve $\gets$ CASE\_obtenirParNumero(voisinNumero, labyrinthe)\\
+    \hspace*{2cm}\textbf{si} voisinTrouve = NULL \textbf{ou} ORD\_estIntersection(voisinTrouve, labyrinthe) \textbf{ou}\\
+    \hspace*{2cm}ORD\_estVirage(voisinTrouve, orientation, labyrinthe, largeurLabyrinthe) \textbf{alors}\\
+    \hspace*{3cm}retourner voisinTrouve\\
+    \hspace*{2cm}\textbf{fin si}\\
+    \hspace*{2cm}position $\gets$ voisinTrouve\\
+    \hspace*{1cm}\textbf{fin tant que}
+\end{flushleft}
+\textbf{fin}\\
+
+\noindent\textbf{fonction} \textbf{ORD\_tournerGauche} (\textbf{ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Position*}\\
 \textbf{début}
 \begin{flushleft}
     \hspace*{1cm}\textbf{si} orientation = Nord \textbf{alors}\\
@@ -40,7 +81,7 @@
 \end{flushleft}
 \textbf{fin}\\
 
-\noindent\textbf{fonction} \textbf{ORD\_tournerDroite} ({ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Position*}\\
+\noindent\textbf{fonction} \textbf{ORD\_tournerDroite} (\textbf{ORD\_Position*} position, \textbf{ORD\_Orientation} orientation, \textbf{LAB\_Labyrinthe} labyrinthe, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Position*}\\
 \textbf{début}
 \begin{flushleft}
     \hspace*{1cm}\textbf{si} orientation = Nord \textbf{alors}\\
@@ -56,7 +97,7 @@
 \end{flushleft}
 \textbf{fin}\\
 
-\noindent\textbf{fonction} \textbf{ORD\_initialisation} ({LAB\_Labyrinthe} labyrinthe, \textbf{ORD\_Orientation} orientation) : \textbf{ORD\_Position*}\\
+\noindent\textbf{fonction} \textbf{ORD\_initialisation} (\textbf{LAB\_Labyrinthe} labyrinthe, \textbf{ORD\_Orientation} orientation) : \textbf{ORD\_Position*}\\
 \textbf{début}
 \begin{flushleft}
     \hspace*{1cm}entree $\gets$ CASE\_obtenirParNumero(labyrinthe.entree, labyrinthe)\\
@@ -80,7 +121,7 @@
 \end{flushleft}
 \textbf{fin}\\ 
 
-\noindent\textbf{fonction} \textbf{ORD\_calculerOrientation} (	extbf{ORD\_Position*} caseActuelle, \textbf{ORD\_Position*} caseSuivante, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Orientation}\\
+\noindent\textbf{fonction} \textbf{ORD\_calculerOrientation} (\textbf{ORD\_Position*} caseActuelle, \textbf{ORD\_Position*} caseSuivante, \textbf{NaturelNonNul} largeurLabyrinthe) : \textbf{ORD\_Orientation}\\
 \textbf{début}
 \begin{flushleft}
     \hspace*{1cm}numActuelle $\gets$ CASE\_obtenirNumeroCase(caseActuelle)\\
@@ -159,7 +200,7 @@
 \end{flushleft}
 \textbf{fin}\\
 
-\noindent\textbf{fonction} \textbf{ORD\_obtenirOrdres} (\textbf{Tableau[ORD\_Position*]} chemin, \textbf{NaturelNonNul} tailleChemin, \textbf{LAB\_Labyrinthe} labyrinthe) : \textbf{Tableau[ORD\_Ordre]}\\
+\noindent\textbf{fonction} \textbf{genererEtAfficherOrdres} (\textbf{Tableau[ORD\_Position*]} chemin, \textbf{NaturelNonNul} tailleChemin, \textbf{LAB\_Labyrinthe} labyrinthe) : \textbf{Vide}\\
 \textbf{début}
 \begin{flushleft}
     \hspace*{1cm}ordres $\gets$ tableau de taille (2 $\times$ tailleChemin + 2)\\
@@ -185,8 +226,19 @@
     \hspace*{2cm}\textbf{fin si}\\
     \hspace*{1cm}\textbf{fin pour}\\
     \hspace*{1cm}ordres[ordreIndex] $\gets$ FIN\\
-    \hspace*{1cm}retourner ordres
+
+    \hspace*{1cm}\textbf{pour} i $\gets$ 0 \textbf{tant que} ordres[i] $\neq$ FIN \textbf{faire}\\
+    \hspace*{2cm}\textbf{selon} ordres[i] \textbf{faire}\\
+    \hspace*{3cm}\textbf{cas} AV : afficher "AV"\\
+    \hspace*{3cm}\textbf{cas} TG : afficher "TG"\\
+    \hspace*{3cm}\textbf{cas} TD : afficher "TD"\\
+    \hspace*{3cm}\textbf{par défaut} : rien\\
+    \hspace*{2cm}\textbf{fin selon}\\
+    \hspace*{1cm}\textbf{fin pour}\\
+    \hspace*{1cm}libérer ordres\\
+    \hspace*{1cm}libérer labyrinthe.lesConnections\\
+    \hspace*{1cm}libérer labyrinthe
 \end{flushleft}
-\textbf{fin}\\
+\textbf{fin}
 
 \end{document}
