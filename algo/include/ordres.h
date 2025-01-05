@@ -98,6 +98,14 @@ ORD_Position* ORD_initialisation(LAB_Labyrinthe* labyrinthe, ORD_Orientation* or
  */
 ORD_Orientation ORD_calculerOrientation(ORD_Position* caseActuelle, ORD_Position* caseSuivante, unsigned int largeurLabyrinthe);
 
+/**
+ * @brief Tourne le robot vers l'orientation cible
+ * @param orientationActuelle La orientation actuelle
+ * @param orientationCible La orientation cible
+ * @return L'ordre à executer pour atteindre la case cible
+ */
+ORD_Ordre ORD_tournerVers(ORD_Orientation orientationActuelle, ORD_Orientation orientationCible);
+
 //-------------------------------------------------------
 // Fonctions de vérification (cases accessibles et 
 // gestion des intersections et virages)
@@ -132,16 +140,6 @@ bool estAccessible(ORD_Position* positionActuelle, ORD_Position* positionVoisine
 //-------------------------------------------------------
 // Fonction principale
 //-------------------------------------------------------
-
-/**
- * @brief Génère une liste d'ordres pour sortir du labyrinthe à partir d'un chemin donné
- * @param chemin La liste des positions formant le chemin
- * @param tailleChemin Nombre de cases à parcourir
- * @param labyrinthe Labyrinthe où se trouve le robot
- * @return Un tableau dynamique contenant les ordres nécessaires pour suivre le chemin
- */
-ORD_Ordre* ORD_obtenirOrdres(ORD_Position** chemin, unsigned int tailleChemin, LAB_Labyrinthe* labyrinthe);
-
 
 /**
  * @brief Génère une liste d'ordres pour sortir du labyrinthe à partir d'un chemin donné
