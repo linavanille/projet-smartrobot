@@ -137,6 +137,8 @@ bool ORD_estVirage(ORD_Position* position, ORD_Orientation orientation, LAB_Laby
  */
 bool estAccessible(ORD_Position* positionActuelle, ORD_Position* positionVoisine);
 
+ORD_Position* CASE_obtenirParNumero(int numero, LAB_Labyrinthe* labyrinthe);
+
 //-------------------------------------------------------
 // Fonction principale
 //-------------------------------------------------------
