@@ -9,16 +9,8 @@
 /*Permet d'obtenir un chemin*/
 PILELC chemin(LAB_Labyrinthe* l){
     PILELC res;
-    // if (!res) {
-    //     perror("Erreur d'allocation mémoire pour res\n");
-    //     exit(EXIT_FAILURE);
-    // }
     pileLc(&res); 
     Ensemble visitees;
-    // if (!visitees) {
-    //     perror("Erreur d'allocation mémoire pour visitees\n");
-    //     exit(EXIT_FAILURE);
-    // }
     ensemble(&visitees);
  
     printf(" Sortie: %d\n" ,CASE_obtenirNumeroCase(*LAB_obtenirSortie(l)));
