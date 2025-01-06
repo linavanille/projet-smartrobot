@@ -18,6 +18,6 @@
 * @param fnom Nom du fichier utilisé
 * 
 */
-LAB_Labyrinthe initialiserLabyrinthe(char* fnom);
+LAB_Labyrinthe initialisationLabyrinthe(char* fnom);
 
 #endif

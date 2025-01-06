@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/ensemble.h"
+#include "ensemble.h"
 
-void ensemble(Ensemble* ensembleDeCases){
+void ENS_ensemble(Ensemble* ensembleDeCases){
     ensembleDeCases->tete = NULL;
-};
+}
 
-int estPresent(Ensemble *ensembleDeCases, int uneCase){
+
+
+int ENS_estPresent(Ensemble *ensembleDeCases, int uneCase){
    Node* courant = ensembleDeCases -> tete;
    while(courant != NULL){
         if(courant->numeroCase == uneCase){
@@ -15,11 +17,11 @@ int estPresent(Ensemble *ensembleDeCases, int uneCase){
         courant = courant -> suivant;
    }
    return 0;
-};
+}
 
 
-void ajouter(Ensemble *ensembleDeCases, int uneCase){
-    if (estPresent(ensembleDeCases,uneCase)){
+void ENS_ajouter(Ensemble *ensembleDeCases, int uneCase){
+    if (ENS_estPresent(ensembleDeCases,uneCase)){
         printf("Ajout impossible : Élément présent \n");
         return;
     };
@@ -29,9 +31,9 @@ void ajouter(Ensemble *ensembleDeCases, int uneCase){
     ensembleDeCases -> tete = nouveau;
     printf("Élément %d ajouté avec succès\n",uneCase);
 
-};
+}
 
-void libererEnsemble(Ensemble* ensembleDeCases){
+void ENS_libererEnsemble(Ensemble* ensembleDeCases){
     Node* courant = ensembleDeCases->tete;
     while(courant != NULL){
         Node* temp = courant;
@@ -40,5 +42,16 @@ void libererEnsemble(Ensemble* ensembleDeCases){
     };
     ensembleDeCases->tete = NULL;
 
-};
+}
+
+void ENS_afficher(Ensemble* ensembleDeCases){
+    Node* courant=ensembleDeCases->tete;
+    printf("{\t");
+    while(courant != NULL){
+        printf("%d\t",courant->numeroCase);
+        courant=courant->suivant;
+
+    }
+   printf("}\n");
+}
 

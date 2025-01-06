@@ -22,26 +22,29 @@ typedef struct {
 /**
 *@brief Permet de créer un Ensemble vide
 */
-void ensemble(Ensemble* ensembleDeCases);
+void ENS_ensemble(Ensemble* ensembleDeCases);
 
 
 /**
 *@brief Vérifie si une case est présente dans l'Ensemble
 *@return booléen
 */
-int estPresent(Ensemble *ensembleDeCases, int uneCase);
+int ENS_estPresent(Ensemble *ensembleDeCases, int uneCase);
 
 
 /**
 *@brief Ajouter une case dans l'Ensemble 
 */
-void ajouter(Ensemble *ensembleDeCases, int uneCase);
+void ENS_ajouter(Ensemble *ensembleDeCases, int uneCase);
 
 /** 
 *@brief libére tous les noeuds de la liste
 */
-void libererEnsemble(Ensemble* ensembleDeCases);
+void ENS_libererEnsemble(Ensemble* ensembleDeCases);
 
-
+/**
+*@brief pour afficher l'ensemble de cases
+*/
+void ENS_afficher(Ensemble* ensembleDeCases);
 
 #endif

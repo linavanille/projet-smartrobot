@@ -52,7 +52,7 @@ void attributionConnections(LAB_Labyrinthe* labyrinthe, int c1, int c2){
 }
 
 
-LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
+LAB_Labyrinthe initialisationLabyrinthe(char* fnom){
     char buffer[10];
     int l;
     char *sortie, *entree;
@@ -85,9 +85,4 @@ LAB_Labyrinthe initialiserLabyrinthe(char* fnom){
     }while(buffer[0]!='.');
 
     return labyrinthe; 
-}
-
-LAB_Labyrinthe initialisationLabyrinthe(char* fnom){
-    LAB_Labyrinthe lab = initialiserLabyrinthe(fnom);
-    return lab;
 }
