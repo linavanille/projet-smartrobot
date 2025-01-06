@@ -1,0 +1,164 @@
+\documentclass[letterpaper,12pt]{report}
+\usepackage[utf8]{inputenc} % encodage du fichier
+\usepackage[french]{babel} % document en francais
+\usepackage[T1]{fontenc} % pour les caracteres accentues
+\usepackage[french]{algorithm2e}
+\usepackage{pseudocode}
+
+
+      
+
+\setlength{\oddsidemargin}{-5pt} % Marge gauche sur pages impaires
+\setlength{\textwidth}{481pt} % Largeur de la zone de texte (17cm)
+\setlength{\headheight}{13pt} % Haut de page
+\setlength{\headsep}{20pt} % Entre le haut de page et le texte
+
+
+
+\begin{document}
+%\fontfamily{lmr}%
+%\fontseries{m}%
+%\fontsize{14pt}{18pt}
+%\selectfont%
+
+\section*{Structures de Données}
+
+\begin{algorithme}
+
+\begin{enregistrement}{LAB\_Labyrinthe}
+    \champEnregistrement{lesConnections}{\tableau{1..MAX}{de}{CASE\_Case}}
+    \champEnregistrement{entree}{\naturelNonNul}
+    \champEnregistrement{sortie}{\naturelNonNul}
+    \champEnregistrement{largeur}{\naturelNonNul}
+\end{enregistrement}
+
+\end{algorithme}
+
+\section*{Conception Préliminaire Labyrinthe}
+
+\begin{algorithme}
+    \signatureFonction{LAB\_creerLabyrinthe}
+    {l: \naturelNonNul, entree, sortie: \chaine}{LAB\_Labyrinthe}
+    {}
+
+    \signatureFonction{LAB\_obtenirEntree}
+    {lab : LAB\_Labyrinthe}{\CASE\_Case}
+    {}
+
+    \signatureFonction{LAB\_obtenirSortie}
+    {lab : LAB\_Labyrinthe}{\CASE\_Case}
+    {}
+
+    \signatureFonction{LAB\_obtenirLargeur}
+    {lab : LAB\_Labyrinthe}{\naturelNonNul}
+    {}
+
+    \signatureFonction{LAB\_iemeCase}
+    {lab : LAB\_Labyrinthe, iCase: \naturelNonNul}{CASE\_Case}
+    {}
+
+    \signatureFonction{LAB\_obtenirCasesAccessibles}
+    {lab : LAB\_Labyrinthe, uneCase : CASE\_Case}{\tableau{1..4}{de}{CASE\_Case}}
+    {}
+
+    \signatureFonction{LAB\_obtenirDirectionEntree}
+    {lab : LAB\_Labyrinthe}{\chaine}
+    {}
+
+    \signatureFonction{LAB\_obtenirDirectionSortie}
+    {lab : LAB\_Labyrinthe}{\chaine}
+    {}
+\end{algorithme}
+
+\section*{Conception Détaillée Labyrinthe}
+
+\begin{algorithme}
+
+    \fonction{LAB\_creerLabyrinthe}{l : \naturelNonNul, entree, sortie: \chaine}{LAB\_Labyrinthe}
+    {}{lab: LAB\_Labyrinthe} 
+    {
+        \affecter{lab}{\tableau{1..l*l}{de}{CASE\_Case}}
+        \affecter{lab.entree}{entree}
+        \affecter{lab.sortie}{sortie}
+        \affecter{lab.largeur}{largeur}
+        \retourner{lab}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirEntree}{lab : LAB\_Labyrinthe}{\CASE\_Case}
+    {}{}
+    {
+        \retourner{lab.entree}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirSortie}{lab : LAB\_Labyrinthe}{\CASE\_Case}
+    {}{}
+    {
+        \retourner{lab.sortie}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirLargeur}{lab : LAB\_Labyrinthe}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{lab.largeur}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_iemeCase}{lab : LAB\_Labyrinthe, iCase : \naturelNonNul}{\CASE\_Case}
+    {}{res : Case}
+    {
+        \affecter{res}{lab.lesConnections[iCase]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirCasesAccessibles}{lab : LAB\_Labyrinthe, iCase : \naturelNonNul}{Case}
+    {}{res : Case}
+    {
+        \affecter{res}{LAB\_iemeCase(lab, iCase)}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirDirectionEntree}{lab : LAB\_Labyrinthe}{\CASE\_Case}
+    {}{res : Case}
+    {
+        \affecter{res}{lab.entree[1]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirDirectionSortie}{lab : LAB\_Labyrinthe}{\CASE\_Case}
+    {}{res : Case}
+    {
+        \affecter{res}{lab.sortie[1]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+
+\end{document}

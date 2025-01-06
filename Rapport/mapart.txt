@@ -1,0 +1,42 @@
+--Introduction
+
+Ce projet a pour objectif de concevoir un robot autonome capable de sortir d’un labyrinthe. 
+Il s’inscrit dans une démarche visant à approfondir nos connaissances en algorithmique, en 
+programmation en langage C, et en électronique, tout en nous initiant aux pratiques collaboratives, 
+essentielles dans le cadre de notre formation d’ingénieur.
+
+Le robot sera doté de capteurs variés lui permettant de collecter des informations sur son
+environnement et d’exécuter les instructions programmées à l’avance. À partir d’un plan de 
+labyrinthe donné en entrée, les algorithmes développés auront pour mission de générer un chemin 
+vers la sortie, ainsi que les ordres nécessaires à l’exécution de ce trajet par le 
+robot.
+
+Ce compte rendu présente les différentes étapes du projet : une première partie sera consacrée à 
+la conception algorithmique et électronique, tandis qu’une seconde partie abordera les 
+problématiques rencontrées au cours de ces phases.
+
+
+
+--Chemin
+
+void recSortirLabyrinthe(CASE_Case c, Ensemble* visitees,CASE_Case objectif,PILELC* res)
+
+L'algorithme de recherche de chemin que nous avons utilisé est un algo classique de parcours en 
+profondeur. Pour s'y prendre,  nous avouns implémenter un TAD ENSEMBLE, pour stocker les cases  
+visitées  et un TAD PILE pour  stocker les cases qui sont sur le chemin de la sortie.
+L'algo commence par empiler la case d'entrée, et la marquer comme "visitée" en l'ajoutant
+dans l'ensemble des cases visitées. Puis tant qu'on ne tombe pas sur la case de sortie ou qu'on 
+aie pas atteint le nombre d'enfant de la case actuelle, on fait l'appelle récursif sur tout ses 
+enfants:les cases accessibles depuis cette case. À la fin de la boucle tant que, si l'on se retrouve 
+avec une case (res) différente de la case de sortie (objectif), on dépile la case courante car elle 
+ne nous permet pas d'atteindre la sortie. À la fin de l'algo, notre pile contient les cases qui mènent 
+à la sortie du labyrinthe.
+void recSortirLabyrinthe(CASE_Case c, Ensemble* visitees,CASE_Case objectif,PILELC* res)
+Pour l'implémentation de ces deux TAD, nous avons opter pour une structure de données dynamiques 
+vues en cours : les listes chaînées.
+
+--Tests
+Nous n'avons pas réalisés de tests propres tels qu'on les a vus en cours avec Cunit. Mais pour chaque 
+TAD nous avons réalisé un module de tests. Par exemple pour le TAD pile, nous avons implémenter un 
+programme qui empile, dépile tout en affichant l'état de la pile. Ceci nous permet de nous assurer
+que nos TAD fonctionnent avant de les utiliser dans la recherche de chemin.

@@ -1,0 +1,118 @@
+digraph TopDownAnalysis {
+    rankdir=LR; // Orientation top-down
+    splines=false; // Force straight arrows
+    node [shape=box, style=filled, color=lightblue]; // Style des noeuds
+
+    // Tâche principale
+    "MainElec" -> {"ROBOT_evolutionRobot" "initialisationGPIO"};
+
+        //ROBOT_evolutionRobot
+        "ROBOT_evolutionRobot" -> { "ROBOT_avancer" "ROBOT_intersection" "ROBOT_urgence"};
+        entree_eR [label= "Liste<ORD_Orde>"]
+        entree_eR:e -> "ROBOT_evolutionRobot":w; // Entree
+
+            //initElec
+            "initialisationGPIO" -> {"wiringPiSetup" "CPTR_init" "MTR_initialisation" "USON_init" "LCD_init"}
+
+                //CPTR_init
+                "CPTR_init";
+                entree_Cin [label= "3 * NNN"]
+                entree_Cin:e -> "CPTR_init":w; // Entree
+
+                //MTR_initialisation
+                "MTR_initialisation";
+                entree_Mi [label= "6 * NNN"]
+                entree_Mi:e -> "MTR_initialisation":w; // Entree
+
+
+
+            //ROBOT_avancer
+            "ROBOT_avancer" -> {"MTR_avancer" "MTR_redresser" "CPTR_estSurUneIntersection" "CPTR_estTropAGauche" "CPTR_estTropADroite"};
+            entree_Ra [label= "ROBOT_etatDAvancement"]
+            entree_Ra:e -> "ROBOT_avancer":w; // Entree
+            sortie_Ra [label="ROBOT_etatDAvancement"]
+            "ROBOT_avancer":e -> sortie_Ra:w; // Sortie
+
+                //MTR_avancer
+                "MTR_avancer";
+                entree_Mav [label= "6 * NNN"]
+                entree_Mav:e -> "MTR_avancer":w; // Entree
+
+                //MTR_redresser
+                "MTR_redresser";
+                entree_Mr [label= "2* NNN"]
+                entree_Mr:e -> "MTR_redresser":w; // Entree
+
+                //CPTR_estSurUneIntersection
+                "CPTR_estSurUneIntersection";
+                entree_Ci [label= "3 * NNN"]
+                sortie_Ci [label= "Booléen"]
+                entree_Ci:e -> "CPTR_estSurUneIntersection":w; // Entree
+                "CPTR_estSurUneIntersection":e -> sortie_Ci:w; // Sortie
+
+                //CPTR_estTropAGauche
+                "CPTR_estTropAGauche";
+                entree_Ctag [label= "3 * NNN"]
+                sortie_Ctag [label= "Booléen"]
+                entree_Ctag:e -> "CPTR_estTropAGauche":w; // Entree
+                "CPTR_estTropAGauche":e -> sortie_Ctag:w; // Sortie
+
+                //CPTR_estTropADroite
+                "CPTR_estTropADroite";
+                entree_Ctad [label= "3 * NNN"]
+                sortie_Ctad [label= "Booléen"]
+                entree_Ctad:e -> "CPTR_estTropADroite":w; // Entree
+                "CPTR_estTropADroite":e -> sortie_Ctad:w; // Sortie
+
+            //ROBOT_intersection
+            "ROBOT_intersection" -> {"MTR_tournerGauche" "MTR_tournerDroite"};
+            entree_Ri1 [label= "ROBOT_etatDAvancement"]
+            entree_Ri1:e -> "ROBOT_intersection":w; // Entree
+            entree_Ri2 [label= "ORD_Ordre"]
+            entree_Ri2:e -> "ROBOT_intersection":w; // Entree
+            sortie_Ri [label="ROBOT_etatDAvancement"]
+            "ROBOT_intersection":e -> sortie_Ri:w; // Sortie
+
+                //MTR_tournerGauche
+                "MTR_tournerGauche";
+                entree_MtG [label= "2 * NNN"]
+                entree_MtG:e -> "MTR_tournerGauche":w; // Entree
+
+                //MTR_tournerDroite
+                "MTR_tournerDroite";
+                entree_MtD [label= "2 * NNN"]
+                entree_MtD:e -> "MTR_tournerDroite":w; // Entree
+
+            //ROBOT_urgence
+            "ROBOT_urgence" -> {"MTR_arreter"};
+
+                //MTR_arreter
+                "MTR_arreter";
+                entree_Mar [label= "4 * NNN"]
+                entree_Mar:e -> "MTR_arreter":w; // Entree
+            
+    //Style Main
+    MainElec [shape = ellipse, color = gray]
+
+    //Style InitELec
+    initialisationGPIO [shape = box, color = orange]
+
+    //Style USON LCD
+
+    LCD_init [shape = box, color = "#3365ee"]
+    USON_init [shape = box, color = "#a933ee"]
+    wiringPiSetup [shape = box, color = lightgrey]
+
+
+    //Style Moteur
+    MTR_arreter, MTR_avancer, MTR_redresser, MTR_tournerDroite, MTR_tournerGauche, MTR_initialisation [shape=box, color = lightgreen]
+
+    //Style Robot
+    ROBOT_avancer, ROBOT_evolutionRobot, ROBOT_intersection, ROBOT_urgence [shape = box, color = firebrick2]
+
+    // Styles spécifiques pour Entrées/Sorties
+    entree_eR, entree_Ra, entree_Mav, entree_Mr, entree_Ri1, entree_Ri2, entree_MtD, entree_MtG, entree_Mar, entree_Cin, entree_Mi [shape=none, color=none];
+    entree_Ci, entree_Ctag, entree_Ctad [shape=none, color=none];
+    sortie_Ra, sortie_Ri [shape=none, color=none];
+    sortie_Ci, sortie_Ctag, sortie_Ctad [shape=none, color=none];
+}

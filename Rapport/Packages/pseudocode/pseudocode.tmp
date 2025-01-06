@@ -1,0 +1,9 @@
+\renewcommand{\motclefSi}{if}
+\renewcommand{\motclefAlors}{then}
+\renewcommand{\motclefSinon}{else}
+\renewcommand{\motclefFinsi}{end}
+\begin{algorithme}
+   \sialorssinon{a $\leq$ b}
+   {\retourner{a}}
+   {\retourner{b}}
+\end{algorithme}

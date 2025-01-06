@@ -1,0 +1,50 @@
+DISTRIBUTION RAPPORT PROJET SMARTROBOT
+
+
+
+Introduction ................................................... Amsatou
+	expliquer les attendus du projet
+	
+==============================================================================
+Partie électronique -
+
+	Présentation du câblage -------------------------------- Tom
+	
+	explication résistance LED + dérivation ---------------- Nathan
+	explication positionnement des Capteurs
+	
+	explication algorithme de déplacement ------------------ Tom
+	
+	Problèmes rencontrés ................................... Tom
+	Conclusion
+
+==============================================================================
+Partie Algo 
+	la répartition des taches selon le cycle en V 
+		Analyse ........................................ Michel
+			explication des TAD
+			explication Analyse Descendante
+			
+		Conception préliminaire / détaillée
+			Labyrinthe/Case ------------------------ Nathan
+			Chemin --------------------------------- Amsatou
+			Ordres --------------------------------- Lina
+		
+		Tests
+			On en a fait mais pas proprement ------- Amsatou
+		
+		Problèmes rencontrés ........................... Lina
+		Conclusion
+		
+==============================================================================
+Conclusion Matrice qui a fait quoi ............................. Tom
+
+
+Faire le make all demandé dans le sujet (partie Livrable) ...... Michel
+		
+			
+		
+			
+			
+		
+	

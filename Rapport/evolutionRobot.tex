@@ -1,0 +1,156 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc} % encodage du fichier
+\usepackage[french]{babel} % document en francais
+\usepackage[T1]{fontenc} % pour les caracteres accentues
+\usepackage[french]{algorithm2e}
+
+
+
+\setlength{\hoffset}{-18pt}        
+\setlength{\oddsidemargin}{-10pt} % Marge gauche sur pages impaires
+\setlength{\evensidemargin}{9pt} % Marge gauche sur pages paires
+\setlength{\marginparwidth}{54pt} % Largeur de note dans la marge
+\setlength{\textwidth}{520pt} % Largeur de la zone de texte (17cm)
+\setlength{\voffset}{-18pt} % Bon pour DOS
+\setlength{\topmargin}{-10pt} % Pas de marge en haut
+\setlength{\headheight}{0pt} % Haut de page
+\setlength{\headsep}{20pt} % Entre le haut de page et le texte
+\setlength{\footskip}{27pt} % Bas de page + séparation
+\setlength{\textheight}{750pt} % Hauteur de la zone de texte (25cm)
+
+
+\begin{document}
+
+\fontfamily{lmr}%
+\fontseries{m}%
+\selectfont
+\begin{center}
+    \Huge{Conception module EvolutionRobot}
+\end{center}
+
+\section*{Situation possibles des capteurs}
+
+\textbf{Booléen} SENS\_redresserADroite $\leftarrow$  (\textbf{digitalRead} ($LINE\_SENSOR\_RIGH$) = 1) \textbf{and} 
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 0)
+
+\textbf{Booléen} SENS\_redresserAGauche $\leftarrow$  (\textbf{digitalRead} ($LINE\_SENSOR\_LEFT$) = 1) \textbf{and} 
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 0)
+
+\textbf{Booléen} SENS\_intersection $\leftarrow$  [(\textbf{digitalRead} ($LINE\_SENSOR\_LEFT$) = 1) \textbf{and} 
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 1)] \textbf{ou}
+
+\indent\indent[(\textbf{digitalRead} ($LINE\_SENSOR\_RIGHT$) = 1) \textbf{and}
+
+\indent\indent(\textbf{digitalRead} ($LINE\_SENSOR\_FRONT$) = 1)]
+
+\subsection*{Conception Préliminaire}
+
+\textbf{Enumération} ROBOT\_EtatDAvancement = \{Avancer, Intersection, Urgence, Sorti\}\\
+
+\textbf{procedure} ROBOT\_avancer (\textbf{E/S:} etat: \textbf{ROBOT\_EtatDAvancement})
+
+\textbf{procedure} ROBOT\_intersection (\textbf{E/S:} etat: \textbf{ROBOT\_EtatDAvancement}, {E:} prochaineAction: \textbf{ORD\_Ordre})
+
+\textbf{procedure} ROBOT\_urgence ()
+
+\textbf{procedure} ROBOT\_evolutionRobot (\textbf{E:} listeDOrdres: \textbf{ORD\_ListeDOrdres})
+
+\newpage
+\section*{Conception Détaillée}
+
+\noindent\textbf{procedure} ROBOT\_avancer (\textbf{E/S:} etat: \textbf{ROBOT\_EtatDAvancement})\\
+\textbf{début}
+    \begin{algorithm}
+        \Tq{(\textbf{non} SENS\_instersection) \textbf{et} (etat $\neq$ Urgence)}{
+            \eSi{USON\_obtenirDistance () $\leq$ 10}{etat $\leftarrow$ Urgence}
+            {MTR\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)\\
+                \uSi{CPTR\_estTropAGauche (CPTR\_LIGNE\_CENTRE, CPTR\_LIGNE\_GAUCHE, CPTR\_LIGNE\_DROIT)}{
+                    MTR\_redresser (PWM\_EN2, PWM\_EN1)\\
+                    \Repeter{CPTR\_estSurLaLigne (CPTR\_LIGNE\_CENTRE)}{
+                        \Si{USON\_obtenirDistance () $\leq$ 10}{ROBOT\_urgence ()}
+                    }
+                    MTR\_redresser (PWM\_EN1, PWM\_EN2)\\
+                    attendre ()\\
+                    MTR\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)
+                }
+                \SinonSi{CPTR\_estTropADroite (CPTR\_LIGNE\_CENTRE, CPTR\_LIGNE\_GAUCHE, CPTR\_LIGNE\_DROIT)}{
+                    MTR\_redresser (PWM\_EN1, PWM\_EN2)\\
+                    \Repeter{CPTR\_estSurLaLigne (CPTR\_LIGNE\_CENTRE)}{
+                        \Si{USON\_obtenirDistance () $\leq$ 10}{ROBOT\_urgence ()}
+                    }
+                    MTR\_redresser (PWM\_EN2, PWM\_EN1)\\
+                    attendre ()\\
+                    MTR\_avancer (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4, PWM\_EN1, PWM\_EN2)
+                }
+            etat $\leftarrow$ Intersection
+            }
+        }
+\end{algorithm}
+
+\noindent\textbf{fin}
+
+\newpage
+\noindent\textbf{procedure} ROBOT\_intersection (\textbf{E/S:} etat: \textbf{ROBOT\_EtatDAvancement}, \textbf{E:} listeDOrdres: \textbf{Chaine de caractères})
+
+\noindent
+\textbf{début}
+
+    \begin{algorithm}[H]
+        \Suivant{prochaineAction}{
+            \uCas{TD}{MTR\_tournerDroite (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\attendre()\\ etat $\leftarrow$ Avancer}
+            \uCas{TG}{MTR\_tournerGauche (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\attendre()\\ etat $\leftarrow$ Avancer}
+            \uCas{AV}{etat $\leftarrow$ Avancer}
+            \Autre{etat = Sorti}
+            }
+        
+    \end{algorithm}
+\noindent
+\textbf{fin}\\
+
+\noindent\textbf{procedure} ROBOT\_urgence ()\\
+\textbf{début}
+
+    \begin{algorithm}[H]
+        dist $\leftarrow$ USON\_obtenirDistance ()\\
+        \Tq{dist $\leq $ 10}{
+            BUZZ\_loop ()\\
+            MTR\_arreter (MOTEUR\_IN1, MOTEUR\_IN2, MOTEUR\_IN3, MOTEUR\_IN4)\\
+            LCD\_Write ("Interrution", "Obstacle")\\
+            dist $\leftarrow$ USON\_obtenirDistance ()\\
+            attendre (0.2)
+            }
+        BUZZ\_OFF ()\\
+        LCD\_clear ()
+    \end{algorithm}
+
+\noindent\textbf{fin}\\
+
+\noindent\textbf{procedure} ROBOT\_evolutionRobot ()
+
+\begin{tabular}{ll}
+    \textbf{Déclaration:} & prochaineAction: \textbf{Chaine de caractères}\\
+     & etat: \textbf{ROBOT\_EtatDAvancement}\\
+\end{tabular}
+
+\noindent\textbf{début}
+
+    \begin{algorithm}[H]
+        \textbf{lire} (prochaineAction)\\
+        etat $\leftarrow$ Avancer\\
+        \Tq{prochaineAction $\neq$ '.'}{
+            \Suivant{etat}{
+                \Cas{Avancer}{ROBOT\_avancer (etat)}
+                \Cas{Intersection}{tourner (etat)}
+                \Cas{Urgence}{ROBOT\_urgence ()}
+                }
+            numOrdre $\leftarrow$ numOrdre + 1\\
+            prochaineAction $\leftarrow$ listeOrdre[numOrdre]\\
+        }
+    \end{algorithm}
+
+    \noindent\textbf{fin}
+
+\end{document}

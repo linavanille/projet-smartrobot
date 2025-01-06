@@ -1,0 +1,27 @@
+\subsubsection{Analyse Descendante}
+
+\begin{table}[!h]
+    \begin{center}
+        \includegraphics[width = 16cm]{figures/analyseD.png}
+    \end{center}
+    \caption{Schéma électrique}
+\end{table}
+
+Le programme commencera par exécuter \texttt{LAB\_labyrinthe} pour créer un labyrinthe.
+Il se basera sur la lecture en entrée standard pour en dessiner l'architecture.
+Le labyrinthe sera ensuite utilisé pour trouver un chemin vers la sortie.
+Pour cela, nous utilisons \texttt{CHM\_chemin}.
+Un algorithme de plus court chemin avec Dijkstra a été envisagé, mais non implémenté.
+Cette fonction, à travers l'utilisation de \texttt{LAB\_obtenirEntree} et \texttt{LAB\_obtenirSortie},
+et des appels en boucle de \texttt{LAB\_casesAccessibles},
+nous donnera la liste des cases à parcourir de l'entrée à la sortie.
+Avec ce chemin trouvé, nous le donnons à \texttt{ORD\_obtenirOrdres}, qui génèrera
+la liste des ordres que le programme de pilotage du robot comprendra.
+
+\texttt{ROBOT\_evolutionRobot} récupérera donc la liste des ordres du premier programme.
+Il est à la tête des actions physiques du robot, et pourra utiliser
+\texttt{ROBOT\_avancer}, \texttt{ROBOT\_intersection} et \texttt{ROBOT\_urgence}.
+Toutes ces actions dépendent de codes agissant directement sur les ports de la raspberry.
+Des vitesses et des sens de rotations sont ainsi associé à chaque action pour chaque moteur.
+À tout moment, les capteurs de lignes envoient de l'information au programme.
+Avec cette vision, les choix de virage ou de redressement sont pris.

@@ -1,0 +1,16 @@
+\section{Voies d'amélioration}
+
+Notre Robot possède de nombreux inconvénients.
+Tout d'abord, le programme de recherche du plus court chemin n'est pas terminé, ce qui constitue un gros désavantage.
+Ensuite, notre choix de représentation du Labyrinthe en C convient pour cette application simple et cadrée, mais elle n'est pas très portable.
+Une représentation plus complexe comme les graphes aurait surement été préférable pour faciliter son utilisation. 
+
+Ensuite, le système de redressement n'est pas au point car il gêne la détection d'intersection. De plus, la détection de sa condition d'arrêt laisse à désirer.
+Nous aurions pu utiliser des capteurs supplémentaires afin de séparer la détection d'intersection du redressement ou alors rechercher un algorithme plus complexe servant à remettre le Robot dans une position correcte à chaque grosse déviation.
+De plus, comme mentionné précédemment, le système de détection d'obstacle ne fonctionne pas du tout.
+
+Une autre voie d'amélioration possible porte sur notre méthode de travail.
+Afin de rendre la résolution de problème plus efficace, il aurait fallu définir en amont un protocole à suivre qui aiderait à revoir l'ensemble des éléments à l'origine d'un potentiel problème rencontré.
+Avec une telle méthode, nous aurions peut-être perdu moins de temps à chercher où étaient nos erreurs, surtout que la plupart du temps, elles sont très facilement corrigées.
+
+Cette remarque vaut notamment pour la partie électronique et le montage du Robot, pour la partie algorithmie, il faudrait coder un ensemble de tests avant de dévelloper nos programmes (comme le suggère le cycle en V).

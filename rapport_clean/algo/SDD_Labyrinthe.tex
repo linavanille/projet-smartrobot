@@ -1,0 +1,140 @@
+\subsubsection{SDD Labyrinthe}
+
+\paragraph{Structures de Données}
+
+\begin{algorithme}
+
+    \begin{enregistrement}{LAB\_Labyrinthe}
+        \champEnregistrement{lesConnections}{\tableau{1..MAX}{de}{CASE\_Case}}
+        \champEnregistrement{entree}{\naturelNonNul}
+        \champEnregistrement{sortie}{\naturelNonNul}
+        \champEnregistrement{largeur}{\naturelNonNul}
+    \end{enregistrement}
+
+\end{algorithme}
+
+\paragraph{Conception Préliminaire Labyrinthe}
+
+\begin{algorithme}
+    \signatureFonction{LAB\_creerLabyrinthe}
+    {l: \naturelNonNul, entree, sortie: \chaine}{LAB\_Labyrinthe}
+    {}
+
+    \signatureFonction{LAB\_obtenirEntree}
+    {lab : LAB\_Labyrinthe}{CASE\_Case}
+    {}
+
+    \signatureFonction{LAB\_obtenirSortie}
+    {lab : LAB\_Labyrinthe}{CASE\_Case}
+    {}
+
+    \signatureFonction{LAB\_obtenirLargeur}
+    {lab : LAB\_Labyrinthe}{\naturelNonNul}
+    {}
+
+    \signatureFonction{LAB\_iemeCase}
+    {lab : LAB\_Labyrinthe, iCase: \naturelNonNul}{CASE\_Case}
+    {}
+
+    \signatureFonction{LAB\_obtenirCasesAccessibles}
+    {lab : LAB\_Labyrinthe, uneCase : CASE\_Case}{\tableau{1..4}{de}{CASE\_Case}}
+    {}
+
+    \signatureFonction{LAB\_obtenirDirectionEntree}
+    {lab : LAB\_Labyrinthe}{\chaine}
+    {}
+
+    \signatureFonction{LAB\_obtenirDirectionSortie}
+    {lab : LAB\_Labyrinthe}{\chaine}
+    {}
+\end{algorithme}
+
+\paragraph{Conception Détaillée Labyrinthe}
+
+\begin{algorithme}
+
+    \fonction{LAB\_creerLabyrinthe}{l : \naturelNonNul, entree, sortie: \chaine}{LAB\_Labyrinthe}
+    {}{lab: LAB\_Labyrinthe} 
+    {
+        \affecter{lab}{\tableau{1..l*l}{de}{CASE\_Case}}
+        \affecter{lab.entree}{entree}
+        \affecter{lab.sortie}{sortie}
+        \affecter{lab.largeur}{largeur}
+        \retourner{lab}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirEntree}{lab : LAB\_Labyrinthe}{CASE\_Case}
+    {}{}
+    {
+        \retourner{lab.entree}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirSortie}{lab : LAB\_Labyrinthe}{CASE\_Case}
+    {}{}
+    {
+        \retourner{lab.sortie}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirLargeur}{lab : LAB\_Labyrinthe}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{lab.largeur}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_iemeCase}{lab : LAB\_Labyrinthe, iCase : \naturelNonNul}{CASE\_Case}
+    {}{res : Case}
+    {
+        \affecter{res}{lab.lesConnections[iCase]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirCasesAccessibles}{lab : LAB\_Labyrinthe, iCase : \naturelNonNul}{Case}
+    {}{res : Case}
+    {
+        \affecter{res}{LAB\_iemeCase(lab, iCase)}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirDirectionEntree}{lab : LAB\_Labyrinthe}{CASE\_Case}
+    {}{res : Case}
+    {
+        \affecter{res}{lab.entree[1]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
+
+\begin{algorithme}
+
+    \fonction{LAB\_obtenirDirectionSortie}{lab : LAB\_Labyrinthe}{CASE\_Case}
+    {}{res : Case}
+    {
+        \affecter{res}{lab.sortie[1]}
+        \retourner{res}
+    }
+    
+\end{algorithme}
