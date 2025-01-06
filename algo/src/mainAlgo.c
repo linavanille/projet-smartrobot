@@ -12,7 +12,7 @@
 
 int main(int argc, char** argv){
     LAB_Labyrinthe labyrinthe;
-    // CASE_Case* chemin;
+    PILELC chemin;
 
     if(argc != 2){
         printf("Le fichier non precise\n"); 
@@ -26,9 +26,9 @@ int main(int argc, char** argv){
     }
     
     labyrinthe = initialisationLabyrinthe(path);
-    //chemim = CHM_chemin(labyrinthe)
-    //tailleChemin = CHM_longueur(chemin)                           La fonction n'existe pas mais c'est ce que l'on aurait dû avoir
-    //ORD_obtenirOrdres(chemin, tailleChemin, labyrinthe)           Mauvais type pour chemin
+    chemin = CHM_chemin(&labyrinthe);
+    // int tailleChemin CHM_longueur(chemin)                           La fonction n'existe pas mais c'est ce que l'on aurait dû avoir
+    //ORD_obtenirOrdres(&chemin, tailleChemin, &labyrinthe);           Mauvais type pour chemin
 
     return EXIT_SUCCESS;
 }
