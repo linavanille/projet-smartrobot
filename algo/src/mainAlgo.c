@@ -27,7 +27,7 @@ int main(int argc, char** argv){
     
     labyrinthe = initialisationLabyrinthe(path);
     chemin = CHM_chemin(&labyrinthe);
-    // int tailleChemin CHM_longueur(chemin)                           La fonction n'existe pas mais c'est ce que l'on aurait dû avoir
+    //int tailleChemin CHM_longueur(chemin)                           La fonction n'existe pas mais c'est ce que l'on aurait dû avoir
     //ORD_obtenirOrdres(&chemin, tailleChemin, &labyrinthe);           Mauvais type pour chemin
 
     return EXIT_SUCCESS;

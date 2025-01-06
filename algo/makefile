@@ -8,8 +8,8 @@ INCDIR := $(ROOTDIR)/include
 LIBDIR := $(ROOTDIR)/lib
 OBJDIR := $(ROOTDIR)/obj
 SRCDIR := $(ROOTDIR)/src
-TSTDIR := $(ROOTDIR)/tests
-BINTSTDIR := $(BINDIR)/tests
+TSTDIR := $(ROOTDIR)/src/tests
+BINTSTDIR := $(ROOTDIR)/tests
 
 # Fichiers utiles
 TARGET := $(BINDIR)/algo
