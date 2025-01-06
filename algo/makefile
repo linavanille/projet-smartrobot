@@ -8,6 +8,8 @@ INCDIR := $(ROOTDIR)/include
 LIBDIR := $(ROOTDIR)/lib
 OBJDIR := $(ROOTDIR)/obj
 SRCDIR := $(ROOTDIR)/src
+TSTDIR := $(ROOTDIR)/tests
+BINTSTDIR := $(BINDIR)/tests
 
 # Fichiers utiles
 TARGET := $(BINDIR)/algo
@@ -16,6 +18,8 @@ OUTDOCDIR := $(DOCDIR)/output
 
 SRC := $(wildcard $(SRCDIR)/*.c)
 OBJ := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
+TESTS := $(wildcard $(TSTDIR)/*.c)
+BINTST := $(patsubst $(TSTDIR)/%.c,$(BINTSTDIR)/%,$(TESTS))
 
 # Commandes utiles
 CC := gcc
@@ -25,18 +29,24 @@ LIBFLAGS :=
 
 all: $(TARGET)
 
+tests: $(BINTST)
+
 gendoc:
 	cd $(ROOTDIR)
 	doxygen $(GENDOCFILE)
 
+$(BINTST): $(OBJ) | $(BINTSTDIR)
+	cd $(ROOTDIR)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS) $(IFLAGS)
+
 $(TARGET): $(OBJ) | $(BINDIR)
 	cd $(ROOTDIR)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS) $(IFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	cd $(ROOTDIR)
 	$(CC) $(CFLAGS) $(IFLAGS) -o $@ -c $<
 
-$(BINDIR) $(OBJDIR):
+$(BINDIR) $(OBJDIR) $(BINTSTDIR):
 	cd $(ROOTDIR)
 	mkdir -p $@
