@@ -1,31 +1,18 @@
-SRCDIR=src
-LIBDIR=lib
-BINDIR=bin
-TESTDIR = test
-INCLUDEDIR=include
-CC = gcc
-AR = ar
-CFLAGS=-Wall -pedantic -g
-LDFLAGS=-lcunit -lm -lc
-EXEC=$(BINDIR)/[______]
-TESTS = $(TESTDIR)/[_____]TU
+# Répertoire racine du projet
+ROOTDIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
-all :  $(EXEC) $(TESTS)
+# Répertoires utiles
+ALGODIR := $(ROOTDIR)/algo
+ELECDIR := $(ROOTDIR)/elec
 
-$(EXEC) : $(SRCDIR)/main.o $(SRCDIR)/[______].o $(SRCDIR)/[______].o (bibliotheque utilisee)
-	$(CC)  -o $@ $^ $(LDFLAGS) 
+# Commandes utiles
+MAKE = make
 
-$(LIBDIR)/[_____].a : $(SRCDIR)/[______].o 
-	$(AR) -R $@ $^
+doc-algo:
+	cd $(ALGODIR) && $(MAKE) gendoc
 
-$(TESTS) : $(SRCDIR)/[______]TU.o $(SRCDIR)/[______].o (bibliotheque utilisee)
-	$(CC)  -o $@ $^ $(LDFLAGS)
+tests-algo:
+	cd $(ALGODIR) && $(MAKE) tests
 
-$(SRCDIR)/%.o : $(SRCDIR)/%.c
-	$(CC) -o $@ -c $< $(CFLAGS) -I$(INCLUDEDIR)  
-
-clean :
-	rm -rf $(BINDIR)/*
-	rm -rf $(TESTDIR)/*
-	rm -rf $(LIBDIR)/*
-	rm -rf $(SRCDIR)/*.o
+lib-elec:
+	cd $(ELECDIR) && $(MAKE) robot
