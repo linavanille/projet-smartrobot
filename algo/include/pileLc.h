@@ -18,30 +18,37 @@ typedef struct {
 /**
 * @brief Créer une pile vide
 */
-void pileLc(PILELC *PileDeCase);
+void PILELC_pileLc(PILELC *PileDeCase);
 
 /**
 * @brief Vérifier si une pile est vide
 * @return 1 si la pile est vide, 0 sinon
 */
-int estVideLc(PILELC *PileDeCase);
+int PILELC_estVide(PILELC *PileDeCase);
 
 /**
 * @brief Empiler une case
 */
-void empilerLc(PILELC *PileDeCase, int uneCase);
+void PILELC_empiler(PILELC *PileDeCase, int uneCase);
 
 /**
 * @brief Dépiler une case
 * Précondition : La pile n'est pas vide
 */
-void depilerLc(PILELC *PileDeCase);
+void PILELC_depiler(PILELC *PileDeCase);
 
 /**
 * @brief Récupérer la valeur du sommet de la pile
 * Précondition : La pile n'est pas vide
 * @return La valeur au sommet
 */
-int obtenirCaseLc(PILELC *PileDeCase);
+int PILELC_obtenirCase(PILELC *PileDeCase);
+
+/**
+ * @brief Affiche le contenu d'une pileLc.
+ * @param PileDeCase Pointeur vers la pileLc à afficher.
+ */
+void PILELC_afficher(PILELC *PileDeCase);
+
 
 #endif

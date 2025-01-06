@@ -1,9 +1,10 @@
-#include "../include/pileLc.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include "pileLc.h"
 
-void pileLc(PILELC *PileDeCase) {
+
+void PILELC_pileLc(PILELC *PileDeCase) {
     printf("Dans pileLC\n");
     if (!PileDeCase) {
         printf("Erreur : Pointeur NULL passé à pileLc\n");
@@ -12,11 +13,11 @@ void pileLc(PILELC *PileDeCase) {
     PileDeCase->sommet = NULL;
 }
 
-int estVideLc(PILELC *PileDeCase) {
+int PILELC_estVide(PILELC *PileDeCase) {
     return PileDeCase->sommet == NULL;
 }
 
-void empilerLc(PILELC *PileDeCase, int uneCase) {
+void PILELC_empiler(PILELC *PileDeCase, int uneCase) {
     Element *nouveau = (Element *)malloc(sizeof(Element));
     if (!nouveau) {
         printf("Erreur : Allocation mémoire échouée\n");
@@ -27,14 +28,28 @@ void empilerLc(PILELC *PileDeCase, int uneCase) {
     PileDeCase->sommet = nouveau;
 }
 
-void depilerLc(PILELC *PileDeCase) {
-    assert(!estVideLc(PileDeCase));
+void PILELC_depiler(PILELC *PileDeCase) {
+    assert(!PILELC_estVide(PileDeCase));
     Element *tmp = PileDeCase->sommet;
     PileDeCase->sommet = tmp->suivant;
     free(tmp);
 }
 
-int obtenirCaseLc(PILELC *PileDeCase) {
-    assert(!estVideLc(PileDeCase));
+int PILELC_obtenirCase(PILELC *PileDeCase) {
+    assert(!PILELC_estVide(PileDeCase));
     return PileDeCase->sommet->valeur;
+}
+
+void PILELC_afficher(PILELC *PileDeCase) {
+    if (PILELC_estVide(PileDeCase)) {
+        printf("La pile de case est vide.\n");
+    } else {
+        printf("Contenu de la pile :\n");
+        Element *courant = PileDeCase->sommet;
+        while (courant != NULL) {
+            printf("\t%d\n", courant->valeur);
+            printf("\t-\n");
+            courant = courant->suivant;
+        }
+    }
 }

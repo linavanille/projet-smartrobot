@@ -26,7 +26,6 @@ LIBRBTFLAGS := -lwiringPi -lwiringPiDev
 LIBSRCFLAGS := -Llib -lrobot -lwiringPi -lwiringPiDev
 
 robot: $(LIBDIR)/librobot.a
-	echo "Done"
 
 $(LIBDIR)/librobot.a: $(OBJRBT)
 	cd $(ROOTDIR)
