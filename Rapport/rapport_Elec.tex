@@ -44,6 +44,46 @@ Un $wago$ est utilisé pour centraliser le GROUND mais les deux dispositifs sont
 
 \subsection{Positionnement des capteurs}
 
+Nous avons pris la décision de placer trois capteurs détecteurs de ligne sur notre robot. 
+Cette décision, nous avons pris du temps à la prendre et en comparant avec d'autres groupes, on remarque que beaucoup ont pris des décisions différentes.
+
+Pourquoi trois capteurs, et quels sont leur rôle ?
+Un capteur au centre (dans le trou à l'avant centre du châssis) et les deux autres à l'avant et dirigé vers les côtés.
+Le capteur au centre a un rôle de contrôle: "Suis-je sur la ligne ?". Si le robot est bien sur la ligne, aucun soucis.
+Sinon, les deux autres capteurs vont nous aider à savoir dans quelle situation le robot se trouve:
+\begin{itemize}
+    \item Cas "classique": CPTR\_estSurLaLigne
+     
+    le robot est sur la ligne, sur une ligne droite. Dans ce cas le capteur central est à l'état 1 et les deux capteurs extérieurs à l'état 0. Ce qui donne:
+
+        0   1   0
+    \item Intersection: CPTR\_estSurUneIntersection
+    
+    le robot est sur la ligne et arrive sur un virage à droite:
+        
+        0   1   1
+    
+    OU le robot est sur la ligne et arrive sur un virage à gauche:
+    
+        1   1   0
+    
+    OU le robot est sur la ligne et arrive sur une intersection (en T ou en croix)
+    
+        1   1   1
+    \item Trop à gauche: CPTR\_estTropAGauche
+    
+    le robot dévie vers la gauche en ligne droite:
+    
+        0   0   1
+    \item Trop à droite: CPTR\_estTropADroite
+    
+    le robot dévie vers la droite en ligne droite:
+    
+        1   0   0
+\end{itemize}
+
+Nous avons utilisé cette distinction de cas pour la conception des fonctions liées à l'avancement du robot dans le labyrinthe.
+
 \subsection{Algorithme de déplacement}
 
 \noindent\textbf{procedure} ROBOT\_evolutionRobot ()
