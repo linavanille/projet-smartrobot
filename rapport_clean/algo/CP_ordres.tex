@@ -1,0 +1,33 @@
+\subsubsection{Conception Préliminaire ordresRobot}
+
+\paragraph{Définitions des types}\mbox{}
+
+\indent\textbf{Type} ORD\_Position = Case
+
+\indent\textbf{Enumération} ORD\_Ordre = \{AV, TD, TG, . \}
+
+\indent\textbf{Enumération} ORD\_Orientation = \{Nord, Sud, Est, Ouest, Invalide\}
+
+
+\paragraph{Signatures des fonctions}\mbox{}
+
+\subparagraph{Fonctions de motricité}\mbox{}
+
+\noindent\textbf{fonction} ORD\_avancer (\textbf{Position} position, \textbf{Orientation} orientation, \textbf{Position**} casesAccessibles) : \textbf{Position}\\
+\noindent\textbf{fonction} ORD\_tournerGauche (\textbf{Position} position, \textbf{Orientation*} orientation, \textbf{Position**} casesAccessibles) : \textbf{Position}\\
+\noindent\textbf{fonction} ORD\_tournerDroite (\textbf{Position} position, \textbf{Orientation*} orientation, \textbf{Position**} casesAccessibles) : \textbf{Position}\
+
+\subparagraph{Fonctions de vérification}
+\noindent\textbf{fonction} estAccessible (\textbf{Position*} positionActuelle, \textbf{Position*} positionVoisine) : \textbf{Booléen}\\
+\noindent\textbf{fonction} estIntersection (\textbf{Position*} position, \textbf{Labyrinthe*} labyrinthe) : \textbf{Booléen}\\
+\noindent\textbf{fonction} estVirage (\textbf{Position*} position, \textbf{Orientation} orientation, \textbf{Labyrinthe*} labyrinthe) : \textbf{Booléen}\\
+
+
+\subparagraph{Fonctions d'initialisation et principale}\mbox{}
+
+\noindent\textbf{fonction} ORD\_initialisation (\textbf{Orientation*} orientation) : \textbf{Position}\\
+\noindent\textbf{fonction} ORD\_obtenirOrdres (\textbf{Position*} chemin) : \textbf{Ordre*}\
+
+\subparagraph{Fonctions de décision}\mbox{}
+\noindent\textbf{fonction} ORD\_calculerOrientation (\textbf{Position} caseActuelle, \textbf{Position} caseSuivante) : \textbf{Orientation}\\
+\noindent\textbf{fonction} ORD\_tournerVers (\textbf{Orientation} orientationActuelle, \textbf{Orientation} orientationCible) : \textbf{Ordre}\\

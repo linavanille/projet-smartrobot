@@ -1,0 +1,47 @@
+\subsection{Algorithme de déplacement}
+
+% -----------------------------PSEUDO CODE----------------------------------------------
+\noindent\textbf{procedure} ROBOT\_evolutionRobot ()
+
+\begin{tabular}{ll}
+    \textbf{Déclaration:} & prochaineAction: \textbf{Chaine de caractères}\\
+     & etat: \textbf{ROBOT\_EtatDAvancement}\\
+\end{tabular}
+
+\noindent\textbf{début}
+
+    \begin{algorithm}[H]
+        etat $\leftarrow$ Avancer\\
+        \Tq{prochaineAction $\neq$ FIN}{
+            \textbf{lire} (prochaineAction)\\
+            \Suivant{etat}{
+                \Cas{Avancer}{ROBOT\_avancer (etat)}
+                \Cas{Intersection}{ROBOT\_intersection (etat, prochaineAction)}
+                \Cas{Urgence}{ROBOT\_urgence ()}
+                }
+        }
+    \end{algorithm}
+
+    \noindent\textbf{fin}
+% -----------------------------PSEUDO CODE----------------------------------------------
+\begin{center}
+    \textit{Algorithme de ROBOT\_evolutionRobot}
+\end{center}
+
+Pour élaborer l'algorithme de déplacement du robot nous avons considéré qu'il pouvait se retrouver dans 4 états différents:
+\begin{itemize}
+    \item En avancée
+    \item Sur une intersection
+    \item En situation d'urgence
+    \item Sorti du labyrinthe
+\end{itemize} 
+
+Nous avons donc une variable $etat$ du type \textbf{ROBOT\_EtatDAvancement} qui est mise à jour à chaque tour d'une boucle qui ne s'arrête que lorsque la suite d'ordre que nous lui fournissons s'achève.
+Selon la valeur de cette variable $etat$, différentes fonctions sont appelées afin de faire évoluer le Robot.
+
+La première est la fonction ROBOT\_avancer, qui met les moteurs en marche avant et qui adapte la trajectoire du robot grâce aux capteurs.
+
+Ensuite, la fonction ROBOT\_intersection agit selon l'ordre lu par l'algorithme principal. Elle fait tourner le Robot à droite ou à gauche ou bien le fait continuer tout droit.
+Le Robot effectue un virage sur place, nous avons donc paramétré un temps d'attente afin de positionner correctement le centre de rotation du robot sur l'intersection.
+
+La fonction, ROBOT\_urgence, est la fonction qui est appelée lorsqu'un obstacle est détecté. Son rôle est d'arrêter les moteurs et d'allumer le buzzer.

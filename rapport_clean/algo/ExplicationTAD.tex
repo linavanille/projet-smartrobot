@@ -1,0 +1,21 @@
+\subsubsection{Explications TAD}
+\paragraph{TAD Case}
+Le TAD Case a été créé afin de pouvoir uniformiser l'accès aux données des cases voisines.
+
+Celui-ci permet ainsi de connaitre les différentes cases qui lui sont accessibles, et avec leur direction.
+
+Afin de ne pas surcharger les fonctionnalités, nous avons atomisé les actions possibles.
+De ce fait, nous avons donc \verb|obtenirCaseHaut|, \verb|obtenirCaseBas|, \verb|obtenirCaseGauche| et \verb|obtenirCaseDroite|.
+C'est ainsi une simple interface d'accès aux données stockées.
+Aucune réelle logique métier supplémentaire est ajouté ici.
+
+\paragraph{TAD Labyrinthe}
+
+Le labyrinthe est un regroupement de cases.
+Il est en quelque sorte une surcouche de logique métier au TAD Case.
+Il contient cependant une information supplémentaire, celle des cases d'entrée et de sortie.
+
+La valeur ajoutée au TAD Case qu'il englobe est la possibilité de récupérer tout les voisins d'une case.
+L'algorithme de recherche de plus court chemin a été séparé du TAD Labyrinthe, puisqu'il n'a pas été vu comme indispensable à une existence d'un labyrinthe.
+
+

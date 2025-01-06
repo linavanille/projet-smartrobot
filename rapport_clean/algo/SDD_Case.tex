@@ -1,0 +1,161 @@
+\subsubsection{SDD Case}
+
+\paragraph{Structures de Données}
+
+\begin{algorithme}
+
+    \begin{enregistrement}{Case}
+        \champEnregistrement{Numero}{\naturelNonNul}
+        \champEnregistrement{Haut}{\naturelNonNul}
+        \champEnregistrement{Gauche}{\naturelNonNul}
+        \champEnregistrement{Bas}{\naturelNonNul}
+        \champEnregistrement{Droite}{\naturelNonNul}
+    \end{enregistrement}
+
+\end{algorithme}
+
+\paragraph{Conception Préliminaire Case}
+
+\begin{algorithme}
+    \signatureFonction{CASE\_creerCase}
+    {n: \naturelNonNul}{Case\_Case}
+    {}
+
+    \signatureFonction{CASE\_obtenirNumeroCase}
+    {c : CASE\_Case}{\naturelNonNul}
+    {}
+
+    \signatureFonction{CASE\_obtenirHaut}
+    {c : CASE\_Case}{\naturelNonNul}
+    {}
+
+    \signatureFonction{CASE\_obtenirGauche}
+    {c : CASE\_Case}{\naturelNonNul}
+    {}
+
+    \signatureFonction{CASE\_obtenirBas}
+    {c : CASE\_Case}{\naturelNonNul}
+    {}
+
+    \signatureFonction{CASE\_obtenirDroite}
+    {c : CASE\_Case}{Case}
+    {}
+
+    \signatureProcedure{CASE\_fixerHaut}
+    {\paramEntreeSortie{c : CASE\_Case} 
+    \paramEntree{num : \naturelNonNul}}{}
+    {}
+
+    \signatureProcedure{CASE\_fixerGauche}
+    {\paramEntreeSortie{c : CASE\_Case} 
+    \paramEntree{num : \naturelNonNul}}{}
+    {}
+
+    \signatureProcedure{CASE\_fixerBas}
+    {\paramEntreeSortie{c : CASE\_Case} 
+    \paramEntree{num : \naturelNonNul}}{}
+    {}
+
+    \signatureProcedure{CASE\_fixerDroite}
+    {\paramEntreeSortie{c : CASE\_Case} 
+    \paramEntree{num : \naturelNonNul}}{}
+    {}
+
+    \signatureFonction{CASE\_obtenirCasesAccessibles}
+    {c : CASE\_Case}{\tableau{1..4}{de}{\naturelNonNul}}
+    {}
+\end{algorithme}
+
+\paragraph{Conception Détaillée Case}
+
+\begin{algorithme}
+
+    \fonction{CASE\_creerCase}{n: \naturelNonNul}{Case\_Case}
+    {}{c: CASE\_Case} 
+    {
+        \affecter{c.Numero}{n}
+        \retourner{c}
+    }   
+
+\end{algorithme}
+\begin{algorithme}
+
+    \fonction{CASE\_obtenirNumeroCase}{CASE : CASE\_Case}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{c.Numero}
+    }    
+
+\end{algorithme}
+\begin{algorithme}
+
+    \fonction{CASE\_obtenirHaut}{CASE : CASE\_Case}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{c.Haut}
+    }
+
+\end{algorithme}
+\begin{algorithme}   
+
+    \fonction{CASE\_obtenirGauche}{CASE : CASE\_Case}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{c.Gauche}
+    }
+
+\end{algorithme}
+\begin{algorithme}
+
+    \fonction{CASE\_obtenirBas}{CASE : CASE\_Case}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{c.Bas}
+    }
+
+
+    \fonction{CASE\_obtenirDroite}{CASE : CASE\_Case}{\naturelNonNul}
+    {}{}
+    {
+        \retourner{CASE.Droite}
+    }
+
+
+    \procedure{CASE\_fixerHaut}{\paramEntreeSortie{c : CASE\_Case} \paramEntree{num : \naturelNonNul}}
+    {}{}
+    {
+       \affecter{c.Haut}{num}
+    }
+
+
+    \procedure{CASE\_fixerGauche}{\paramEntreeSortie{c : CASE\_Case} \paramEntree{num : \naturelNonNul}}
+    {}{}
+    {
+        \affecter{c.Gauche}{num}
+    }
+
+
+    \procedure{CASE\_fixerBas}{\paramEntreeSortie{c : CASE\_Case} \paramEntree{num : \naturelNonNul}}
+    {}{}
+    {
+       \affecter{c.Bas}{num}
+    }
+
+    \procedure{CASE\_fixerDroite}{\paramEntreeSortie{c : CASE\_Case} \paramEntree{num : \naturelNonNul}}
+    {}{}
+    {
+       \affecter{c.Droite}{num}
+    }
+    
+
+    \fonction{CASE\_obtenirCasesAccessibles} {c : CASE\_Case}{\tableau{1..4}{de}{\naturelNonNul}}
+    {}{res : \tableau{1..4}{de}{\naturelNonNul}}
+    {
+        \affecter{res[1]}{CASE\_obtenirHaut(c)}
+        \affecter{res[2]}{CASE\_obtenirGauche(c)}
+        \affecter{res[3]}{CASE\_obtenirBas(c)}
+        \affecter{res[4]}{CASE\_obtenirDroite(c)}
+        \retourner{res}
+    }
+    
+\end{algorithme}
